@@ -3,8 +3,15 @@
 
 #include <QMainWindow>
 
+#include "DockManager.h"
+#include "DockAreaWidget.h"
+#include "DockWidget.h"
+
 QT_BEGIN_NAMESPACE
-namespace Ui { class FlowLink; }
+namespace Ui
+{
+    class FlowLink;
+}
 QT_END_NAMESPACE
 
 class FlowLink : public QMainWindow
@@ -17,5 +24,9 @@ public:
 
 private:
     Ui::FlowLink *ui;
+
+    ads::CDockManager *dockManager;
+    ads::CDockAreaWidget *statusDockArea;
+    ads::CDockWidget *timelineDockWidget;
 };
 #endif // FLOWLINK_H

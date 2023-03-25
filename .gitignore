@@ -62,13 +62,15 @@ CMakeLists.txt.user
 
 # VSCode generated files
 .vscode/
+*.code-workspace
 
 # MinGW generated files
 *.Debug
 *.Release
 
-# Python byte code
-*.pyc
+# Build files
+build/
+build-server-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/
 
 # Binaries
 # --------
