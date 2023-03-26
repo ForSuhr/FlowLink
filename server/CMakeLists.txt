@@ -42,6 +42,7 @@ target_include_directories(FlowLink PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../ads"
 target_link_libraries(FlowLink PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
                                       Qt${QT_VERSION_MAJOR}::Core
                                       Qt${QT_VERSION_MAJOR}::Gui)
+target_link_libraries(FlowLink PRIVATE qt5ads64)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(FlowLink)
