@@ -26,16 +26,16 @@ FlowLink::FlowLink(QWidget *parent)
     l->setAlignment(Qt::AlignCenter);
     CDockWidget *centralDockWidget = new CDockWidget("Central Widget");
     centralDockWidget->setWidget(l);
-    auto *CentralDockArea = dockManager->setCentralWidget(centralDockWidget);
-    CentralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    auto *centralDockArea = dockManager->setCentralWidget(centralDockWidget);
+    centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
 
     // device list widget
     QListView *lv = new QListView();
     CDockWidget *lvDockWidget = new CDockWidget("Device List");
     lvDockWidget->setWidget(lv);
     lvDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-    lvDockWidget->setMinimumSize(300, 150);
-    const auto autoHideContainer = dockManager->addAutoHideDockWidget(SideBarLocation::SideBarLeft, lvDockWidget);
+    lvDockWidget->setMinimumSize(200, 150);
+    dockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, lvDockWidget, centralDockArea);
     ui->menuView->addAction(lvDockWidget->toggleViewAction());
 
     // properties table widget
@@ -45,9 +45,9 @@ FlowLink::FlowLink(QWidget *parent)
     CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
     propertiesDockWidget->setWidget(propertiesTable);
     propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-    propertiesDockWidget->resize(250, 150);
+    propertiesDockWidget->resize(200, 150);
     propertiesDockWidget->setMinimumSize(200, 150);
-    dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, CentralDockArea);
+    dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
     ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
 
     // perspective
