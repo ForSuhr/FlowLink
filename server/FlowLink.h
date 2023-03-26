@@ -2,6 +2,8 @@
 #define FLOWLINK_H
 
 #include <QMainWindow>
+#include <QWidgetAction>
+#include <QComboBox>
 
 #include "DockManager.h"
 #include "DockAreaWidget.h"
@@ -22,11 +24,23 @@ public:
     FlowLink(QWidget *parent = nullptr);
     ~FlowLink();
 
+protected:
+    virtual void closeEvent(QCloseEvent *event) override;
+
 private:
+    void createPerspectiveUi();
+
     Ui::FlowLink *ui;
 
+    QAction *savePerspectiveAction = nullptr;
+    QWidgetAction *perspectiveListAction = nullptr;
+    QComboBox *perspectiveComboBox = nullptr;
+
     ads::CDockManager *dockManager;
-    ads::CDockAreaWidget *statusDockArea;
-    ads::CDockWidget *timelineDockWidget;
+    // ads::CDockAreaWidget *statusDockArea;
+    // ads::CDockWidget *timelineDockWidget;
+
+private Q_SLOTS:
+    void savePerspective();
 };
 #endif // FLOWLINK_H
