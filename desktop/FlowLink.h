@@ -32,10 +32,12 @@ private:
 
     Ui::FlowLink *ui;
 
+    // dockwidget Perspective
     QAction *savePerspectiveAction = nullptr;
     QWidgetAction *perspectiveListAction = nullptr;
     QComboBox *perspectiveComboBox = nullptr;
 
+    // dockmanager
     ads::CDockManager *dockManager;
 
 private Q_SLOTS:

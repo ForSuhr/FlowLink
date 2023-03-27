@@ -1,6 +1,6 @@
 #include "receiver.h"
 
-Receiver::Receiver(QObject *parent = nullptr)
+Receiver::Receiver(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.0"))
 {
     udpSocketIPv4.bind(QHostAddress::AnyIPv4, 8080, QUdpSocket::ShareAddress);
