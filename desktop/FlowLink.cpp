@@ -1,7 +1,7 @@
 #include <QLabel>
-#include <QListView>
 #include <QInputDialog>
 #include <QTableWidget>
+#include <QDebug>
 
 #include "FlowLink.h"
 #include "./ui_FlowLink.h"
@@ -9,7 +9,9 @@
 using namespace ads;
 
 FlowLink::FlowLink(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::FlowLink)
+    : QMainWindow(parent),
+      ui(new Ui::FlowLink),
+      receiver(new Receiver)
 {
     ui->setupUi(this);
 
@@ -19,6 +21,10 @@ FlowLink::FlowLink(QWidget *parent)
     CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
     CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
     dockManager = new CDockManager(this);
+
+    // toolbar
+    createConnectionUi();
+    createPerspectiveUi();
 
     // central widget
     QLabel *l = new QLabel();
@@ -30,7 +36,7 @@ FlowLink::FlowLink(QWidget *parent)
     centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
 
     // device list widget
-    QListView *lv = new QListView();
+    lv = new QListView();
     CDockWidget *lvDockWidget = new CDockWidget("Device List");
     lvDockWidget->setWidget(lv);
     lvDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
@@ -49,14 +55,19 @@ FlowLink::FlowLink(QWidget *parent)
     propertiesDockWidget->setMinimumSize(200, 150);
     dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
     ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
-
-    // perspective
-    createPerspectiveUi();
 }
 
 FlowLink::~FlowLink()
 {
     delete ui;
+}
+
+void FlowLink::createConnectionUi()
+{
+    connectAction = new QAction("Connect", this);
+    connect(connectAction, SIGNAL(triggered()), SLOT(receiver->createConnection()));
+    connect(receiver, &Receiver::sendHostInfo, this, &FlowLink::addDevice);
+    ui->toolBar->addAction(connectAction);
 }
 
 void FlowLink::createPerspectiveUi()
@@ -73,6 +84,17 @@ void FlowLink::createPerspectiveUi()
     ui->toolBar->addSeparator();
     ui->toolBar->addAction(perspectiveListAction);
     ui->toolBar->addAction(savePerspectiveAction);
+}
+
+void FlowLink::addDevice()
+{
+    QStringListModel *model = new QStringListModel(this);
+    QStringList list;
+    // TODO: add the real host name and address
+    list << "Host";
+    model->setStringList(list);
+    lv->setModel(model);
+    delete model;
 }
 
 void FlowLink::savePerspective()
@@ -92,7 +114,7 @@ void FlowLink::savePerspective()
 
 void FlowLink::closeEvent(QCloseEvent *event)
 {
-    // To delete all floating widgets, remove the dock manager. 
+    // To delete all floating widgets, remove the dock manager.
     // This will ensure that all top-level windows associated with the dock manager are closed correctly.
     dockManager->deleteLater();
     QMainWindow::closeEvent(event);
