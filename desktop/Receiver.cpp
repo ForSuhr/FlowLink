@@ -18,6 +18,7 @@ void Receiver::createConnection()
 
 void Receiver::closeConnection()
 {
+    udpSocketIPv4.leaveMulticastGroup(groupAddressIPv4);
     udpSocketIPv4.close();
 }
 
