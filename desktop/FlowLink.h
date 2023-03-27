@@ -37,8 +37,6 @@ private:
     QComboBox *perspectiveComboBox = nullptr;
 
     ads::CDockManager *dockManager;
-    // ads::CDockAreaWidget *statusDockArea;
-    // ads::CDockWidget *timelineDockWidget;
 
 private Q_SLOTS:
     void savePerspective();

@@ -77,7 +77,7 @@ void FlowLink::createPerspectiveUi()
 
 void FlowLink::savePerspective()
 {
-    QString perspectiveName = QInputDialog::getText(this, "Save Perspective", "Enter unique name:");
+    QString perspectiveName = QInputDialog::getText(this, "Save Perspective", "Perspective Name:");
     if (perspectiveName.isEmpty())
     {
         return;
