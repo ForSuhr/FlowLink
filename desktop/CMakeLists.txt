@@ -11,14 +11,18 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui Core REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui Core Network REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui Core Network REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
-        FlowLink.cpp
         FlowLink.h
+        FlowLink.cpp
         FlowLink.ui
+        Receiver.h
+        Receiver.cpp
+        Sender.h
+        Sender.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -41,7 +45,8 @@ endif()
 target_include_directories(FlowLink PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../ads")
 target_link_libraries(FlowLink PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
                                       Qt${QT_VERSION_MAJOR}::Core
-                                      Qt${QT_VERSION_MAJOR}::Gui)
+                                      Qt${QT_VERSION_MAJOR}::Gui
+                                      Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(FlowLink PRIVATE qt5ads64)
 
 if(QT_VERSION_MAJOR EQUAL 6)
