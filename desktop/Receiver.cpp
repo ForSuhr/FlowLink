@@ -13,7 +13,22 @@ Receiver::~Receiver()
 void Receiver::createConnection()
 {
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
-    QObject::connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
+
+    // get host name and address
+    host.name = hostInfo.localHostName();
+    hostInfo = QHostInfo::fromName(host.name);
+    host.address = "";
+    foreach (QHostAddress address, hostInfo.addresses())
+    {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol)
+            host.address = address.toString();
+    }
+
+    // send the host info back to UI
+    emit sendHostInfo(host);
+
+    // handle incoming packets
+    connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
 }
 
 void Receiver::closeConnection()

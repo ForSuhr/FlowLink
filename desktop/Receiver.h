@@ -3,21 +3,33 @@
 
 #include <QHostAddress>
 #include <QUdpSocket>
+#include <QHostInfo>
 
-class Receiver: public QObject
+struct Host
+{
+    QString name;
+    QString address;
+};
+
+class Receiver : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Receiver(QObject* parent = nullptr);
+    explicit Receiver(QObject *parent = nullptr);
     ~Receiver();
     void createConnection();
     void closeConnection();
+
+signals:
+    void sendHostInfo(Host host);
 
 private slots:
     void processPendingDatagrams();
 
 private:
+    Host host;
+    QHostInfo hostInfo;
     QUdpSocket udpSocketIPv4;
     QHostAddress groupAddressIPv4;
 };
