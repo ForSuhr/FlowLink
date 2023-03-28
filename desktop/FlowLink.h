@@ -2,10 +2,11 @@
 #define FLOWLINK_H
 
 #include <memory>
+#include <list>
 #include <QMainWindow>
 #include <QWidgetAction>
 #include <QComboBox>
-#include <QListView>
+#include <QTableWidget>
 #include <QStringListModel>
 
 #include "DockManager.h"
@@ -34,7 +35,7 @@ protected:
 private:
     void createConnectionUi();
     void createPerspectiveUi();
-    void addDevice();
+    void addDevice(Host host);
 
     Ui::FlowLink *ui;
     Receiver *receiver;
@@ -51,7 +52,10 @@ private:
     QComboBox *perspectiveComboBox = nullptr;
 
     // dockwidget
-    QListView *lv = nullptr;
+    QTableWidget *deviceTable = nullptr;
+
+    // fields
+    std::list<QString> deviceList = {};
 
 private Q_SLOTS:
     void savePerspective();
