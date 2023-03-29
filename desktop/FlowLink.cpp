@@ -1,18 +1,17 @@
-#include <QLabel>
-#include <QInputDialog>
-#include <QDebug>
+#include <QHeaderView>
 
 #include "FlowLink.h"
 #include "./ui_FlowLink.h"
 
 using namespace ads;
 
-typedef enum DeviceTableHorizontalLabel {
-    Type, 
-    Name, 
-    Address, 
-    Note
-} DTHL;
+// typedef enum DeviceTableHorizontalLabel
+// {
+//     Type,
+//     Name,
+//     Address,
+//     Note
+// } DTHL;
 
 FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
@@ -33,36 +32,13 @@ FlowLink::FlowLink(QWidget *parent)
     createPerspectiveUi();
 
     // central widget
-    QLabel *l = new QLabel();
-    l->setText("Welcome");
-    l->setAlignment(Qt::AlignCenter);
-    CDockWidget *centralDockWidget = new CDockWidget("Central Widget");
-    centralDockWidget->setWidget(l);
-    auto *centralDockArea = dockManager->setCentralWidget(centralDockWidget);
-    centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    createCentralWidget();
 
     // device table widget
-    deviceTable = new QTableWidget();
-    deviceTable->setColumnCount(4);
-    deviceTable->setHorizontalHeaderLabels(QStringList({"Type", "Name", "Address", "Note"}));
-    CDockWidget *deviceDockWidget = new CDockWidget("Device List");
-    deviceDockWidget->setWidget(deviceTable);
-    deviceDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-    deviceDockWidget->setMinimumSize(200, 150);
-    dockManager->addDockWidget(DockWidgetArea::TopDockWidgetArea, deviceDockWidget, centralDockArea);
-    ui->menuView->addAction(deviceDockWidget->toggleViewAction());
+    createDeviceTableUi();
 
     // properties table widget
-    QTableWidget *propertiesTable = new QTableWidget();
-    propertiesTable->setColumnCount(3);
-    propertiesTable->setRowCount(10);
-    CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
-    propertiesDockWidget->setWidget(propertiesTable);
-    propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-    propertiesDockWidget->resize(200, 150);
-    propertiesDockWidget->setMinimumSize(200, 150);
-    dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
-    ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
+    createPropertiesTableUi();
 }
 
 FlowLink::~FlowLink()
@@ -95,17 +71,55 @@ void FlowLink::createPerspectiveUi()
     ui->toolBar->addAction(savePerspectiveAction);
 }
 
+void FlowLink::createCentralWidget()
+{
+    QLabel *l = new QLabel();
+    l->setText("Welcome");
+    l->setAlignment(Qt::AlignCenter);
+    CDockWidget *centralDockWidget = new CDockWidget("Central Widget");
+    centralDockWidget->setWidget(l);
+    centralDockArea = dockManager->setCentralWidget(centralDockWidget);
+    centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+}
+
+void FlowLink::createDeviceTableUi()
+{
+    deviceTableModel = new TableModel();
+
+    deviceProxyModel = new QSortFilterProxyModel();
+    deviceProxyModel->setSourceModel(deviceTableModel);
+
+    deviceTableView = new QTableView();
+    deviceTableView->setModel(deviceProxyModel);
+    deviceTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    deviceTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    deviceTableView->setSortingEnabled(true);
+
+    CDockWidget *deviceDockWidget = new CDockWidget("Devices");
+    deviceDockWidget->setWidget(deviceTableView);
+    deviceDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
+    deviceDockWidget->setMinimumSize(200, 150);
+    dockManager->addDockWidget(DockWidgetArea::TopDockWidgetArea, deviceDockWidget, centralDockArea);
+    ui->menuView->addAction(deviceDockWidget->toggleViewAction());
+}
+
+void FlowLink::createPropertiesTableUi()
+{
+    QTableWidget *propertiesTable = new QTableWidget();
+    propertiesTable->setColumnCount(3);
+    propertiesTable->setRowCount(10);
+    CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
+    propertiesDockWidget->setWidget(propertiesTable);
+    propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
+    propertiesDockWidget->resize(200, 150);
+    propertiesDockWidget->setMinimumSize(200, 150);
+    dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
+    ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
+}
+
 void FlowLink::addDevice(Host host)
 {
-    deviceList.push_back(host);
-    QTableWidgetItem* item = new QTableWidgetItem();
-    deviceTable->setItem(0, DTHL::Type);
-    // QStringListModel *model = new QStringListModel(this);
-    // QStringList list;
-    // // TODO: add the real host name and address
-    // list << QString("Host Name: %1  Host Address: %2").arg(host.name).arg(host.address);
-    // model->setStringList(list);
-    // deviceTable->setModel(model);
+    deviceTableModel->addRow(host.name, host.address);
 }
 
 void FlowLink::savePerspective()

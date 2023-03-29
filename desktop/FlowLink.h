@@ -2,17 +2,22 @@
 #define FLOWLINK_H
 
 #include <memory>
-#include <list>
 #include <QMainWindow>
 #include <QWidgetAction>
 #include <QComboBox>
 #include <QTableWidget>
 #include <QStringListModel>
+#include <QSortFilterProxyModel>
+#include <QTableView>
+#include <QLabel>
+#include <QInputDialog>
+#include <QDebug>
 
 #include "DockManager.h"
 #include "DockAreaWidget.h"
 #include "DockWidget.h"
 #include "Receiver.h"
+#include "./utilities/TableModel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -35,6 +40,9 @@ protected:
 private:
     void createConnectionUi();
     void createPerspectiveUi();
+    void createCentralWidget();
+    void createDeviceTableUi();
+    void createPropertiesTableUi();
     void addDevice(Host host);
 
     Ui::FlowLink *ui;
@@ -42,6 +50,7 @@ private:
 
     // dockmanager
     ads::CDockManager *dockManager;
+    ads::CDockAreaWidget *centralDockArea;
 
     // toolbar
     QAction *connectAction = nullptr;
@@ -52,10 +61,9 @@ private:
     QComboBox *perspectiveComboBox = nullptr;
 
     // dockwidget
-    QTableWidget *deviceTable = nullptr;
-
-    // fields
-    std::list<QString> deviceList = {};
+    TableModel* deviceTableModel;
+    QSortFilterProxyModel* deviceProxyModel ;
+    QTableView *deviceTableView;
 
 private Q_SLOTS:
     void savePerspective();
