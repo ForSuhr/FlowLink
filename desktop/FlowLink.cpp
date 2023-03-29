@@ -5,14 +5,6 @@
 
 using namespace ads;
 
-// typedef enum DeviceTableHorizontalLabel
-// {
-//     Type,
-//     Name,
-//     Address,
-//     Note
-// } DTHL;
-
 FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::FlowLink),
