@@ -42,6 +42,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+
     void addRow(const QString &name, const QString &address);
     const QVector<Device> &getDevices() const;
 

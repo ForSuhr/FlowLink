@@ -38,9 +38,10 @@ protected:
     virtual void closeEvent(QCloseEvent *event) override;
 
 private:
+    void setupDockManager();
     void createConnectionUi();
     void createPerspectiveUi();
-    void createCentralWidget();
+    void createCentralUI();
     void createDeviceTableUi();
     void createPropertiesTableUi();
     void addDevice(Host host);
@@ -61,8 +62,8 @@ private:
     QComboBox *perspectiveComboBox = nullptr;
 
     // dockwidget
-    TableModel* deviceTableModel;
-    QSortFilterProxyModel* deviceProxyModel ;
+    TableModel *deviceTableModel;
+    QSortFilterProxyModel *deviceProxyModel;
     QTableView *deviceTableView;
 
 private Q_SLOTS:

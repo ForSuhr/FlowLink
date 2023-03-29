@@ -13,18 +13,14 @@ FlowLink::FlowLink(QWidget *parent)
     ui->setupUi(this);
 
     // dock manager
-    CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
-    CDockManager::setConfigFlag(CDockManager::XmlCompressionEnabled, false);
-    CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
-    CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
-    dockManager = new CDockManager(this);
+    setupDockManager();
 
     // toolbar
     createConnectionUi();
     createPerspectiveUi();
 
     // central widget
-    createCentralWidget();
+    createCentralUI();
 
     // device table widget
     createDeviceTableUi();
@@ -36,6 +32,15 @@ FlowLink::FlowLink(QWidget *parent)
 FlowLink::~FlowLink()
 {
     delete ui;
+}
+
+void FlowLink::setupDockManager()
+{
+    CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
+    CDockManager::setConfigFlag(CDockManager::XmlCompressionEnabled, false);
+    CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
+    CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
+    dockManager = new CDockManager(this);
 }
 
 void FlowLink::createConnectionUi()
@@ -63,7 +68,7 @@ void FlowLink::createPerspectiveUi()
     ui->toolBar->addAction(savePerspectiveAction);
 }
 
-void FlowLink::createCentralWidget()
+void FlowLink::createCentralUI()
 {
     QLabel *l = new QLabel();
     l->setText("Welcome");
