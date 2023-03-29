@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         Receiver.cpp
         Sender.h
         Sender.cpp
+        utilities/TableModel.h
+        utilities/TableModel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "TableModel.h"
 
 TableModel::TableModel(QObject *parent)
@@ -20,7 +18,7 @@ int TableModel::rowCount(const QModelIndex &parent) const
 
 int TableModel::columnCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : sizeof(Device);
+    return parent.isValid() ? 0 : 2; // the column count is 2, as there are 2 QString members in struct Device
 }
 
 QVariant TableModel::data(const QModelIndex &index, int role) const
@@ -31,16 +29,18 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     if (index.row() >= devices.size() || index.row() < 0)
         return QVariant();
 
-    if (role == Qt::DisplayRole) {
+    if (role == Qt::DisplayRole)
+    {
         const Device &device = devices.at(index.row());
 
-        switch (index.column()) {
-            case 0:
-                return device.name;
-            case 1:
-                return device.address;
-            default:
-                break;
+        switch (index.column())
+        {
+        case 0:
+            return device.name;
+        case 1:
+            return device.address;
+        default:
+            break;
         }
     }
     return QVariant();
@@ -51,14 +51,16 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    if (orientation == Qt::Horizontal) {
-        switch (section) {
-            case 0:
-                return tr("Name");
-            case 1:
-                return tr("Address");
-            default:
-                break;
+    if (orientation == Qt::Horizontal)
+    {
+        switch (section)
+        {
+        case 0:
+            return tr("Name");
+        case 1:
+            return tr("Address");
+        default:
+            break;
         }
     }
     return QVariant();
@@ -70,7 +72,7 @@ bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; ++row)
-        devices.insert(position, { QString(), QString() });
+        devices.insert(position, {QString(), QString()});
 
     endInsertRows();
     return true;
@@ -95,22 +97,24 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
  * @param role Qt::ItemDataRole
  * @return true if succeed, otherwise false
  */
-bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role == Qt::DisplayRole)
+bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (index.isValid()) {
-        Device device = devices.value(index.row());
+        const int row = index.row();
+        Device device = devices.value(row);
 
-        switch (index.column()) {
-            case 0:
-                device.name = value.toString();
-                break;
-            case 1:
-                device.address = value.toString();
-                break;
-            default:
-                return false;
+        switch (index.column())
+        {
+        case 0:
+            device.name = value.toString();
+            break;
+        case 1:
+            device.address = value.toString();
+            break;
+        default:
+            return false;
         }
-        // TODO: try to use reference and delete the following line
+
         devices.replace(row, device);
         emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
 
@@ -118,6 +122,17 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     }
 
     return false;
+}
+
+void TableModel::addRow(const QString &name, const QString &address)
+{
+    if (!devices.contains({name, address})) {
+        insertRows(0, 1, QModelIndex());
+        QModelIndex modelIndex = index(0, 0, QModelIndex());
+        setData(modelIndex, name, Qt::DisplayRole);
+        modelIndex = index(0, 1, QModelIndex());
+        setData(modelIndex, address, Qt::DisplayRole);
+    }
 }
 
 const QVector<Device> &TableModel::getDevices() const
