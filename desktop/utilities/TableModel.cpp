@@ -99,7 +99,8 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
  */
 bool TableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index.isValid()) {
+    if (index.isValid())
+    {
         const int row = index.row();
         Device device = devices.value(row);
 
@@ -126,7 +127,8 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
 
 void TableModel::addRow(const QString &name, const QString &address)
 {
-    if (!devices.contains({name, address})) {
+    if (!devices.contains({name, address}))
+    {
         insertRows(0, 1, QModelIndex());
         QModelIndex modelIndex = index(0, 0, QModelIndex());
         setData(modelIndex, name, Qt::DisplayRole);
