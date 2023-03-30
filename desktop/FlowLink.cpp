@@ -92,8 +92,7 @@ void FlowLink::createDeviceTableUi()
   deviceTableView = new QTableView();
   deviceTableView->setModel(deviceProxyModel);
   deviceTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-  deviceTableView->horizontalHeader()->setSectionResizeMode(
-      QHeaderView::ResizeToContents);
+  deviceTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   deviceTableView->setSortingEnabled(true);
 
   CDockWidget *deviceDockWidget = new CDockWidget("Devices");
@@ -102,7 +101,7 @@ void FlowLink::createDeviceTableUi()
       CDockWidget::MinimumSizeHintFromDockWidget);
   deviceDockWidget->setMinimumSize(200, 150);
   dockManager->addDockWidget(
-      DockWidgetArea::TopDockWidgetArea, deviceDockWidget, centralDockArea);
+      DockWidgetArea::LeftDockWidgetArea, deviceDockWidget, centralDockArea);
   ui->menuView->addAction(deviceDockWidget->toggleViewAction());
 }
 
