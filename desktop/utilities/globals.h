@@ -4,6 +4,7 @@
 #include <QHostAddress>
 #include <QUdpSocket>
 #include <QHostInfo>
+#include <QDataStream>
 
 struct Device
 {
@@ -15,6 +16,16 @@ struct Device
         return name == other.name && address == other.address;
     }
 };
+
+inline QDataStream &operator<<(QDataStream &stream, const Device &device)
+{
+    return stream << device.name << device.address;
+}
+
+inline QDataStream &operator>>(QDataStream &stream, Device &device)
+{
+    return stream >> device.name >> device.address;
+}
 
 /**
  * @brief get device name and address

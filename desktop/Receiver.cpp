@@ -8,6 +8,7 @@ Receiver::Receiver(QObject *parent)
 
 Receiver::~Receiver()
 {
+    udpSocketIPv4.close();
 }
 
 void Receiver::createConnection()
@@ -18,7 +19,7 @@ void Receiver::createConnection()
     device = getDevice();
 
     // send the device info back to UI
-    emit sendHostInfo(device, DeviceAction::Connection);
+    emit sendDeviceInfo(device, DeviceAction::Connection);
 
     // handle incoming packets
     connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
@@ -27,9 +28,8 @@ void Receiver::createConnection()
 void Receiver::closeConnection()
 {
     udpSocketIPv4.leaveMulticastGroup(groupAddressIPv4);
-    udpSocketIPv4.close();
 
-    emit sendHostInfo(device, DeviceAction::Disconnection);
+    emit sendDeviceInfo(device, DeviceAction::Disconnection);
 }
 
 void Receiver::processPendingDatagrams()
@@ -41,4 +41,10 @@ void Receiver::processPendingDatagrams()
         datagram.resize(int(udpSocketIPv4.pendingDatagramSize()));
         udpSocketIPv4.readDatagram(datagram.data(), datagram.size());
     }
+
+    Device device;
+    QDataStream stream(&datagram, QIODevice::ReadOnly);
+    stream >> device;
+
+    // emit sendDeviceInfo(device, DeviceAction::Connection);
 }

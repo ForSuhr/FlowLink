@@ -18,6 +18,7 @@
 #include "DockManager.h"
 #include "DockWidget.h"
 #include "Receiver.h"
+#include "Sender.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -39,8 +40,8 @@ protected:
 
 private:
   void setupDockManager();
-  void createConnectionUi();
-  void createDisconnectionUi();
+  void createSenderUi();
+  void createReceiverUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
@@ -49,7 +50,8 @@ private:
   void removeDevice(Device device);
 
   Ui::FlowLink *ui;
-  Receiver *receiver;
+  Receiver *receiver = nullptr;
+  Sender *sender = nullptr;
 
   // dockmanager
   ads::CDockManager *dockManager = nullptr;

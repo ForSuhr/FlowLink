@@ -6,7 +6,10 @@
 using namespace ads;
 
 FlowLink::FlowLink(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::FlowLink), receiver(new Receiver)
+    : QMainWindow(parent),
+      ui(new Ui::FlowLink),
+      receiver(new Receiver),
+      sender(new Sender)
 {
   ui->setupUi(this);
 
@@ -14,8 +17,8 @@ FlowLink::FlowLink(QWidget *parent)
   setupDockManager();
 
   // toolbar
-  createConnectionUi();
-  createDisconnectionUi();
+  createSenderUi();
+  createReceiverUi();
   createPerspectiveUi();
 
   // central widget
@@ -42,22 +45,30 @@ void FlowLink::setupDockManager()
   dockManager = new CDockManager(this);
 }
 
-void FlowLink::createConnectionUi()
+void FlowLink::createSenderUi()
 {
+  // connect
   QAction *connectAction = new QAction("Connect", this);
   ui->toolBar->addAction(connectAction);
   connect(connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
-  connect(receiver, &Receiver::sendHostInfo, [&](Device device, DeviceAction deviceAction)
+  connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           { if (deviceAction == DeviceAction::Connection) addDevice(device); });
-}
 
-void FlowLink::createDisconnectionUi()
-{
+  // disconnect
   QAction *disconnectAction = new QAction("Disconnect", this);
   ui->toolBar->addAction(disconnectAction);
   connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
-  connect(receiver, &Receiver::sendHostInfo, [&](Device device, DeviceAction deviceAction)
+  connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) removeDevice(device); });
+}
+
+void FlowLink::createReceiverUi()
+{
+  // send device info
+  QAction *sendDeviceInfo = new QAction("Send Device Info", this);
+  ui->toolBar->addSeparator();
+  ui->toolBar->addAction(sendDeviceInfo);
+  connect(sendDeviceInfo, &QAction::triggered, sender, &Sender::sendDatagram);
 }
 
 void FlowLink::createPerspectiveUi()

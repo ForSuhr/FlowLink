@@ -8,16 +8,6 @@
 
 #include "globals.h"
 
-inline QDataStream &operator<<(QDataStream &stream, const Device &device)
-{
-    return stream << device.name << device.address;
-}
-
-inline QDataStream &operator>>(QDataStream &stream, Device &device)
-{
-    return stream >> device.name >> device.address;
-}
-
 class TableModel : public QAbstractTableModel
 {
     Q_OBJECT

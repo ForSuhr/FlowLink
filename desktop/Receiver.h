@@ -20,7 +20,7 @@ public:
     void closeConnection();
 
 signals:
-    void sendHostInfo(Device device, DeviceAction deviceAction);
+    void sendDeviceInfo(Device device, DeviceAction deviceAction);
 
 private slots:
     void processPendingDatagrams();

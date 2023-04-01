@@ -16,8 +16,9 @@ Sender::Sender(QObject *parent)
 void Sender::sendDatagram()
 {
     device = getDevice();
-
-    QByteArray datagram = "Guest";
+    QByteArray datagram;
+    QDataStream stream(&datagram, QIODevice::ReadWrite);
+    stream << device;
     udpSocketIPv4.writeDatagram(datagram, groupAddressIPv4, 8080);
 }
 
