@@ -5,11 +5,7 @@
 #include <QUdpSocket>
 #include <QHostInfo>
 
-struct Host
-{
-    QString name;
-    QString address;
-};
+#include "utilities/globals.h"
 
 enum DeviceAction
 {
@@ -28,13 +24,13 @@ public:
     void closeConnection();
 
 signals:
-    void sendHostInfo(Host host, DeviceAction deviceAction);
+    void sendHostInfo(Device device, DeviceAction deviceAction);
 
 private slots:
     void processPendingDatagrams();
 
 private:
-    Host host;
+    Device device;
     QHostInfo hostInfo;
     QUdpSocket udpSocketIPv4;
     QHostAddress groupAddressIPv4;

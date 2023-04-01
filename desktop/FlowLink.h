@@ -45,8 +45,8 @@ private:
   void createCentralUI();
   void createDeviceTableUi();
   void createPropertiesTableUi();
-  void addDevice(Host host);
-  void removeDevice(Host host);
+  void addDevice(Device device);
+  void removeDevice(Device device);
 
   Ui::FlowLink *ui;
   Receiver *receiver;

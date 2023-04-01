@@ -47,8 +47,8 @@ void FlowLink::createConnectionUi()
   QAction *connectAction = new QAction("Connect", this);
   ui->toolBar->addAction(connectAction);
   connect(connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
-  connect(receiver, &Receiver::sendHostInfo, [&](Host host, DeviceAction deviceAction)
-          { if (deviceAction == DeviceAction::Connection) addDevice(host); });
+  connect(receiver, &Receiver::sendHostInfo, [&](Device device, DeviceAction deviceAction)
+          { if (deviceAction == DeviceAction::Connection) addDevice(device); });
 }
 
 void FlowLink::createDisconnectionUi()
@@ -56,8 +56,8 @@ void FlowLink::createDisconnectionUi()
   QAction *disconnectAction = new QAction("Disconnect", this);
   ui->toolBar->addAction(disconnectAction);
   connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
-  connect(receiver, &Receiver::sendHostInfo, [&](Host host, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection) removeDevice(host); });
+  connect(receiver, &Receiver::sendHostInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::Disconnection) removeDevice(device); });
 }
 
 void FlowLink::createPerspectiveUi()
@@ -125,14 +125,14 @@ void FlowLink::createPropertiesTableUi()
   ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
 }
 
-void FlowLink::addDevice(Host host)
+void FlowLink::addDevice(Device device)
 {
-  deviceTableModel->addRow(host.name, host.address);
+  deviceTableModel->addRow(device.name, device.address);
 }
 
-void FlowLink::removeDevice(Host host)
+void FlowLink::removeDevice(Device device)
 {
-  deviceTableModel->removeRow(host.name, host.address);
+  deviceTableModel->removeRow(device.name, device.address);
 }
 
 void FlowLink::savePerspective()

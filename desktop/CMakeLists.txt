@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
         Receiver.cpp
         Sender.h
         Sender.cpp
+        utilities/globals.h
         utilities/TableModel.h
         utilities/TableModel.cpp
 )

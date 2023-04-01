@@ -14,18 +14,18 @@ void Receiver::createConnection()
 {
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
 
-    // get host name and address
-    host.name = hostInfo.localHostName();
-    hostInfo = QHostInfo::fromName(host.name);
-    host.address = "";
+    // get device name and address
+    device.name = hostInfo.localHostName();
+    hostInfo = QHostInfo::fromName(device.name);
+    device.address = "";
     foreach (QHostAddress address, hostInfo.addresses())
     {
         if (address.protocol() == QAbstractSocket::IPv4Protocol)
-            host.address = address.toString();
+            device.address = address.toString();
     }
 
-    // send the host info back to UI
-    emit sendHostInfo(host, DeviceAction::Connection);
+    // send the device info back to UI
+    emit sendHostInfo(device, DeviceAction::Connection);
 
     // handle incoming packets
     connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
@@ -36,7 +36,7 @@ void Receiver::closeConnection()
     udpSocketIPv4.leaveMulticastGroup(groupAddressIPv4);
     udpSocketIPv4.close();
 
-    emit sendHostInfo(host, DeviceAction::Disconnection);
+    emit sendHostInfo(device, DeviceAction::Disconnection);
 }
 
 void Receiver::processPendingDatagrams()

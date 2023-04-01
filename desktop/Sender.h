@@ -4,6 +4,8 @@
 #include <QHostAddress>
 #include <QUdpSocket>
 
+#include "utilities/globals.h"
+
 class Sender : public QObject
 {
     Q_OBJECT

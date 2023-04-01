@@ -6,16 +6,7 @@
 #include <QVector>
 #include <QModelIndex>
 
-struct Device
-{
-    QString name;
-    QString address;
-
-    bool operator==(const Device &other) const
-    {
-        return name == other.name && address == other.address;
-    }
-};
+#include "globals.h"
 
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
 {
