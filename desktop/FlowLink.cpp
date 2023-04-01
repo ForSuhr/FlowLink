@@ -15,6 +15,7 @@ FlowLink::FlowLink(QWidget *parent)
 
   // toolbar
   createConnectionUi();
+  createDisconnectionUi();
   createPerspectiveUi();
 
   // central widget
@@ -43,13 +44,20 @@ void FlowLink::setupDockManager()
 
 void FlowLink::createConnectionUi()
 {
-  connectAction = new QAction("Connect", this);
-  connect(
-      connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
-  connect(
-      receiver, &Receiver::sendHostInfo, [&](Host host)
-      { addDevice(host); });
+  QAction *connectAction = new QAction("Connect", this);
   ui->toolBar->addAction(connectAction);
+  connect(connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
+  connect(receiver, &Receiver::sendHostInfo, [&](Host host, DeviceAction deviceAction)
+          { if (deviceAction == DeviceAction::Connection) addDevice(host); });
+}
+
+void FlowLink::createDisconnectionUi()
+{
+  QAction *disconnectAction = new QAction("Disconnect", this);
+  ui->toolBar->addAction(disconnectAction);
+  connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
+  connect(receiver, &Receiver::sendHostInfo, [&](Host host, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::Disconnection) removeDevice(host); });
 }
 
 void FlowLink::createPerspectiveUi()
@@ -59,12 +67,8 @@ void FlowLink::createPerspectiveUi()
   perspectiveListAction = new QWidgetAction(this);
   perspectiveComboBox = new QComboBox(this);
   perspectiveComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-  perspectiveComboBox->setSizePolicy(QSizePolicy::Preferred,
-                                     QSizePolicy::Preferred);
-  connect(perspectiveComboBox,
-          SIGNAL(currentTextChanged(const QString &)),
-          dockManager,
-          SLOT(openPerspective(const QString &)));
+  perspectiveComboBox->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  connect(perspectiveComboBox, SIGNAL(currentTextChanged(const QString &)), dockManager, SLOT(openPerspective(const QString &)));
   perspectiveListAction->setDefaultWidget(perspectiveComboBox);
   ui->toolBar->addSeparator();
   ui->toolBar->addAction(perspectiveListAction);
@@ -108,7 +112,7 @@ void FlowLink::createDeviceTableUi()
 void FlowLink::createPropertiesTableUi()
 {
   QTableWidget *propertiesTable = new QTableWidget();
-  propertiesTable->setColumnCount(3);
+  propertiesTable->setColumnCount(1);
   propertiesTable->setRowCount(10);
   CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
   propertiesDockWidget->setWidget(propertiesTable);
@@ -124,6 +128,11 @@ void FlowLink::createPropertiesTableUi()
 void FlowLink::addDevice(Host host)
 {
   deviceTableModel->addRow(host.name, host.address);
+}
+
+void FlowLink::removeDevice(Host host)
+{
+  deviceTableModel->removeRow(host.name, host.address);
 }
 
 void FlowLink::savePerspective()

@@ -25,7 +25,7 @@ void Receiver::createConnection()
     }
 
     // send the host info back to UI
-    emit sendHostInfo(host);
+    emit sendHostInfo(host, DeviceAction::Connection);
 
     // handle incoming packets
     connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
@@ -35,6 +35,8 @@ void Receiver::closeConnection()
 {
     udpSocketIPv4.leaveMulticastGroup(groupAddressIPv4);
     udpSocketIPv4.close();
+
+    emit sendHostInfo(host, DeviceAction::Disconnection);
 }
 
 void Receiver::processPendingDatagrams()

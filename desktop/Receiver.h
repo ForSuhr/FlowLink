@@ -11,6 +11,12 @@ struct Host
     QString address;
 };
 
+enum DeviceAction
+{
+    Connection,
+    Disconnection
+};
+
 class Receiver : public QObject
 {
     Q_OBJECT
@@ -22,7 +28,7 @@ public:
     void closeConnection();
 
 signals:
-    void sendHostInfo(Host host);
+    void sendHostInfo(Host host, DeviceAction deviceAction);
 
 private slots:
     void processPendingDatagrams();

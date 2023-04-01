@@ -40,21 +40,22 @@ protected:
 private:
   void setupDockManager();
   void createConnectionUi();
+  void createDisconnectionUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
   void createPropertiesTableUi();
   void addDevice(Host host);
+  void removeDevice(Host host);
 
   Ui::FlowLink *ui;
   Receiver *receiver;
 
   // dockmanager
-  ads::CDockManager *dockManager;
-  ads::CDockAreaWidget *centralDockArea;
+  ads::CDockManager *dockManager = nullptr;
+  ads::CDockAreaWidget *centralDockArea = nullptr;
 
   // toolbar
-  QAction *connectAction = nullptr;
 
   // perspective
   QAction *savePerspectiveAction = nullptr;
@@ -62,9 +63,9 @@ private:
   QComboBox *perspectiveComboBox = nullptr;
 
   // dockwidget
-  TableModel *deviceTableModel;
-  QSortFilterProxyModel *deviceProxyModel;
-  QTableView *deviceTableView;
+  TableModel *deviceTableModel = nullptr;
+  QSortFilterProxyModel *deviceProxyModel = nullptr;
+  QTableView *deviceTableView = nullptr;
 
 private Q_SLOTS:
   void savePerspective();

@@ -44,6 +44,7 @@ public:
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
 
     void addRow(const QString &name, const QString &address);
+    void removeRow(const QString &name, const QString &address);
     const QVector<Device> &getDevices() const;
 
 private:

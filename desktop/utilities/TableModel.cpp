@@ -137,6 +137,14 @@ void TableModel::addRow(const QString &name, const QString &address)
     }
 }
 
+void TableModel::removeRow(const QString &name, const QString &address)
+{
+    if (devices.contains({name, address}))
+    {
+        removeRows(0, 1, QModelIndex());
+    }
+}
+
 const QVector<Device> &TableModel::getDevices() const
 {
     return devices;
