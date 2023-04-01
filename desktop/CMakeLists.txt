@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         Sender.h
         Sender.cpp
         utilities/globals.h
+        utilities/globals.cpp
         utilities/TableModel.h
         utilities/TableModel.cpp
 )

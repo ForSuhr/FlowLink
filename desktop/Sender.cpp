@@ -1,3 +1,6 @@
+#include <QHostInfo>
+#include <QHostAddress>
+
 #include "sender.h"
 
 Sender::Sender(QObject *parent)
@@ -12,6 +15,8 @@ Sender::Sender(QObject *parent)
 
 void Sender::sendDatagram()
 {
+    device = getDevice();
+
     QByteArray datagram = "Guest";
     udpSocketIPv4.writeDatagram(datagram, groupAddressIPv4, 8080);
 }

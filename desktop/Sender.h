@@ -1,9 +1,6 @@
 #ifndef SENDER_H
 #define SENDER_H
 
-#include <QHostAddress>
-#include <QUdpSocket>
-
 #include "utilities/globals.h"
 
 class Sender : public QObject
@@ -16,6 +13,7 @@ public:
     void closeConnection();
 
 private:
+    Device device;
     QUdpSocket udpSocketIPv4;
     QHostAddress groupAddressIPv4;
 };

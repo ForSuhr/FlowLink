@@ -15,14 +15,7 @@ void Receiver::createConnection()
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
 
     // get device name and address
-    device.name = hostInfo.localHostName();
-    hostInfo = QHostInfo::fromName(device.name);
-    device.address = "";
-    foreach (QHostAddress address, hostInfo.addresses())
-    {
-        if (address.protocol() == QAbstractSocket::IPv4Protocol)
-            device.address = address.toString();
-    }
+    device = getDevice();
 
     // send the device info back to UI
     emit sendHostInfo(device, DeviceAction::Connection);

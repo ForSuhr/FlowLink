@@ -1,10 +1,6 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <QHostAddress>
-#include <QUdpSocket>
-#include <QHostInfo>
-
 #include "utilities/globals.h"
 
 enum DeviceAction
