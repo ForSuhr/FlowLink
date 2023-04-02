@@ -52,14 +52,14 @@ void FlowLink::createSenderUi()
   ui->toolBar->addAction(connectAction);
   connect(connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          { if (deviceAction == DeviceAction::Connection) addDevice(device); });
+          { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
 
   // disconnect
   QAction *disconnectAction = new QAction("Disconnect", this);
   ui->toolBar->addAction(disconnectAction);
   connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection) removeDevice(device); });
+          {if (deviceAction == DeviceAction::Disconnection) {removeDevice(device);} });
 }
 
 void FlowLink::createReceiverUi()
@@ -70,7 +70,7 @@ void FlowLink::createReceiverUi()
   ui->toolBar->addAction(sendDeviceInfo);
   connect(sendDeviceInfo, &QAction::triggered, sender, &Sender::sendDatagram);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Attend) addDevice(device); });
+          {if (deviceAction == DeviceAction::Attend) {addDevice(device);} });
 }
 
 void FlowLink::createPerspectiveUi()
