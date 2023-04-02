@@ -65,10 +65,10 @@ void FlowLink::createSenderUi()
 void FlowLink::createReceiverUi()
 {
   // send device info
-  QAction *sendDeviceInfo = new QAction("Send Device Info", this);
+  QAction *sendDeviceInfoAction = new QAction("Send Device Info", this);
   ui->toolBar->addSeparator();
-  ui->toolBar->addAction(sendDeviceInfo);
-  connect(sendDeviceInfo, &QAction::triggered, sender, &Sender::sendDatagram);
+  ui->toolBar->addAction(sendDeviceInfoAction);
+  connect(sendDeviceInfoAction, &QAction::triggered, sender, &Sender::sendDatagram);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Attend) {addDevice(device);} });
 }
