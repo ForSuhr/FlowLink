@@ -1,7 +1,7 @@
 #include "Receiver.h"
 
 Receiver::Receiver(QObject *parent)
-    : groupAddressIPv4(QStringLiteral("224.0.0.0"))
+    : groupAddressIPv4(QStringLiteral("224.0.0.1"))
 {
     udpSocketIPv4.bind(QHostAddress::AnyIPv4, 8080, QUdpSocket::ShareAddress);
 }
@@ -45,6 +45,8 @@ void Receiver::processPendingDatagrams()
     Device device;
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> device;
+
+    qDebug() << device.name << "    " << device.address;
 
     // emit sendDeviceInfo(device, DeviceAction::Connection);
 }
