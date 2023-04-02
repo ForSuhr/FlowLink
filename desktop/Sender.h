@@ -10,11 +10,9 @@ class Sender : public QObject
 public:
     explicit Sender(QObject *parent = nullptr);
     void sendDatagram();
-    void closeConnection();
 
 private:
     Device device;
-    QUdpSocket udpSocketIPv4;
     QHostAddress groupAddressIPv4;
 };
 
