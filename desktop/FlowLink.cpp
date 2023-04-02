@@ -69,6 +69,8 @@ void FlowLink::createReceiverUi()
   ui->toolBar->addSeparator();
   ui->toolBar->addAction(sendDeviceInfo);
   connect(sendDeviceInfo, &QAction::triggered, sender, &Sender::sendDatagram);
+  connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::Attend) addDevice(device); });
 }
 
 void FlowLink::createPerspectiveUi()

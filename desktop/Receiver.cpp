@@ -46,7 +46,7 @@ void Receiver::processPendingDatagrams()
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> device;
 
-    qDebug() << device.name << "    " << device.address;
+    emit sendDeviceInfo(device, DeviceAction::Attend);
 
     // emit sendDeviceInfo(device, DeviceAction::Connection);
 }
