@@ -1,7 +1,7 @@
 #include <QHostInfo>
 #include <QHostAddress>
 
-#include "sender.h"
+#include "Sender.h"
 
 Sender::Sender(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.0"))

@@ -1,4 +1,4 @@
-#include "receiver.h"
+#include "Receiver.h"
 
 Receiver::Receiver(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.0"))
