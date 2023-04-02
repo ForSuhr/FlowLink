@@ -9,13 +9,16 @@ Device getDevice()
     foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
         if (interface.flags().testFlag(QNetworkInterface::IsLoopBack))
+        {
             continue;
+        }
 
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             if (entry.ip().protocol() == QAbstractSocket::IPv4Protocol)
+            {
                 device.address = entry.ip().toString();
-            break;
+            }
         }
     }
 
