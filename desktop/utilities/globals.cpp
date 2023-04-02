@@ -5,11 +5,19 @@ Device getDevice()
     Device device;
     QHostInfo hostInfo;
     device.name = hostInfo.localHostName();
-    hostInfo = QHostInfo::fromName(device.name);
-    foreach (QHostAddress address, hostInfo.addresses())
+
+    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
-        if (address.protocol() == QAbstractSocket::IPv4Protocol)
-            device.address = address.toString();
+        if (interface.flags().testFlag(QNetworkInterface::IsLoopBack))
+            continue;
+
+        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        {
+            if (entry.ip().protocol() == QAbstractSocket::IPv4Protocol)
+                device.address = entry.ip().toString();
+            break;
+        }
     }
+
     return device;
 }

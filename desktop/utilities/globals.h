@@ -5,6 +5,7 @@
 #include <QUdpSocket>
 #include <QHostInfo>
 #include <QDataStream>
+#include <QNetworkInterface>
 
 struct Device
 {
