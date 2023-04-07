@@ -134,13 +134,11 @@ void FlowLink::onConnectActionClicked()
   receiver->createConnection();
   sender->sendDatagram();
   disconnectAction->setEnabled(true);
-  connectAction->setEnabled(false);
 }
 
 void FlowLink::onDisconnectActionClicked()
 {
   receiver->closeConnection();
-  connectAction->setEnabled(true);
   disconnectAction->setEnabled(false);
 }
 
