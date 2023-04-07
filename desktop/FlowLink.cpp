@@ -59,7 +59,7 @@ void FlowLink::createSenderUi()
   ui->toolBar->addAction(disconnectAction);
   connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection) {removeDevice(device);} });
+          {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
 
 void FlowLink::createReceiverUi()
@@ -143,9 +143,10 @@ void FlowLink::addDevice(Device device)
   deviceTableModel->addRow(device.name, device.address);
 }
 
-void FlowLink::removeDevice(Device device)
+void FlowLink::removeDevices()
 {
-  deviceTableModel->removeRow(device.name, device.address);
+  int rowNum = deviceTableModel->rowCount(QModelIndex());
+  deviceTableModel->removeRows(0, rowNum, QModelIndex());
 }
 
 void FlowLink::savePerspective()

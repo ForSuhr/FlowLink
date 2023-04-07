@@ -47,7 +47,7 @@ private:
   void createDeviceTableUi();
   void createPropertiesTableUi();
   void addDevice(Device device);
-  void removeDevice(Device device);
+  void removeDevices();
 
   Ui::FlowLink *ui;
   Receiver *receiver = nullptr;
