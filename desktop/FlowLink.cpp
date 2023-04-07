@@ -53,13 +53,13 @@ void FlowLink::createConnectionUi()
 
   // connect
   ui->toolBar->addAction(connectAction);
-  connect(connectAction, &QAction::triggered, this, on_connect_clicked);
+  connect(connectAction, &QAction::triggered, this, &FlowLink::on_connect_clicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(disconnectAction);
-  connect(disconnectAction, &QAction::triggered, this, on_disconnect_clicked);
+  connect(disconnectAction, &QAction::triggered, this, &FlowLink::on_disconnect_clicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
