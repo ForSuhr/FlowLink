@@ -13,7 +13,6 @@ public:
     void closeConnection();
 
 private:
-    Device device;
     QHostAddress groupAddressIPv4;
     QUdpSocket udpSocketIPv4;
 };

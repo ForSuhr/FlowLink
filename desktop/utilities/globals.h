@@ -32,6 +32,6 @@ inline QDataStream &operator>>(QDataStream &stream, Device &device)
  * @brief get device name and address
  * @return struct Device
  */
-Device getDevice();
+Device getLocalHostName();
 
 #endif // GLOBALS_H

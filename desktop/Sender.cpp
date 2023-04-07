@@ -14,7 +14,7 @@ Sender::Sender(QObject *parent)
 
 void Sender::sendDatagram()
 {
-    device = getDevice();
+    Device device = getLocalHostName();
     QByteArray datagram;
     QDataStream stream(&datagram, QIODevice::ReadWrite);
     stream << device;

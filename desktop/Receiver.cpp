@@ -4,6 +4,10 @@ Receiver::Receiver(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.1"))
 {
     udpSocketIPv4.bind(QHostAddress::AnyIPv4, 8080, QUdpSocket::ShareAddress);
+    udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
+
+    // handle incoming packets
+    connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
 }
 
 Receiver::~Receiver()
@@ -14,15 +18,6 @@ Receiver::~Receiver()
 void Receiver::createConnection()
 {
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
-
-    // get device name and address
-    device = getDevice();
-
-    // send the device info back to UI
-    emit sendDeviceInfo(device, DeviceAction::Connection);
-
-    // handle incoming packets
-    connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
 }
 
 void Receiver::closeConnection()
@@ -42,11 +37,22 @@ void Receiver::processPendingDatagrams()
         udpSocketIPv4.readDatagram(datagram.data(), datagram.size());
     }
 
-    Device device;
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> device;
+    hostInfo = QHostInfo::fromName(device.name);
+
+    if (!hostInfo.addresses().isEmpty())
+    {
+        foreach (QHostAddress address, hostInfo.addresses())
+        {
+            if (address.protocol() == QAbstractSocket::IPv4Protocol)
+            {
+                device.address = address.toString();
+            }
+        }
+    }
+
+    qDebug() << device.name << device.address;
 
     emit sendDeviceInfo(device, DeviceAction::Attend);
-
-    // emit sendDeviceInfo(device, DeviceAction::Connection);
 }
