@@ -40,8 +40,7 @@ protected:
 
 private:
   void setupDockManager();
-  void createSenderUi();
-  void createReceiverUi();
+  void createConnectionUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();

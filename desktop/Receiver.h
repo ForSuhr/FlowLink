@@ -7,7 +7,6 @@ enum DeviceAction
 {
     Connection,
     Disconnection,
-    Attend
 };
 
 class Receiver : public QObject

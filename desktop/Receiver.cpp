@@ -54,5 +54,5 @@ void Receiver::processPendingDatagrams()
 
     qDebug() << device.name << device.address;
 
-    emit sendDeviceInfo(device, DeviceAction::Attend);
+    emit sendDeviceInfo(device, DeviceAction::Connection);
 }
