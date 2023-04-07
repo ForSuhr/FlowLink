@@ -46,18 +46,20 @@ void FlowLink::setupDockManager()
 
 void FlowLink::createConnectionUi()
 {
+  connectAction = new QAction("Connect", this);
+  disconnectAction = new QAction("Disconnect", this);
+  connectAction->setEnabled(true);
+  disconnectAction->setEnabled(false);
+
   // connect
-  QAction *connectAction = new QAction("Connect", this);
   ui->toolBar->addAction(connectAction);
-  connect(connectAction, &QAction::triggered, receiver, &Receiver::createConnection);
-  connect(connectAction, &QAction::triggered, sender, &Sender::sendDatagram);
+  connect(connectAction, &QAction::triggered, this, on_connect_clicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
 
   // disconnect
-  QAction *disconnectAction = new QAction("Disconnect", this);
   ui->toolBar->addAction(disconnectAction);
-  connect(disconnectAction, &QAction::triggered, receiver, &Receiver::closeConnection);
+  connect(disconnectAction, &QAction::triggered, this, on_disconnect_clicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
@@ -125,6 +127,21 @@ void FlowLink::createPropertiesTableUi()
   dockManager->addDockWidget(
       DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
   ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
+}
+
+void FlowLink::on_connect_clicked()
+{
+  receiver->createConnection();
+  sender->sendDatagram();
+  disconnectAction->setEnabled(true);
+  connectAction->setEnabled(false);
+}
+
+void FlowLink::on_disconnect_clicked()
+{
+  receiver->closeConnection();
+  connectAction->setEnabled(true);
+  disconnectAction->setEnabled(false);
 }
 
 void FlowLink::addDevice(Device device)

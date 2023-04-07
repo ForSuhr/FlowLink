@@ -57,6 +57,8 @@ private:
   ads::CDockAreaWidget *centralDockArea = nullptr;
 
   // toolbar
+  QAction *connectAction = nullptr;
+  QAction *disconnectAction = nullptr;
 
   // perspective
   QAction *savePerspectiveAction = nullptr;
@@ -69,6 +71,8 @@ private:
   QTableView *deviceTableView = nullptr;
 
 private Q_SLOTS:
+  void on_connect_clicked();
+  void on_disconnect_clicked();
   void savePerspective();
 };
 #endif // FLOWLINK_H
