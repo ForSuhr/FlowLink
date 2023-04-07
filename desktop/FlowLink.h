@@ -71,8 +71,8 @@ private:
   QTableView *deviceTableView = nullptr;
 
 private Q_SLOTS:
-  void on_connect_clicked();
-  void on_disconnect_clicked();
+  void onConnectActionClicked();
+  void onDisconnectActionClicked();
   void savePerspective();
 };
 #endif // FLOWLINK_H

@@ -53,13 +53,13 @@ void FlowLink::createConnectionUi()
 
   // connect
   ui->toolBar->addAction(connectAction);
-  connect(connectAction, &QAction::triggered, this, &FlowLink::on_connect_clicked);
+  connect(connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(disconnectAction);
-  connect(disconnectAction, &QAction::triggered, this, &FlowLink::on_disconnect_clicked);
+  connect(disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
@@ -129,7 +129,7 @@ void FlowLink::createPropertiesTableUi()
   ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
 }
 
-void FlowLink::on_connect_clicked()
+void FlowLink::onConnectActionClicked()
 {
   receiver->createConnection();
   sender->sendDatagram();
@@ -137,7 +137,7 @@ void FlowLink::on_connect_clicked()
   connectAction->setEnabled(false);
 }
 
-void FlowLink::on_disconnect_clicked()
+void FlowLink::onDisconnectActionClicked()
 {
   receiver->closeConnection();
   connectAction->setEnabled(true);
