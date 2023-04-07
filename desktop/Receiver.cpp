@@ -39,6 +39,12 @@ void Receiver::processPendingDatagrams()
 
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> device;
+
+    if (device.name == getLocalHostName().name)
+    {
+        return;
+    }
+
     hostInfo = QHostInfo::fromName(device.name);
 
     if (!hostInfo.addresses().isEmpty())
