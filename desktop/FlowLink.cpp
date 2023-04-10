@@ -153,6 +153,15 @@ void FlowLink::onDisconnectActionClicked()
 
 void FlowLink::onChatActionClicked()
 {
+  QItemSelectionModel *selectionModel = deviceTableView->selectionModel();
+  const QModelIndexList indexes = selectionModel->selectedRows(TableHeader::Address);
+  if (!indexes.isEmpty())
+  {
+    QModelIndex index = indexes.first();
+    int row = deviceProxyModel->mapToSource(index).row();
+
+    qDebug() << index.data().toString();
+  }
 }
 
 void FlowLink::addDevice(Device device)

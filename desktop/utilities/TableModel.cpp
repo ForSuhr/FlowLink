@@ -55,9 +55,9 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
     {
         switch (section)
         {
-        case 0:
+        case TableHeader::Name:
             return tr("Name");
-        case 1:
+        case TableHeader::Address:
             return tr("Address");
         default:
             break;

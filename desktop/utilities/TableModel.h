@@ -8,6 +8,12 @@
 
 #include "globals.h"
 
+enum TableHeader
+{
+    Name,
+    Address
+};
+
 class TableModel : public QAbstractTableModel
 {
     Q_OBJECT

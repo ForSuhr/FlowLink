@@ -10,6 +10,7 @@
 #include <QStringListModel>
 #include <QTableView>
 #include <QTableWidget>
+#include <QItemSelectionModel>
 #include <QWidgetAction>
 #include <memory>
 
