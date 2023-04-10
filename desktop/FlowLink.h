@@ -41,6 +41,7 @@ protected:
 private:
   void setupDockManager();
   void createConnectionUi();
+  void createChatUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
@@ -59,6 +60,7 @@ private:
   // toolbar
   QAction *connectAction = nullptr;
   QAction *disconnectAction = nullptr;
+  QAction *chatAction = nullptr;
 
   // perspective
   QAction *savePerspectiveAction = nullptr;
@@ -73,6 +75,7 @@ private:
 private Q_SLOTS:
   void onConnectActionClicked();
   void onDisconnectActionClicked();
+  void onChatActionClicked();
   void savePerspective();
 };
 #endif // FLOWLINK_H

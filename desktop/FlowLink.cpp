@@ -18,6 +18,7 @@ FlowLink::FlowLink(QWidget *parent)
 
   // toolbar
   createConnectionUi();
+  createChatUi();
   createPerspectiveUi();
 
   // central widget
@@ -62,6 +63,14 @@ void FlowLink::createConnectionUi()
   connect(disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
   connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
+}
+
+void FlowLink::createChatUi()
+{
+  chatAction = new QAction("Chat", this);
+  ui->toolBar->addSeparator();
+  ui->toolBar->addAction(chatAction);
+  connect(chatAction, &QAction::triggered, this, &FlowLink::onChatActionClicked);
 }
 
 void FlowLink::createPerspectiveUi()
@@ -140,6 +149,10 @@ void FlowLink::onDisconnectActionClicked()
 {
   receiver->closeConnection();
   disconnectAction->setEnabled(false);
+}
+
+void FlowLink::onChatActionClicked()
+{
 }
 
 void FlowLink::addDevice(Device device)
