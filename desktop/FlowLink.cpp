@@ -158,9 +158,7 @@ void FlowLink::onChatActionClicked()
   if (!indexes.isEmpty())
   {
     QModelIndex index = indexes.first();
-    int row = deviceProxyModel->mapToSource(index).row();
-
-    qDebug() << index.data().toString();
+    QString address = index.data().toString();
   }
 }
 

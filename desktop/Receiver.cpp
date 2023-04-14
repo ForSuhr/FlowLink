@@ -30,32 +30,21 @@ void Receiver::closeConnection()
 void Receiver::processPendingDatagrams()
 {
     QByteArray datagram;
+    QHostAddress senderIp;
 
     while (udpSocketIPv4.hasPendingDatagrams())
     {
         datagram.resize(int(udpSocketIPv4.pendingDatagramSize()));
-        udpSocketIPv4.readDatagram(datagram.data(), datagram.size());
+        udpSocketIPv4.readDatagram(datagram.data(), datagram.size(), &senderIp);
     }
 
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> device;
+    device.address = senderIp.toString();
 
     if (device.name == getLocalHostName().name)
     {
         return;
-    }
-
-    hostInfo = QHostInfo::fromName(device.name);
-
-    if (!hostInfo.addresses().isEmpty())
-    {
-        foreach (QHostAddress address, hostInfo.addresses())
-        {
-            if (address.protocol() == QAbstractSocket::IPv4Protocol)
-            {
-                device.address = address.toString();
-            }
-        }
     }
 
     emit sendDeviceInfo(device, DeviceAction::Connection);
