@@ -90,13 +90,12 @@ void FlowLink::createPerspectiveUi()
 
 void FlowLink::createCentralUI()
 {
-  QLabel *l = new QLabel();
-  l->setText("Welcome");
-  l->setAlignment(Qt::AlignCenter);
-  CDockWidget *centralDockWidget = new CDockWidget("Central Widget");
-  centralDockWidget->setWidget(l);
+  ChatWindow *chatWindow = new ChatWindow();
+  CDockWidget *centralDockWidget = new CDockWidget("Chat Window");
+  centralDockWidget->setWidget(chatWindow);
   centralDockArea = dockManager->setCentralWidget(centralDockWidget);
   centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+  ui->menuView->addAction(centralDockWidget->toggleViewAction());
 }
 
 void FlowLink::createDeviceTableUi()
@@ -117,8 +116,7 @@ void FlowLink::createDeviceTableUi()
   deviceDockWidget->setMinimumSizeHintMode(
       CDockWidget::MinimumSizeHintFromDockWidget);
   deviceDockWidget->setMinimumSize(200, 150);
-  dockManager->addDockWidget(
-      DockWidgetArea::LeftDockWidgetArea, deviceDockWidget, centralDockArea);
+  dockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, deviceDockWidget, centralDockArea);
   ui->menuView->addAction(deviceDockWidget->toggleViewAction());
 }
 
@@ -133,8 +131,7 @@ void FlowLink::createPropertiesTableUi()
       CDockWidget::MinimumSizeHintFromDockWidget);
   propertiesDockWidget->resize(200, 150);
   propertiesDockWidget->setMinimumSize(200, 150);
-  dockManager->addDockWidget(
-      DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
+  dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);
   ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
 }
 

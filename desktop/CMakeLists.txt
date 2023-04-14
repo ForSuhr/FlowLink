@@ -19,6 +19,9 @@ set(PROJECT_SOURCES
         FlowLink.h
         FlowLink.cpp
         FlowLink.ui
+        Chat.h
+        Chat.cpp
+        Chat.ui
         Receiver.h
         Receiver.cpp
         Sender.h
