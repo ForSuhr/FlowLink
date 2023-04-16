@@ -14,7 +14,7 @@
 #include <QWidgetAction>
 #include <memory>
 
-#include "./utilities/TableModel.h"
+#include "./utils/TableModel.h"
 #include "DockAreaWidget.h"
 #include "DockManager.h"
 #include "DockWidget.h"

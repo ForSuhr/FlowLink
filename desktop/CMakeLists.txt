@@ -22,14 +22,18 @@ set(PROJECT_SOURCES
         Chat.h
         Chat.cpp
         Chat.ui
-        UdpReceiver.h
-        UdpReceiver.cpp
         UdpSender.h
         UdpSender.cpp
-        utilities/globals.h
-        utilities/globals.cpp
-        utilities/TableModel.h
-        utilities/TableModel.cpp
+        UdpReceiver.h
+        UdpReceiver.cpp
+        TcpSender.h
+        TcpSender.cpp
+        TcpReceiver.h
+        TcpReceiver.cpp
+        globals.h
+        globals.cpp
+        utils/TableModel.h
+        utils/TableModel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
