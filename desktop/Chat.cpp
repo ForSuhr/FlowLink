@@ -11,3 +11,8 @@ ChatWindow::~ChatWindow()
 {
     delete ui;
 }
+
+void setTextEditView(const ChatWindow *chatWindow, const QString &text)
+{
+    chatWindow->ui->textEditView->setText(text);
+}

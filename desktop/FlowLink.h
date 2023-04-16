@@ -42,8 +42,8 @@ protected:
 
 private:
   void setupDockManager();
-  void createConnectionUi();
-  void createChatUi();
+  void createConnectionActionUi();
+  void createChatActionUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
@@ -70,9 +70,11 @@ private:
   QComboBox *perspectiveComboBox = nullptr;
 
   // dockwidget
+  ChatWindow *chatWindow = nullptr;
   TableModel *deviceTableModel = nullptr;
   QSortFilterProxyModel *deviceProxyModel = nullptr;
   QTableView *deviceTableView = nullptr;
+  QTableWidget *propertiesTable = nullptr;
 
 private Q_SLOTS:
   void onConnectActionClicked();

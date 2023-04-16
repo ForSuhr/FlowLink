@@ -17,8 +17,8 @@ FlowLink::FlowLink(QWidget *parent)
   setupDockManager();
 
   // toolbar
-  createConnectionUi();
-  createChatUi();
+  createConnectionActionUi();
+  createChatActionUi();
   createPerspectiveUi();
 
   // central widget
@@ -45,7 +45,7 @@ void FlowLink::setupDockManager()
   dockManager = new CDockManager(this);
 }
 
-void FlowLink::createConnectionUi()
+void FlowLink::createConnectionActionUi()
 {
   connectAction = new QAction("Connect", this);
   disconnectAction = new QAction("Disconnect", this);
@@ -65,7 +65,7 @@ void FlowLink::createConnectionUi()
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
 
-void FlowLink::createChatUi()
+void FlowLink::createChatActionUi()
 {
   chatAction = new QAction("Chat", this);
   ui->toolBar->addSeparator();
@@ -90,7 +90,7 @@ void FlowLink::createPerspectiveUi()
 
 void FlowLink::createCentralUI()
 {
-  ChatWindow *chatWindow = new ChatWindow();
+  chatWindow = new ChatWindow();
   CDockWidget *centralDockWidget = new CDockWidget("Chat Window");
   centralDockWidget->setWidget(chatWindow);
   centralDockArea = dockManager->setCentralWidget(centralDockWidget);
@@ -122,7 +122,7 @@ void FlowLink::createDeviceTableUi()
 
 void FlowLink::createPropertiesTableUi()
 {
-  QTableWidget *propertiesTable = new QTableWidget();
+  propertiesTable = new QTableWidget();
   propertiesTable->setColumnCount(1);
   propertiesTable->setRowCount(10);
   CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
@@ -156,6 +156,7 @@ void FlowLink::onChatActionClicked()
   {
     QModelIndex index = indexes.first();
     QString address = index.data().toString();
+    setTextEditView(chatWindow, address);
   }
 }
 
