@@ -1,33 +1,33 @@
-#include "Receiver.h"
+#include "UdpReceiver.h"
 
-Receiver::Receiver(QObject *parent)
+UdpReceiver::UdpReceiver(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.1"))
 {
     udpSocketIPv4.bind(QHostAddress::AnyIPv4, 8080, QUdpSocket::ShareAddress);
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
 
     // handle incoming packets
-    connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &Receiver::processPendingDatagrams);
+    connect(&udpSocketIPv4, &QUdpSocket::readyRead, this, &UdpReceiver::processPendingDatagrams);
 }
 
-Receiver::~Receiver()
+UdpReceiver::~UdpReceiver()
 {
     udpSocketIPv4.close();
 }
 
-void Receiver::createConnection()
+void UdpReceiver::createConnection()
 {
     udpSocketIPv4.joinMulticastGroup(groupAddressIPv4);
 }
 
-void Receiver::closeConnection()
+void UdpReceiver::closeConnection()
 {
     udpSocketIPv4.leaveMulticastGroup(groupAddressIPv4);
 
     emit sendDeviceInfo(device, DeviceAction::Disconnection);
 }
 
-void Receiver::processPendingDatagrams()
+void UdpReceiver::processPendingDatagrams()
 {
     QByteArray datagram;
     QHostAddress senderIp;

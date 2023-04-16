@@ -8,8 +8,8 @@ using namespace ads;
 FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::FlowLink),
-      receiver(new Receiver),
-      sender(new Sender)
+      udpReceiver(new UdpReceiver),
+      udpSender(new UdpSender)
 {
   ui->setupUi(this);
 
@@ -55,13 +55,13 @@ void FlowLink::createConnectionActionUi()
   // connect
   ui->toolBar->addAction(connectAction);
   connect(connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
-  connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(disconnectAction);
   connect(disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
-  connect(receiver, &Receiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
 }
 
@@ -137,14 +137,14 @@ void FlowLink::createPropertiesTableUi()
 
 void FlowLink::onConnectActionClicked()
 {
-  receiver->createConnection();
-  sender->sendDatagram();
+  udpReceiver->createConnection();
+  udpSender->sendDeviceInfo();
   disconnectAction->setEnabled(true);
 }
 
 void FlowLink::onDisconnectActionClicked()
 {
-  receiver->closeConnection();
+  udpReceiver->closeConnection();
   disconnectAction->setEnabled(false);
 }
 

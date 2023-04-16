@@ -1,15 +1,15 @@
-#ifndef SENDER_H
-#define SENDER_H
+#ifndef UDPSENDER_H
+#define UDPSENDER_H
 
 #include "utilities/globals.h"
 
-class Sender : public QObject
+class UdpSender : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Sender(QObject *parent = nullptr);
-    void sendDatagram();
+    explicit UdpSender(QObject *parent = nullptr);
+    void sendDeviceInfo();
     void closeConnection();
 
 private:

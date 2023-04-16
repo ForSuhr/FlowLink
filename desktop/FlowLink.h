@@ -19,8 +19,8 @@
 #include "DockManager.h"
 #include "DockWidget.h"
 #include "Chat.h"
-#include "Receiver.h"
-#include "Sender.h"
+#include "UdpReceiver.h"
+#include "UdpSender.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -52,8 +52,8 @@ private:
   void removeDevices();
 
   Ui::FlowLink *ui;
-  Receiver *receiver = nullptr;
-  Sender *sender = nullptr;
+  UdpReceiver *udpReceiver = nullptr;
+  UdpSender *udpSender = nullptr;
 
   // dockmanager
   ads::CDockManager *dockManager = nullptr;

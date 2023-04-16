@@ -22,10 +22,10 @@ set(PROJECT_SOURCES
         Chat.h
         Chat.cpp
         Chat.ui
-        Receiver.h
-        Receiver.cpp
-        Sender.h
-        Sender.cpp
+        UdpReceiver.h
+        UdpReceiver.cpp
+        UdpSender.h
+        UdpSender.cpp
         utilities/globals.h
         utilities/globals.cpp
         utilities/TableModel.h

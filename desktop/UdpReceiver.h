@@ -1,5 +1,5 @@
-#ifndef RECEIVER_H
-#define RECEIVER_H
+#ifndef UDPRECEIVER_H
+#define UDPRECEIVER_H
 
 #include "utilities/globals.h"
 
@@ -9,13 +9,13 @@ enum DeviceAction
     Disconnection,
 };
 
-class Receiver : public QObject
+class UdpReceiver : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Receiver(QObject *parent = nullptr);
-    ~Receiver();
+    explicit UdpReceiver(QObject *parent = nullptr);
+    ~UdpReceiver();
     void createConnection();
     void closeConnection();
 
@@ -32,4 +32,4 @@ private:
     QHostAddress groupAddressIPv4;
 };
 
-#endif // RECEIVER_H
+#endif

@@ -1,9 +1,9 @@
 #include <QHostInfo>
 #include <QHostAddress>
 
-#include "Sender.h"
+#include "UdpSender.h"
 
-Sender::Sender(QObject *parent)
+UdpSender::UdpSender(QObject *parent)
     : groupAddressIPv4(QStringLiteral("224.0.0.1"))
 {
     udpSocketIPv4.bind(QHostAddress::AnyIPv4, 8080, QUdpSocket::ShareAddress);
@@ -12,7 +12,7 @@ Sender::Sender(QObject *parent)
     udpSocketIPv4.setSocketOption(QAbstractSocket::MulticastTtlOption, 1);
 }
 
-void Sender::sendDatagram()
+void UdpSender::sendDeviceInfo()
 {
     Device device = getLocalHostName();
     QByteArray datagram;
@@ -21,7 +21,7 @@ void Sender::sendDatagram()
     udpSocketIPv4.writeDatagram(datagram, groupAddressIPv4, 8080);
 }
 
-void Sender::closeConnection()
+void UdpSender::closeConnection()
 {
     udpSocketIPv4.close();
 }
