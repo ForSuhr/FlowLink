@@ -1,5 +1,5 @@
-#include "./ui_Chat.h"
-#include "Chat.h"
+#include "./ui_ChatWindow.h"
+#include "ChatWindow.h"
 
 ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent),
                                           ui(new Ui::ChatWindow)

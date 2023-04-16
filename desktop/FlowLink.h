@@ -18,7 +18,7 @@
 #include "DockAreaWidget.h"
 #include "DockManager.h"
 #include "DockWidget.h"
-#include "Chat.h"
+#include "ChatWindow.h"
 #include "UdpReceiver.h"
 #include "UdpSender.h"
 

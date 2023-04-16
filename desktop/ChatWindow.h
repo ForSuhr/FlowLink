@@ -1,5 +1,5 @@
-#ifndef CHAT_H
-#define CHAT_H
+#ifndef CHATWINDOW_H
+#define CHATWINDOW_H
 
 #include <QWidget>
 
@@ -24,4 +24,4 @@ private:
     Ui::ChatWindow *ui;
 };
 
-#endif // CHAT_H
+#endif
