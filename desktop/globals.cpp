@@ -1,4 +1,4 @@
-#include "globals.h"
+#include "Globals.h"
 
 Device getLocalHostName()
 {

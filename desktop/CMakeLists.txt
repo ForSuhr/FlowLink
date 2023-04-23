@@ -15,7 +15,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui Core Network REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui Core Network REQUIRED)
 
 set(PROJECT_SOURCES
-        main.cpp
+        Main.cpp
         FlowLink.h
         FlowLink.cpp
         FlowLink.ui
@@ -30,8 +30,8 @@ set(PROJECT_SOURCES
         TcpSender.cpp
         TcpReceiver.h
         TcpReceiver.cpp
-        globals.h
-        globals.cpp
+        Globals.h
+        Globals.cpp
         utils/TableModel.h
         utils/TableModel.cpp
 )

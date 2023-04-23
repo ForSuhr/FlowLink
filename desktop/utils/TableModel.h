@@ -1,12 +1,12 @@
-#ifndef TABLEMODEL_H
-#define TABLEMODEL_H
+#ifndef TABLE_MODEL_H
+#define TABLE_MODEL_H
 
 #include <stdio.h>
 #include <QAbstractTableModel>
 #include <QVector>
 #include <QModelIndex>
 
-#include "globals.h"
+#include "Globals.h"
 
 enum TableHeader
 {
@@ -38,4 +38,4 @@ private:
     QVector<Device> devices;
 };
 
-#endif // TABLEMODEL_H
+#endif

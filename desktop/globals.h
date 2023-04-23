@@ -3,9 +3,13 @@
 
 #include <QHostAddress>
 #include <QUdpSocket>
+#include <QTcpSocket>
+#include <QTcpServer>
 #include <QHostInfo>
 #include <QDataStream>
 #include <QNetworkInterface>
+#include <QCborStreamWriter>
+#include <QCborStreamReader>
 
 struct Device
 {
@@ -18,6 +22,11 @@ struct Device
     }
 };
 
+enum DataType
+{
+    PlainText
+};
+
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
 {
     return stream << device.name << device.address;
@@ -27,7 +36,6 @@ inline QDataStream &operator>>(QDataStream &stream, Device &device)
 {
     return stream >> device.name >> device.address;
 }
-
 /**
  * @brief get device name and address
  * @return struct Device
