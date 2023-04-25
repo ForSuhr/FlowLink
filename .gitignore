@@ -5,6 +5,7 @@
 *.autosave
 *.a
 *.core
+*.log
 *.moc
 *.o
 *.obj
