@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
-
-project(FlowLink VERSION 1.0.0 LANGUAGES CXX)
-
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -59,6 +53,7 @@ target_link_libraries(FlowLink PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
                                       Qt${QT_VERSION_MAJOR}::Gui
                                       Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(FlowLink PRIVATE qt5ads64)
+target_link_libraries(FlowLink PRIVATE plog)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(FlowLink)

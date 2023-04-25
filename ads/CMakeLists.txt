@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
 project(ADS LANGUAGES CXX VERSION 1.0.0)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)

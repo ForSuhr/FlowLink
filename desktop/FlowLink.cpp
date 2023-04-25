@@ -29,6 +29,9 @@ FlowLink::FlowLink(QWidget *parent)
 
   // properties table widget
   createPropertiesTableUi();
+
+  plog::init(plog::debug, "trace.log");
+  PLOG_DEBUG << "Initialization complete";
 }
 
 FlowLink::~FlowLink()

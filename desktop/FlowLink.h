@@ -12,15 +12,19 @@
 #include <QTableWidget>
 #include <QItemSelectionModel>
 #include <QWidgetAction>
+
 #include <memory>
 
-#include "./utils/TableModel.h"
 #include "DockAreaWidget.h"
 #include "DockManager.h"
 #include "DockWidget.h"
+
+#include "./utils/TableModel.h"
 #include "ChatWindow.h"
 #include "UdpReceiver.h"
 #include "UdpSender.h"
+#include "../plog/Log.h"
+#include "../plog/Initializers/RollingFileInitializer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
