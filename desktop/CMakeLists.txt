@@ -47,7 +47,7 @@ else()
     endif()
 endif()
 
-target_include_directories(FlowLink PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../ads")
+target_include_directories(FlowLink PRIVATE "${CMAKE_SOURCE_DIR}/3rdparty/ads")
 target_link_libraries(FlowLink PUBLIC Qt${QT_VERSION_MAJOR}::Widgets
                                       Qt${QT_VERSION_MAJOR}::Core
                                       Qt${QT_VERSION_MAJOR}::Gui
