@@ -5,11 +5,18 @@ ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent),
                                           ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
+
+    connect(ui->btnSend, &QPushButton::clicked, this, &ChatWindow::onBtnSendClicked);
 }
 
 ChatWindow::~ChatWindow()
 {
     delete ui;
+}
+
+void ChatWindow::onBtnSendClicked()
+{
+    emit onBtnSendClickedSignal();
 }
 
 void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text)

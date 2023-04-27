@@ -99,6 +99,10 @@ void FlowLink::createPerspectiveUi()
 void FlowLink::createCentralUI()
 {
   chatWindow = new ChatWindow();
+  connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]
+          { tcpSender->sendMsg("Hello, I am sending a test message to you!");
+            PLOG_DEBUG << "Hello, I am sending a test message to you!"; });
+
   CDockWidget *centralDockWidget = new CDockWidget("Chat Window");
   centralDockWidget->setWidget(chatWindow);
   centralDockArea = dockManager->setCentralWidget(centralDockWidget);
@@ -168,7 +172,6 @@ void FlowLink::onChatActionClicked()
     appendTextToChatWindow(chatWindow, address);
 
     tcpSender = new TcpSender(address);
-    // tcpSender->sendMsg("Hello, I am sending a test message to you!");
   }
 }
 

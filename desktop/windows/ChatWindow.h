@@ -20,8 +20,14 @@ public:
 
     friend void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text);
 
+signals:
+    void onBtnSendClickedSignal();
+
 private:
     Ui::ChatWindow *ui;
+
+private slots:
+    void onBtnSendClicked();
 };
 
 #endif

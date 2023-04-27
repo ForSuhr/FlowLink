@@ -90,7 +90,7 @@ private:
   QTableView *deviceTableView = nullptr;
   QTableWidget *propertiesTable = nullptr;
 
-private Q_SLOTS:
+private slots:
   void onConnectActionClicked();
   void onDisconnectActionClicked();
   void onChatActionClicked();

@@ -22,14 +22,14 @@ public:
 signals:
     void sendDeviceInfo(Device device, DeviceAction deviceAction);
 
-private slots:
-    void processPendingDatagrams();
-
 private:
     Device device;
     QHostInfo hostInfo;
     QUdpSocket udpSocketIPv4;
     QHostAddress groupAddressIPv4;
+
+private slots:
+    void processPendingDatagrams();
 };
 
 #endif

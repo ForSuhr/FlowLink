@@ -21,21 +21,45 @@ void TcpReceiver::createConnection()
     // Listen for incoming connections on port 8000
     if (!server->listen(QHostAddress::AnyIPv4, 8000))
     {
-        qDebug() << "Error: failed to start server";
+        PLOG_DEBUG << "Failed to start TCP server";
         return;
+    }
+    else
+    {
+        PLOG_DEBUG << "Start TCP server successfully";
     }
 
     connect(server, &QTcpServer::newConnection, this, &TcpReceiver::handleNewConnection);
-    connect(tcpSocketIPv4, &QTcpSocket::readyRead, this, &TcpReceiver::processPendingDatagrams);
 }
 
 void TcpReceiver::handleNewConnection()
 {
     tcpSocketIPv4 = server->nextPendingConnection();
+    connect(tcpSocketIPv4, &QTcpSocket::readyRead, this, &TcpReceiver::processPendingDatagrams);
+    PLOG_DEBUG << "TCP connection established";
 }
 
 void TcpReceiver::processPendingDatagrams()
 {
+    QByteArray datagram = tcpSocketIPv4->readAll();
+
+    QCborStreamReader reader(datagram);
+    QCborValue contents = QCborValue::fromCbor(reader);
+    switch (contents.type())
+    {
+    case QCborValue::String:
+    {
+        PLOG_DEBUG << contents.toString();
+        break;
+    }
+    default:
+    {
+        qDebug() << "Error: top-level item is not a str";
+        break;
+    }
+    }
+
+    /*
     QCborStreamReader reader(tcpSocketIPv4);
     QCborValue contents = QCborValue::fromCbor(reader);
     QCborMap cMap;
@@ -62,6 +86,7 @@ void TcpReceiver::processPendingDatagrams()
 
     QString tmp = vMap.value("0").toString();
     qDebug().noquote() << tmp;
+    */
 
     return;
 }
