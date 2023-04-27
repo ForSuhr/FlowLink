@@ -56,6 +56,7 @@ private:
   void createChatActionUi();
   void createPerspectiveUi();
   void createCentralUI();
+  void createChatWindowUi();
   void createDeviceTableUi();
   void createPropertiesTableUi();
   void addDevice(Device device);

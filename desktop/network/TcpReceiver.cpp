@@ -54,16 +54,36 @@ void TcpReceiver::processPendingDatagrams()
     {
         cMap = contents.toMap();
         vMap = cMap.toVariantMap();
+        parserMap(vMap);
         break;
     }
     default:
     {
-        qDebug() << "Error: top-level item is not a QCborMap";
+        PLOG_DEBUG << "Error: top-level item is not a QCborMap";
         break;
     }
     }
 
-    PLOG_DEBUG << vMap.value("0").toString();
-
     return;
+}
+
+void TcpReceiver::parserMap(const QVariantMap &vMap)
+{
+    QString key;
+    foreach (key, vMap.keys())
+    {
+        switch (key.toInt())
+        {
+        case DataType::PlainText:
+        {
+            emit msgSignal(vMap.value("0").toString());
+            break;
+        }
+        default:
+        {
+            PLOG_DEBUG << "Error: no valid datatype in QCborMap";
+            break;
+        }
+        }
+    }
 }

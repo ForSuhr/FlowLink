@@ -98,16 +98,24 @@ void FlowLink::createPerspectiveUi()
 
 void FlowLink::createCentralUI()
 {
-  chatWindow = new ChatWindow();
-  connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]
-          { tcpSender->sendMsg("Hello, I am sending a test message to you!");
-            PLOG_DEBUG << "Hello, I am sending a test message to you!"; });
+  createChatWindowUi();
 
   CDockWidget *centralDockWidget = new CDockWidget("Chat Window");
   centralDockWidget->setWidget(chatWindow);
   centralDockArea = dockManager->setCentralWidget(centralDockWidget);
   centralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
   ui->menuView->addAction(centralDockWidget->toggleViewAction());
+}
+
+void FlowLink::createChatWindowUi()
+{
+  chatWindow = new ChatWindow();
+  connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]()
+          { QString msg = chatWindow->msgText();
+            tcpSender->sendMsg(msg);
+            appendTextToChatWindow(chatWindow, msg); });
+  connect(tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
+          { appendTextToChatWindow(chatWindow, msg); });
 }
 
 void FlowLink::createDeviceTableUi()

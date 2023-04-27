@@ -18,6 +18,8 @@ public:
     explicit ChatWindow(QWidget *parent = nullptr);
     ~ChatWindow();
 
+    QString msgText();
+
     friend void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text);
 
 signals:

@@ -14,6 +14,11 @@ ChatWindow::~ChatWindow()
     delete ui;
 }
 
+QString ChatWindow::msgText()
+{
+    return ui->textEditMsg->toPlainText();
+}
+
 void ChatWindow::onBtnSendClicked()
 {
     emit onBtnSendClickedSignal();

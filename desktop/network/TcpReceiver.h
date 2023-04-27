@@ -13,9 +13,13 @@ public:
 
     void createConnection();
 
+signals:
+    void msgSignal(const QString &msg);
+
 private:
     void handleNewConnection();
     void processPendingDatagrams();
+    void parserMap(const QVariantMap &vMap);
 
     QTcpServer *server = nullptr;
     QTcpSocket *tcpSocketIPv4 = nullptr;
