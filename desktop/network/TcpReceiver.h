@@ -1,7 +1,7 @@
 #ifndef TCP_RECEIVER_H
 #define TCP_RECEIVER_H
 
-#include "Globals.h"
+#include "NetworkGlobals.h"
 
 class TcpReceiver : public QObject
 {

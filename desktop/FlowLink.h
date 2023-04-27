@@ -22,10 +22,14 @@
 #include "DockManager.h"
 #include "DockWidget.h"
 
-#include "./utils/TableModel.h"
-#include "ChatWindow.h"
-#include "UdpReceiver.h"
-#include "UdpSender.h"
+#include "utils/TableModel.h"
+
+#include "windows/ChatWindow.h"
+
+#include "network/UdpSender.h"
+#include "network/UdpReceiver.h"
+#include "network/TcpSender.h"
+#include "network/TcpReceiver.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui

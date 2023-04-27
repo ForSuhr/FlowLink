@@ -1,7 +1,7 @@
 #ifndef TCP_SENDER_H
 #define TCP_SENDER_H
 
-#include "Globals.h"
+#include "NetworkGlobals.h"
 
 class TcpSender : public QObject
 {

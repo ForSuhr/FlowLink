@@ -1,7 +1,7 @@
 #ifndef UDPRECEIVER_H
 #define UDPRECEIVER_H
 
-#include "Globals.h"
+#include "NetworkGlobals.h"
 
 enum DeviceAction
 {

@@ -1,5 +1,5 @@
-#ifndef CHATWINDOW_H
-#define CHATWINDOW_H
+#ifndef CHAT_WINDOW_H
+#define CHAT_WINDOW_H
 
 #include <QWidget>
 

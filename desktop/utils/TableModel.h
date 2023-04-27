@@ -6,7 +6,7 @@
 #include <QVector>
 #include <QModelIndex>
 
-#include "../Globals.h"
+#include "../network/NetworkGlobals.h"
 
 enum TableHeader
 {

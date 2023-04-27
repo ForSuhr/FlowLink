@@ -13,19 +13,21 @@ set(PROJECT_SOURCES
         FlowLink.h
         FlowLink.cpp
         FlowLink.ui
-        ChatWindow.h
-        ChatWindow.cpp
-        ChatWindow.ui
-        UdpSender.h
-        UdpSender.cpp
-        UdpReceiver.h
-        UdpReceiver.cpp
-        TcpSender.h
-        TcpSender.cpp
-        TcpReceiver.h
-        TcpReceiver.cpp
         Globals.h
         Globals.cpp
+        windows/ChatWindow.h
+        windows/ChatWindow.cpp
+        windows/ChatWindow.ui
+        network/NetworkGlobals.h
+        network/NetworkGlobals.cpp
+        network/UdpSender.h
+        network/UdpSender.cpp
+        network/UdpReceiver.h
+        network/UdpReceiver.cpp
+        network/TcpSender.h
+        network/TcpSender.cpp
+        network/TcpReceiver.h
+        network/TcpReceiver.cpp
         utils/TableModel.h
         utils/TableModel.cpp
 )

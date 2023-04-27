@@ -42,10 +42,8 @@ void UdpReceiver::processPendingDatagrams()
     stream >> device;
     device.address = senderIp.toString();
 
-    if (device.name == getLocalHostName().name)
+    if (device.name != getLocalHostName().name)
     {
-        return;
-    }
-
-    emit sendDeviceInfo(device, DeviceAction::Connection);
+        emit sendDeviceInfo(device, DeviceAction::Connection);
+    } 
 }

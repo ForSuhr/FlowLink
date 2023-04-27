@@ -1,7 +1,7 @@
 #ifndef UDPSENDER_H
 #define UDPSENDER_H
 
-#include "Globals.h"
+#include "NetworkGlobals.h"
 
 class UdpSender : public QObject
 {
