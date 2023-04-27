@@ -45,27 +45,9 @@ void TcpReceiver::processPendingDatagrams()
 
     QCborStreamReader reader(datagram);
     QCborValue contents = QCborValue::fromCbor(reader);
-    switch (contents.type())
-    {
-    case QCborValue::String:
-    {
-        PLOG_DEBUG << contents.toString();
-        break;
-    }
-    default:
-    {
-        qDebug() << "Error: top-level item is not a str";
-        break;
-    }
-    }
-
-    /*
-    QCborStreamReader reader(tcpSocketIPv4);
-    QCborValue contents = QCborValue::fromCbor(reader);
     QCborMap cMap;
     QVariantMap vMap;
 
-    // Check that the top-level item (cbor stream from tcpSocketIPv4) is a map
     switch (contents.type())
     {
     case QCborValue::Map:
@@ -76,17 +58,12 @@ void TcpReceiver::processPendingDatagrams()
     }
     default:
     {
-        qDebug() << "Error: top-level item is not a map";
+        qDebug() << "Error: top-level item is not a QCborMap";
         break;
     }
     }
 
-    tcpSocketIPv4->close();
-    delete tcpSocketIPv4;
-
-    QString tmp = vMap.value("0").toString();
-    qDebug().noquote() << tmp;
-    */
+    PLOG_DEBUG << vMap.value("0").toString();
 
     return;
 }

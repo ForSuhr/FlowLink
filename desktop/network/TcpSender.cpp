@@ -26,12 +26,10 @@ void TcpSender::sendMsg(const QString &msg)
     QByteArray datagram;
     QCborStreamWriter writer(&datagram);
 
+    writer.startMap();
+    writer.append(DataType::PlainText);
     writer.append(msg);
+    writer.endMap();
 
     tcpSocketIPv4->write(datagram);
-
-    // writer.startMap();
-    // writer.append(DataType::PlainText);
-    // writer.append(msg);
-    // writer.endMap();
 }
