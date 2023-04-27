@@ -12,5 +12,5 @@ This is a project in development process, no binaries released yet.
 - [ ] Style Sheet
 
 ## Dependencies
-Qt5/6
-[ADS](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System)
+- [Qt5/6](https://download.qt.io/archive/qt/)
+- [ADS](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System)
