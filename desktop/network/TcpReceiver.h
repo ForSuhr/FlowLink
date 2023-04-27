@@ -11,6 +11,8 @@ public:
     explicit TcpReceiver(QObject *parent = nullptr);
     ~TcpReceiver();
 
+    void createConnection();
+
 private:
     void handleStream();
 

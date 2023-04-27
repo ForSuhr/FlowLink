@@ -12,7 +12,7 @@ ChatWindow::~ChatWindow()
     delete ui;
 }
 
-void setTextEditView(const ChatWindow *chatWindow, const QString &text)
+void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text)
 {
-    chatWindow->ui->textEditView->setText(text);
+    chatWindow->ui->textEditView->append(text);
 }

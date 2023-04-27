@@ -6,6 +6,14 @@
 
 TcpReceiver::TcpReceiver(QObject *parent) : QObject(parent)
 {
+}
+
+TcpReceiver::~TcpReceiver()
+{
+}
+
+void TcpReceiver::createConnection()
+{
     // Listen for incoming connections on port 8000
     if (!server->listen(QHostAddress::AnyIPv4, 8000))
     {
@@ -15,10 +23,6 @@ TcpReceiver::TcpReceiver(QObject *parent) : QObject(parent)
 
     // Connect the newConnection signal to a slot that handles incoming connections
     connect(server, &QTcpServer::newConnection, this, &TcpReceiver::handleStream);
-}
-
-TcpReceiver::~TcpReceiver()
-{
 }
 
 void TcpReceiver::handleStream()

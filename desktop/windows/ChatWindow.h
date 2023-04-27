@@ -18,7 +18,7 @@ public:
     explicit ChatWindow(QWidget *parent = nullptr);
     ~ChatWindow();
 
-    friend void setTextEditView(const ChatWindow *chatWindow, const QString &text);
+    friend void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text);
 
 private:
     Ui::ChatWindow *ui;

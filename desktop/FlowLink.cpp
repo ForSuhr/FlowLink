@@ -146,6 +146,7 @@ void FlowLink::onConnectActionClicked()
 {
   udpReceiver->createConnection();
   udpSender->sendDeviceInfo();
+
   disconnectAction->setEnabled(true);
 }
 
@@ -163,7 +164,11 @@ void FlowLink::onChatActionClicked()
   {
     QModelIndex index = indexes.first();
     QString address = index.data().toString();
-    setTextEditView(chatWindow, address);
+    appendTextToChatWindow(chatWindow, address);
+
+    tcpReceiver = new TcpReceiver();
+    tcpSender = new TcpSender(address);
+    tcpSender->sendMsg("Hello, I am sending a test message to you!");
   }
 }
 

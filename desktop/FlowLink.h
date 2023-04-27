@@ -62,8 +62,12 @@ private:
   void removeDevices();
 
   Ui::FlowLink *ui;
+
+  /* network */
   UdpReceiver *udpReceiver = nullptr;
   UdpSender *udpSender = nullptr;
+  TcpReceiver *tcpReceiver = nullptr;
+  TcpSender *tcpSender = nullptr;
 
   // dockmanager
   ads::CDockManager *dockManager = nullptr;
