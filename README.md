@@ -11,6 +11,10 @@ This is a project in development process, no binaries released yet.
 - [ ] Translate
 - [ ] Style Sheet
 
-## Dependencies
+## Requirements & Dependencies
+### Platform
+Linux (tested on Ubuntu 22.04.2 LTS) or Windows OS (tested on Win10)
+### Libraries
 - [Qt5/6](https://download.qt.io/archive/qt/)
 - [ADS](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System)
+- [plog](https://github.com/SergiusTheBest/plog)
