@@ -3,7 +3,7 @@
 A cross-platform software designed to transfer files within local network.
 
 ## Get Started
-This is a project in development process, no binaries release yet.
+This is a project in development process, no binaries released yet.
 
 ## Features
 - [x] Chat
