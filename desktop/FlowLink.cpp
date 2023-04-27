@@ -33,6 +33,7 @@ FlowLink::FlowLink(QWidget *parent)
 FlowLink::~FlowLink()
 {
   delete ui;
+  PLOG_DEBUG << "----- Stop Logging -----";
 }
 
 void FlowLink::setupLog()
