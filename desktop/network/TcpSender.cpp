@@ -1,6 +1,8 @@
 #include "TcpSender.h"
 
-TcpSender::TcpSender(const QString &ipv4Address, QObject *parent) : QObject(parent)
+TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
+    : QObject(parent),
+      tcpSocketIPv4(new QTcpSocket)
 {
     tcpSocketIPv4->connectToHost(ipv4Address, 8000);
 

@@ -7,7 +7,8 @@ FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::FlowLink),
       udpReceiver(new UdpReceiver),
-      udpSender(new UdpSender)
+      udpSender(new UdpSender),
+      tcpReceiver(new TcpReceiver)
 {
   setupLog();
 
@@ -166,7 +167,6 @@ void FlowLink::onChatActionClicked()
     QString address = index.data().toString();
     appendTextToChatWindow(chatWindow, address);
 
-    tcpReceiver = new TcpReceiver();
     tcpSender = new TcpSender(address);
     tcpSender->sendMsg("Hello, I am sending a test message to you!");
   }

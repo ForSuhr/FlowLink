@@ -4,8 +4,11 @@
 
 #include "TcpReceiver.h"
 
-TcpReceiver::TcpReceiver(QObject *parent) : QObject(parent)
+TcpReceiver::TcpReceiver(QObject *parent)
+    : QObject(parent),
+      server(new QTcpServer)
 {
+    createConnection();
 }
 
 TcpReceiver::~TcpReceiver()
@@ -51,6 +54,9 @@ void TcpReceiver::handleStream()
 
     tcpSocketIPv4->close();
     delete tcpSocketIPv4;
+
+    QString tmp = vMap.value("0").toString();
+    qDebug().noquote() << tmp;
 
     return;
 }

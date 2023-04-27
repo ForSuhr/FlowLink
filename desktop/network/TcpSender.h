@@ -14,7 +14,7 @@ public:
     void sendMsg(const QString &msg);
 
 private:
-    QTcpSocket *tcpSocketIPv4;
+    QTcpSocket *tcpSocketIPv4 = nullptr;
 };
 
 #endif
