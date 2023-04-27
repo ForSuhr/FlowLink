@@ -10,10 +10,13 @@
 #include <QStringListModel>
 #include <QTableView>
 #include <QTableWidget>
+#include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QWidgetAction>
 
 #include <memory>
+
+#include "Globals.h"
 
 #include "DockAreaWidget.h"
 #include "DockManager.h"
@@ -23,8 +26,6 @@
 #include "ChatWindow.h"
 #include "UdpReceiver.h"
 #include "UdpSender.h"
-#include "../plog/Log.h"
-#include "../plog/Initializers/RollingFileInitializer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -45,6 +46,7 @@ protected:
   virtual void closeEvent(QCloseEvent *event) override;
 
 private:
+  void setupLog();
   void setupDockManager();
   void createConnectionActionUi();
   void createChatActionUi();

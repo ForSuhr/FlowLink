@@ -20,18 +20,18 @@ namespace plog
         }
 
     private:
-        static util::nstring fixLineEndings(const util::nstring& str)
+        static std::wstring fixLineEndings(const std::wstring& str)
         {
-            util::nstring output;
-            output.reserve(str.length() * 2); // the worst case requires 2x chars
+            std::wstring output;
+            output.reserve(str.length() * 2);
 
             for (size_t i = 0; i < str.size(); ++i)
             {
-                util::nchar ch = str[i];
+                wchar_t ch = str[i];
 
-                if (ch == PLOG_NSTR('\n'))
+                if (ch == L'\n')
                 {
-                    output.push_back(PLOG_NSTR('\r'));
+                    output.push_back(L'\r');
                 }
 
                 output.push_back(ch);

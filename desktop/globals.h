@@ -11,6 +11,13 @@
 #include <QCborStreamWriter>
 #include <QCborStreamReader>
 
+#include <Log.h>
+#include <Init.h>
+#include <Formatters/TxtFormatter.h>
+#include <Appenders/ConsoleAppender.h>
+#include <Appenders/ColorConsoleAppender.h>
+#include <Appenders/RollingFileAppender.h>
+
 struct Device
 {
     QString name = "NA";
@@ -36,6 +43,7 @@ inline QDataStream &operator>>(QDataStream &stream, Device &device)
 {
     return stream >> device.name >> device.address;
 }
+
 /**
  * @brief get device name and address
  * @return struct Device

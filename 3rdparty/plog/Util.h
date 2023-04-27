@@ -15,21 +15,6 @@
 #   endif
 #endif
 
-//////////////////////////////////////////////////////////////////////////
-// PLOG_CHAR_IS_UTF8 specifies character encoding of `char` type. On *nix
-// systems it's set to UTF-8 while on Windows in can be ANSI or UTF-8. It
-// automatically detects `/utf-8` command line option in MSVC. Also it can
-// be set manually if required.
-// This option allows to support http://utf8everywhere.org approach.
-
-#ifndef PLOG_CHAR_IS_UTF8
-#   if defined(_WIN32) && !defined(_UTF8)
-#       define PLOG_CHAR_IS_UTF8 0
-#   else
-#       define PLOG_CHAR_IS_UTF8 1
-#   endif
-#endif
-
 #ifdef _WIN32
 #   if defined(PLOG_EXPORT)
 #       define PLOG_LINKAGE __declspec(dllexport)
@@ -81,11 +66,11 @@
 #   endif
 #endif
 
-#if PLOG_CHAR_IS_UTF8
-#   define PLOG_NSTR(x)    x
-#else
+#ifdef _WIN32
 #   define _PLOG_NSTR(x)   L##x
 #   define PLOG_NSTR(x)    _PLOG_NSTR(x)
+#else
+#   define PLOG_NSTR(x)    x
 #endif
 
 #ifdef _WIN32
@@ -104,18 +89,16 @@ namespace plog
 {
     namespace util
     {
-#if PLOG_CHAR_IS_UTF8
-        typedef std::string nstring;
-        typedef std::ostringstream nostringstream;
-        typedef std::istringstream nistringstream;
-        typedef std::ostream nostream;
-        typedef char nchar;
-#else
+#ifdef _WIN32
         typedef std::wstring nstring;
         typedef std::wostringstream nostringstream;
         typedef std::wistringstream nistringstream;
-        typedef std::wostream nostream;
         typedef wchar_t nchar;
+#else
+        typedef std::string nstring;
+        typedef std::ostringstream nostringstream;
+        typedef std::istringstream nistringstream;
+        typedef char nchar;
 #endif
 
         inline void localtime_s(struct tm* t, const time_t* time)
@@ -189,25 +172,18 @@ namespace plog
 #endif
         }
 
-#ifndef _GNU_SOURCE
+#ifdef _WIN32
     inline int vasprintf(char** strp, const char* format, va_list ap)
     {
-        va_list ap_copy;
-#if defined(_MSC_VER) && _MSC_VER <= 1600
-        ap_copy = ap; // there is no va_copy on Visual Studio 2010
+#if defined(__BORLANDC__)
+        int charCount = 0x1000; // there is no _vscprintf on Borland/Embarcadero
 #else
-        va_copy(ap_copy, ap);
-#endif
-#ifndef __STDC_SECURE_LIB__
-        int charCount = vsnprintf(NULL, 0, format, ap_copy);
-#else
-        int charCount = vsnprintf_s(NULL, 0, static_cast<size_t>(-1), format, ap_copy);
-#endif
-        va_end(ap_copy);
+        int charCount = _vscprintf(format, ap);
         if (charCount < 0)
         {
             return -1;
         }
+#endif
 
         size_t bufferCharCount = static_cast<size_t>(charCount) + 1;
 
@@ -217,10 +193,12 @@ namespace plog
             return -1;
         }
 
-#ifndef __STDC_SECURE_LIB__
-        int retval = vsnprintf(str, bufferCharCount, format, ap);
+#if defined(__BORLANDC__)
+        int retval = vsnprintf_s(str, bufferCharCount, format, ap);
+#elif defined(__MINGW32__) && !defined(__MINGW64_VERSION_MAJOR)
+        int retval = _vsnprintf(str, bufferCharCount, format, ap);
 #else
-        int retval = vsnprintf_s(str, bufferCharCount, static_cast<size_t>(-1), format, ap);
+        int retval = _vsnprintf_s(str, bufferCharCount, charCount, format, ap);
 #endif
         if (retval < 0)
         {
@@ -231,9 +209,7 @@ namespace plog
         *strp = str;
         return retval;
     }
-#endif
 
-#ifdef _WIN32
     inline int vaswprintf(wchar_t** strp, const wchar_t* format, va_list ap)
     {
 #if defined(__BORLANDC__)
@@ -272,44 +248,7 @@ namespace plog
     }
 #endif
 
-#ifdef _WIN32
-        inline std::wstring toWide(const char* str, UINT cp = codePage::kChar)
-        {
-            size_t len = ::strlen(str);
-            std::wstring wstr(len, 0);
-
-            if (!wstr.empty())
-            {
-                int wlen = MultiByteToWideChar(cp, 0, str, static_cast<int>(len), &wstr[0], static_cast<int>(wstr.size()));
-                wstr.resize(wlen);
-            }
-
-            return wstr;
-        }
-
-        inline std::wstring toWide(const std::string& str, UINT cp = codePage::kChar)
-        {
-            return toWide(str.c_str(), cp);
-        }
-
-        inline const std::wstring& toWide(const std::wstring& str) // do nothing for already wide string
-        {
-            return str;
-        }
-
-        inline std::string toNarrow(const std::wstring& wstr, long page)
-        {
-            int len = WideCharToMultiByte(page, 0, wstr.c_str(), static_cast<int>(wstr.size()), 0, 0, 0, 0);
-            std::string str(len, 0);
-
-            if (!str.empty())
-            {
-                WideCharToMultiByte(page, 0, wstr.c_str(), static_cast<int>(wstr.size()), &str[0], len, 0, 0);
-            }
-
-            return str;
-        }
-#elif PLOG_ENABLE_WCHAR_INPUT
+#if PLOG_ENABLE_WCHAR_INPUT && !defined(_WIN32)
         inline std::string toNarrow(const wchar_t* wstr)
         {
             size_t wlen = ::wcslen(wstr);
@@ -333,6 +272,35 @@ namespace plog
         }
 #endif
 
+#ifdef _WIN32
+        inline std::wstring toWide(const char* str)
+        {
+            size_t len = ::strlen(str);
+            std::wstring wstr(len, 0);
+
+            if (!wstr.empty())
+            {
+                int wlen = MultiByteToWideChar(codePage::kActive, 0, str, static_cast<int>(len), &wstr[0], static_cast<int>(wstr.size()));
+                wstr.resize(wlen);
+            }
+
+            return wstr;
+        }
+
+        inline std::string toNarrow(const std::wstring& wstr, long page)
+        {
+            int len = WideCharToMultiByte(page, 0, wstr.c_str(), static_cast<int>(wstr.size()), 0, 0, 0, 0);
+            std::string str(len, 0);
+
+            if (!str.empty())
+            {
+                WideCharToMultiByte(page, 0, wstr.c_str(), static_cast<int>(wstr.size()), &str[0], len, 0, 0);
+            }
+
+            return str;
+        }
+#endif
+
         inline std::string processFuncName(const char* func)
         {
 #if (defined(_WIN32) && !defined(__MINGW32__)) || defined(__OBJC__)
@@ -340,7 +308,6 @@ namespace plog
 #else
             const char* funcBegin = func;
             const char* funcEnd = ::strchr(funcBegin, '(');
-            int foundTemplate = 0;
 
             if (!funcEnd)
             {
@@ -349,15 +316,7 @@ namespace plog
 
             for (const char* i = funcEnd - 1; i >= funcBegin; --i) // search backwards for the first space char
             {
-                if (*i == '>')
-                {
-                    foundTemplate++;
-                }
-                else if (*i == '<')
-                {
-                    foundTemplate--;
-                }
-                else if (*i == ' ' && foundTemplate == 0)
+                if (*i == ' ')
                 {
                     funcBegin = i + 1;
                     break;
@@ -370,10 +329,10 @@ namespace plog
 
         inline const nchar* findExtensionDot(const nchar* fileName)
         {
-#if PLOG_CHAR_IS_UTF8
-            return std::strrchr(fileName, '.');
-#else
+#ifdef _WIN32
             return std::wcsrchr(fileName, L'.');
+#else
+            return std::strrchr(fileName, '.');
 #endif
         }
 
@@ -412,21 +371,26 @@ namespace plog
             {
             }
 
+            File(const nchar* fileName) : m_file(-1)
+            {
+                open(fileName);
+            }
+
             ~File()
             {
                 close();
             }
 
-            size_t open(const nstring& fileName)
+            size_t open(const nchar* fileName)
             {
 #if defined(_WIN32) && (defined(__BORLANDC__) || defined(__MINGW32__))
-                m_file = ::_wsopen(toWide(fileName).c_str(), _O_CREAT | _O_WRONLY | _O_BINARY | _O_NOINHERIT, SH_DENYWR, _S_IREAD | _S_IWRITE);
+                m_file = ::_wsopen(fileName, _O_CREAT | _O_WRONLY | _O_BINARY | _O_NOINHERIT, SH_DENYWR, _S_IREAD | _S_IWRITE);
 #elif defined(_WIN32)
-                ::_wsopen_s(&m_file, toWide(fileName).c_str(), _O_CREAT | _O_WRONLY | _O_BINARY | _O_NOINHERIT, _SH_DENYWR, _S_IREAD | _S_IWRITE);
+                ::_wsopen_s(&m_file, fileName, _O_CREAT | _O_WRONLY | _O_BINARY | _O_NOINHERIT, _SH_DENYWR, _S_IREAD | _S_IWRITE);
 #elif defined(O_CLOEXEC)
-                m_file = ::open(fileName.c_str(), O_CREAT | O_APPEND | O_WRONLY | O_CLOEXEC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+                m_file = ::open(fileName, O_CREAT | O_APPEND | O_WRONLY | O_CLOEXEC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 #else
-                m_file = ::open(fileName.c_str(), O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+                m_file = ::open(fileName, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 #endif
                 return seek(0, SEEK_END);
             }
@@ -474,21 +438,21 @@ namespace plog
                 }
             }
 
-            static int unlink(const nstring& fileName)
+            static int unlink(const nchar* fileName)
             {
 #ifdef _WIN32
-                return ::_wunlink(toWide(fileName).c_str());
+                return ::_wunlink(fileName);
 #else
-                return ::unlink(fileName.c_str());
+                return ::unlink(fileName);
 #endif
             }
 
-            static int rename(const nstring& oldFilename, const nstring& newFilename)
+            static int rename(const nchar* oldFilename, const nchar* newFilename)
             {
 #ifdef _WIN32
-                return MoveFileW(toWide(oldFilename).c_str(), toWide(newFilename).c_str());
+                return MoveFileW(oldFilename, newFilename);
 #else
-                return ::rename(oldFilename.c_str(), newFilename.c_str());
+                return ::rename(oldFilename, newFilename);
 #endif
             }
 

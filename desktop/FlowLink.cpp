@@ -1,5 +1,3 @@
-#include <QHeaderView>
-
 #include "./ui_FlowLink.h"
 #include "FlowLink.h"
 
@@ -11,32 +9,37 @@ FlowLink::FlowLink(QWidget *parent)
       udpReceiver(new UdpReceiver),
       udpSender(new UdpSender)
 {
+  setupLog();
+
   ui->setupUi(this);
 
-  // dock manager
   setupDockManager();
 
-  // toolbar
+  /* toolbar */
   createConnectionActionUi();
   createChatActionUi();
   createPerspectiveUi();
 
-  // central widget
+  /* central widget */
   createCentralUI();
 
-  // device table widget
+  /* device table widget */
   createDeviceTableUi();
 
-  // properties table widget
+  /* properties table widget */
   createPropertiesTableUi();
-
-  plog::init(plog::debug, "trace.log");
-  PLOG_DEBUG << "Initialization complete";
 }
 
 FlowLink::~FlowLink()
 {
   delete ui;
+}
+
+void FlowLink::setupLog()
+{
+  static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
+  plog::init(plog::debug, &consoleAppender);
+  PLOG_DEBUG << "----- Start Logging -----";
 }
 
 void FlowLink::setupDockManager()

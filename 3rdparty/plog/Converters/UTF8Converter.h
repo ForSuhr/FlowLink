@@ -13,15 +13,15 @@ namespace plog
             return std::string(kBOM) + convert(str);
         }
 
-#if PLOG_CHAR_IS_UTF8
-        static const std::string& convert(const util::nstring& str)
-        {
-            return str;
-        }
-#else
+#ifdef _WIN32
         static std::string convert(const util::nstring& str)
         {
             return util::toNarrow(str, codePage::kUTF8);
+        }
+#else
+        static const std::string& convert(const util::nstring& str)
+        {
+            return str;
         }
 #endif
     };

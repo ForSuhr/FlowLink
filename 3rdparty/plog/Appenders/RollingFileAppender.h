@@ -21,7 +21,7 @@ namespace plog
             setMaxFileSize(maxFileSize);
         }
 
-#if defined(_WIN32) && !PLOG_CHAR_IS_UTF8
+#ifdef _WIN32
         RollingFileAppender(const char* fileName, size_t maxFileSize = 0, int maxFiles = 0)
             : m_fileSize()
             , m_maxFileSize()
@@ -65,7 +65,7 @@ namespace plog
             m_firstWrite = true;
         }
 
-#if defined(_WIN32) && !PLOG_CHAR_IS_UTF8
+#ifdef _WIN32
         void setFileName(const char* fileName)
         {
             setFileName(util::toWide(fileName).c_str());
@@ -87,14 +87,14 @@ namespace plog
             m_file.close();
 
             util::nstring lastFileName = buildFileName(m_maxFiles - 1);
-            util::File::unlink(lastFileName);
+            util::File::unlink(lastFileName.c_str());
 
             for (int fileNumber = m_maxFiles - 2; fileNumber >= 0; --fileNumber)
             {
                 util::nstring currentFileName = buildFileName(fileNumber);
                 util::nstring nextFileName = buildFileName(fileNumber + 1);
 
-                util::File::rename(currentFileName, nextFileName);
+                util::File::rename(currentFileName.c_str(), nextFileName.c_str());
             }
 
             openLogFile();
@@ -104,7 +104,8 @@ namespace plog
     private:
         void openLogFile()
         {
-            m_fileSize = m_file.open(buildFileName());
+            util::nstring fileName = buildFileName();
+            m_fileSize = m_file.open(fileName.c_str());
 
             if (0 == m_fileSize)
             {
