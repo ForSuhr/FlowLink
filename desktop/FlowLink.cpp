@@ -168,7 +168,7 @@ void FlowLink::onChatActionClicked()
     appendTextToChatWindow(chatWindow, address);
 
     tcpSender = new TcpSender(address);
-    tcpSender->sendMsg("Hello, I am sending a test message to you!");
+    // tcpSender->sendMsg("Hello, I am sending a test message to you!");
   }
 }
 

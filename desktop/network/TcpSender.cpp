@@ -10,6 +10,9 @@ TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
     {
         qDebug() << "Error: failed to connect to host";
     }
+
+    connect(tcpSocketIPv4, &QTcpSocket::connected, [&]
+            { sendMsg("Hello, I am sending a test message to you!"); });
 }
 
 TcpSender::~TcpSender()
@@ -20,8 +23,10 @@ void TcpSender::sendMsg(const QString &msg)
 {
     QCborStreamWriter writer(tcpSocketIPv4);
 
-    writer.startMap();
-    writer.append(DataType::PlainText);
     writer.append(msg);
-    writer.endMap();
+
+    // writer.startMap();
+    // writer.append(DataType::PlainText);
+    // writer.append(msg);
+    // writer.endMap();
 }

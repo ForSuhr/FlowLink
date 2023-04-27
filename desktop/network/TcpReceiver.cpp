@@ -6,7 +6,8 @@
 
 TcpReceiver::TcpReceiver(QObject *parent)
     : QObject(parent),
-      server(new QTcpServer)
+      server(new QTcpServer),
+      tcpSocketIPv4(new QTcpSocket)
 {
     createConnection();
 }
@@ -24,13 +25,17 @@ void TcpReceiver::createConnection()
         return;
     }
 
-    // Connect the newConnection signal to a slot that handles incoming connections
-    connect(server, &QTcpServer::newConnection, this, &TcpReceiver::handleStream);
+    connect(server, &QTcpServer::newConnection, this, &TcpReceiver::handleNewConnection);
+    connect(tcpSocketIPv4, &QTcpSocket::readyRead, this, &TcpReceiver::processPendingDatagrams);
 }
 
-void TcpReceiver::handleStream()
+void TcpReceiver::handleNewConnection()
 {
-    QTcpSocket *tcpSocketIPv4 = server->nextPendingConnection();
+    tcpSocketIPv4 = server->nextPendingConnection();
+}
+
+void TcpReceiver::processPendingDatagrams()
+{
     QCborStreamReader reader(tcpSocketIPv4);
     QCborValue contents = QCborValue::fromCbor(reader);
     QCborMap cMap;

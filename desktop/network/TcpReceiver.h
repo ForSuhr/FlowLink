@@ -14,9 +14,11 @@ public:
     void createConnection();
 
 private:
-    void handleStream();
+    void handleNewConnection();
+    void processPendingDatagrams();
 
     QTcpServer *server = nullptr;
+    QTcpSocket *tcpSocketIPv4 = nullptr;
 };
 
 #endif
