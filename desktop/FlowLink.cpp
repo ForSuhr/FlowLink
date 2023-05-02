@@ -29,6 +29,9 @@ FlowLink::FlowLink(QWidget *parent)
 
   /* properties table widget */
   createPropertiesTableUi();
+
+  /* config */
+  config.setValue("Name", QString("test 1"));
 }
 
 FlowLink::~FlowLink()
@@ -147,8 +150,7 @@ void FlowLink::createPropertiesTableUi()
   propertiesTable->setRowCount(10);
   CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
   propertiesDockWidget->setWidget(propertiesTable);
-  propertiesDockWidget->setMinimumSizeHintMode(
-      CDockWidget::MinimumSizeHintFromDockWidget);
+  propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
   propertiesDockWidget->resize(200, 150);
   propertiesDockWidget->setMinimumSize(200, 150);
   dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, centralDockArea);

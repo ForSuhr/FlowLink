@@ -28,6 +28,10 @@ set(PROJECT_SOURCES
         network/TcpSender.cpp
         network/TcpReceiver.h
         network/TcpReceiver.cpp
+        utils/QSettingsJSON.h
+        utils/QSettingsJSON.cpp
+        utils/ConfigParser.h
+        utils/ConfigParser.cpp
         utils/TableModel.h
         utils/TableModel.cpp
 )

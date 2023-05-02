@@ -22,6 +22,7 @@
 #include "DockManager.h"
 #include "DockWidget.h"
 
+#include "utils/ConfigParser.h"
 #include "utils/TableModel.h"
 
 #include "windows/ChatWindow.h"
