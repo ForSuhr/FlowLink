@@ -60,6 +60,8 @@ private:
   void createChatWindowUi();
   void createDeviceTableUi();
   void createPropertiesTableUi();
+  void loadPreferences();
+
   void addDevice(Device device);
   void removeDevices();
 
@@ -83,6 +85,7 @@ private:
   // perspective
   QAction *savePerspectiveAction = nullptr;
   QWidgetAction *perspectiveListAction = nullptr;
+  QAction *setDefaultPerspective = nullptr;
   QComboBox *perspectiveComboBox = nullptr;
 
   // dockwidget

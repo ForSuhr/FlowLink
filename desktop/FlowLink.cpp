@@ -30,8 +30,8 @@ FlowLink::FlowLink(QWidget *parent)
   /* properties table widget */
   createPropertiesTableUi();
 
-  /* config */
-  config.setValue("Name", QString("test 1"));
+  /* load preferences */
+  loadPreferences();
 }
 
 FlowLink::~FlowLink()
@@ -87,16 +87,24 @@ void FlowLink::createChatActionUi()
 void FlowLink::createPerspectiveUi()
 {
   savePerspectiveAction = new QAction("Create Perspective", this);
-  connect(savePerspectiveAction, SIGNAL(triggered()), SLOT(savePerspective()));
+  connect(savePerspectiveAction, SIGNAL(triggered()), this, SLOT(savePerspective()));
+
   perspectiveListAction = new QWidgetAction(this);
   perspectiveComboBox = new QComboBox(this);
   perspectiveComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
   perspectiveComboBox->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
   connect(perspectiveComboBox, SIGNAL(currentTextChanged(const QString &)), dockManager, SLOT(openPerspective(const QString &)));
   perspectiveListAction->setDefaultWidget(perspectiveComboBox);
+
+  setDefaultPerspective = new QAction("Set Default Perspective", this);
+  connect(setDefaultPerspective, &QAction::triggered, [&]
+          { if (NULL != perspectiveComboBox->count())
+            config.setValue("Perspective", perspectiveComboBox->currentText()); });
+
   ui->toolBar->addSeparator();
   ui->toolBar->addAction(perspectiveListAction);
   ui->toolBar->addAction(savePerspectiveAction);
+  ui->toolBar->addAction(setDefaultPerspective);
 }
 
 void FlowLink::createCentralUI()
@@ -157,6 +165,16 @@ void FlowLink::createPropertiesTableUi()
   ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
 }
 
+void FlowLink::loadPreferences()
+{
+  /*  load perspectives from local file */
+  QSettings settings("./config/perspectives.ini", QSettings::IniFormat);
+  dockManager->loadPerspectives(settings);
+  perspectiveComboBox->clear();
+  perspectiveComboBox->addItems(dockManager->perspectiveNames());
+  perspectiveComboBox->setCurrentText(config.value("Perspective").toString());
+}
+
 void FlowLink::onConnectActionClicked()
 {
   udpReceiver->createConnection();
@@ -209,6 +227,10 @@ void FlowLink::savePerspective()
   perspectiveComboBox->clear();
   perspectiveComboBox->addItems(dockManager->perspectiveNames());
   perspectiveComboBox->setCurrentText(perspectiveName);
+
+  /*  save perspectives as local file */
+  QSettings settings("./config/perspectives.ini", QSettings::IniFormat);
+  dockManager->savePerspectives(settings);
 }
 
 void FlowLink::closeEvent(QCloseEvent *event)
