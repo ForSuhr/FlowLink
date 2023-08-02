@@ -2,6 +2,7 @@
 #define CHAT_WINDOW_H
 
 #include <QWidget>
+#include <Qt>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -20,7 +21,9 @@ public:
 
     QString msgText();
 
-    friend void appendTextToChatWindow(const ChatWindow *chatWindow, const QString &text);
+    friend void leftAlignedAppend(const ChatWindow *chatWindow, const QString &text);
+    friend void rightAlignedAppend(const ChatWindow *chatWindow, const QString &text);
+    friend void centerAlignedAppend(const ChatWindow *chatWindow, const QString &text);
 
 signals:
     void onBtnSendClickedSignal();

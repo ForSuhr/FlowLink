@@ -98,7 +98,7 @@ void FlowLink::createPerspectiveUi()
 
   setDefaultPerspective = new QAction("Set Default Perspective", this);
   connect(setDefaultPerspective, &QAction::triggered, [&]
-          { if (NULL != perspectiveComboBox->count())
+          { if (perspectiveComboBox->count()!=0)
             config.setValue("Perspective", perspectiveComboBox->currentText()); });
 
   ui->toolBar->addSeparator();
@@ -124,9 +124,9 @@ void FlowLink::createChatWindowUi()
   connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]()
           { QString msg = chatWindow->msgText();
             tcpSender->sendMsg(msg);
-            appendTextToChatWindow(chatWindow, msg); });
+            rightAlignedAppend(chatWindow, msg); });
   connect(tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
-          { appendTextToChatWindow(chatWindow, msg); });
+          { leftAlignedAppend(chatWindow, msg); });
 }
 
 void FlowLink::createDeviceTableUi()
@@ -197,7 +197,7 @@ void FlowLink::onChatActionClicked()
   {
     QModelIndex index = indexes.first();
     QString address = index.data().toString();
-    appendTextToChatWindow(chatWindow, address);
+    centerAlignedAppend(chatWindow, address + " connected");
 
     tcpSender = new TcpSender(address);
   }
