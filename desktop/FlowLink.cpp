@@ -202,6 +202,8 @@ void FlowLink::onChatActionClicked()
 
     // get chat window by address<QString>
     static ChatWindow *chatWindow = m_chatWindowMap[address];
+    chatWindow->disconnect();
+    m_tcpReceiver->disconnect();
     connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]()
             { QString msg = chatWindow->msgText();
             m_tcpSender->sendMsg(msg);
