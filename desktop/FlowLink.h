@@ -15,6 +15,7 @@
 #include <QWidgetAction>
 
 #include <memory>
+#include <unordered_map>
 
 #include "Globals.h"
 
@@ -57,7 +58,6 @@ private:
   void createChatActionUi();
   void createPerspectiveUi();
   void createCentralUI();
-  void createChatWindowUi();
   void createDeviceTableUi();
   void createPropertiesTableUi();
   void loadPreferences();
@@ -68,32 +68,35 @@ private:
   Ui::FlowLink *ui;
 
   /* network */
-  UdpReceiver *udpReceiver = nullptr;
-  UdpSender *udpSender = nullptr;
-  TcpReceiver *tcpReceiver = nullptr;
-  TcpSender *tcpSender = nullptr;
+  UdpReceiver *m_udpReceiver = nullptr;
+  UdpSender *m_udpSender = nullptr;
+  TcpReceiver *m_tcpReceiver = nullptr;
+  TcpSender *m_tcpSender = nullptr;
 
   // dockmanager
-  ads::CDockManager *dockManager = nullptr;
-  ads::CDockAreaWidget *centralDockArea = nullptr;
+  ads::CDockManager *m_dockManager = nullptr;
+  ads::CDockAreaWidget *m_centralDockArea = nullptr;
+  ads::CDockWidget *m_centralDockWidget = nullptr;
 
   // toolbar
-  QAction *connectAction = nullptr;
-  QAction *disconnectAction = nullptr;
-  QAction *chatAction = nullptr;
+  QAction *m_connectAction = nullptr;
+  QAction *m_disconnectAction = nullptr;
+  QAction *m_chatAction = nullptr;
 
   // perspective
-  QAction *savePerspectiveAction = nullptr;
-  QWidgetAction *perspectiveListAction = nullptr;
-  QAction *setDefaultPerspective = nullptr;
-  QComboBox *perspectiveComboBox = nullptr;
+  QAction *m_savePerspectiveAction = nullptr;
+  QWidgetAction *m_perspectiveListAction = nullptr;
+  QAction *m_setDefaultPerspective = nullptr;
+  QComboBox *m_perspectiveComboBox = nullptr;
 
   // dockwidget
-  ChatWindow *chatWindow = nullptr;
-  TableModel *deviceTableModel = nullptr;
-  QSortFilterProxyModel *deviceProxyModel = nullptr;
-  QTableView *deviceTableView = nullptr;
-  QTableWidget *propertiesTable = nullptr;
+  TableModel *m_deviceTableModel = nullptr;
+  QSortFilterProxyModel *m_deviceProxyModel = nullptr;
+  QTableView *m_deviceTableView = nullptr;
+  QTableWidget *m_propertiesTable = nullptr;
+
+  // field for dockwidget
+  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {}; // a map used to store chat window pointers
 
 private slots:
   void onConnectActionClicked();
