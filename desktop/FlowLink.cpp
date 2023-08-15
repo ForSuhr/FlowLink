@@ -7,8 +7,7 @@ FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::FlowLink),
       m_udpReceiver(new UdpReceiver),
-      m_udpSender(new UdpSender),
-      m_tcpReceiver(new TcpReceiver)
+      m_udpSender(new UdpSender)
 {
   setupLog();
 
@@ -196,27 +195,15 @@ void FlowLink::onChatActionClicked()
     // if the map does not contain a chat window of this adress, create a new chat window and store its pointer by address string in the map
     if (m_chatWindowMap.find(address) == m_chatWindowMap.end())
     {
-      ChatWindow *chatWindow = new ChatWindow();
+      ChatWindow *chatWindow = new ChatWindow(address);
       m_chatWindowMap[address] = chatWindow;
     }
 
     // get chat window by address<QString>
     static ChatWindow *chatWindow = m_chatWindowMap[address];
-    chatWindow->disconnect();
-    m_tcpReceiver->disconnect();
-    connect(chatWindow, &ChatWindow::onBtnSendClickedSignal, [&]()
-            { QString msg = chatWindow->msgText();
-            m_tcpSender->sendMsg(msg);
-            rightAlignedAppend(chatWindow, msg); });
-    connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
-            { leftAlignedAppend(chatWindow, msg); });
 
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
-
-    // connect to the device
-    m_tcpSender = new TcpSender(address);
-    centerAlignedAppend(chatWindow, address + " connected");
   }
 }
 

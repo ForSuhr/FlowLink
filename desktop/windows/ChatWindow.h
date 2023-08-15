@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <Qt>
 
+#include "../network/TcpSender.h"
+#include "../network/TcpReceiver.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -16,7 +19,7 @@ class ChatWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QWidget *parent = nullptr);
+    explicit ChatWindow(QString address, QWidget *parent = nullptr);
     ~ChatWindow();
 
     QString msgText();
@@ -25,14 +28,12 @@ public:
     friend void rightAlignedAppend(const ChatWindow *chatWindow, const QString &text);
     friend void centerAlignedAppend(const ChatWindow *chatWindow, const QString &text);
 
-signals:
-    void onBtnSendClickedSignal();
-
 private:
     Ui::ChatWindow *ui;
 
-private slots:
-    void onBtnSendClicked();
+    /* network */
+    TcpReceiver *m_tcpReceiver = nullptr;
+    TcpSender *m_tcpSender = nullptr;
 };
 
 #endif

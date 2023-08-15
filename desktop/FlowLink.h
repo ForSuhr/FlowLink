@@ -30,8 +30,6 @@
 
 #include "network/UdpSender.h"
 #include "network/UdpReceiver.h"
-#include "network/TcpSender.h"
-#include "network/TcpReceiver.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -70,8 +68,6 @@ private:
   /* network */
   UdpReceiver *m_udpReceiver = nullptr;
   UdpSender *m_udpSender = nullptr;
-  TcpReceiver *m_tcpReceiver = nullptr;
-  TcpSender *m_tcpSender = nullptr;
 
   // dockmanager
   ads::CDockManager *m_dockManager = nullptr;

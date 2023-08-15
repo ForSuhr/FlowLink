@@ -1,12 +1,26 @@
 #include "./ui_ChatWindow.h"
 #include "ChatWindow.h"
 
-ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent),
-                                          ui(new Ui::ChatWindow)
+ChatWindow::ChatWindow(QString address, QWidget *parent)
+    : QWidget(parent),
+      ui(new Ui::ChatWindow),
+      m_tcpReceiver(new TcpReceiver),
+      m_tcpSender(new TcpSender(address))
 {
     ui->setupUi(this);
 
-    connect(ui->btnSend, &QPushButton::clicked, this, &ChatWindow::onBtnSendClicked);
+    // device connected
+    centerAlignedAppend(this, address + " connected");
+
+    // send message
+    connect(ui->btnSend, &QPushButton::clicked, [&]()
+            { QString msg = msgText();
+            m_tcpSender->sendMsg(msg);
+            rightAlignedAppend(this, msg); });
+
+    // receive message
+    connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
+            { leftAlignedAppend(this, msg); });
 }
 
 ChatWindow::~ChatWindow()
@@ -17,11 +31,6 @@ ChatWindow::~ChatWindow()
 QString ChatWindow::msgText()
 {
     return ui->textEditMsg->toPlainText();
-}
-
-void ChatWindow::onBtnSendClicked()
-{
-    emit onBtnSendClickedSignal();
 }
 
 void leftAlignedAppend(const ChatWindow *chatWindow, const QString &text)
