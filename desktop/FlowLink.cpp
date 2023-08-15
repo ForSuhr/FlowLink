@@ -109,7 +109,7 @@ void FlowLink::createPerspectiveUi()
 void FlowLink::createCentralUI()
 {
   m_centralDockWidget = new CDockWidget("Chat");
-  QLabel *centralDockLabel = new QLabel("Flow Link");
+  centralDockLabel = new QLabel("Flow Link");
   centralDockLabel->setAlignment(Qt::AlignCenter);
   m_centralDockWidget->setWidget(centralDockLabel);
   m_centralDockArea = m_dockManager->setCentralWidget(m_centralDockWidget);
@@ -222,7 +222,12 @@ void FlowLink::removeDevices()
   m_deviceTableModel->removeRows(0, rowNum, QModelIndex());
 
   // clear the chat window map
+  for (auto &i : m_chatWindowMap)
+  {
+    i.second->deleteLater();
+  }
   m_chatWindowMap.clear();
+  m_centralDockWidget->setWidget(centralDockLabel);
 }
 
 void FlowLink::savePerspective()

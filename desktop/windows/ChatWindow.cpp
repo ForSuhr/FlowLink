@@ -4,21 +4,21 @@
 ChatWindow::ChatWindow(QString address, QWidget *parent)
     : QWidget(parent),
       ui(new Ui::ChatWindow),
-      m_tcpReceiver(new TcpReceiver),
-      m_tcpSender(new TcpSender(address))
+      m_tcpReceiver(new TcpReceiver)
 {
     ui->setupUi(this);
 
-    // device connected
+    // connect to the device
+    m_tcpSender = new TcpSender(address);
     centerAlignedAppend(this, address + " connected");
 
-    // send message
+    // send message connection
     connect(ui->btnSend, &QPushButton::clicked, [&]()
             { QString msg = msgText();
             m_tcpSender->sendMsg(msg);
             rightAlignedAppend(this, msg); });
 
-    // receive message
+    // receive message connection
     connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
             { leftAlignedAppend(this, msg); });
 }

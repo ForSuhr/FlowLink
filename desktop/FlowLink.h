@@ -86,6 +86,7 @@ private:
   QComboBox *m_perspectiveComboBox = nullptr;
 
   // dockwidget
+  QLabel *centralDockLabel = nullptr;
   TableModel *m_deviceTableModel = nullptr;
   QSortFilterProxyModel *m_deviceProxyModel = nullptr;
   QTableView *m_deviceTableView = nullptr;
