@@ -209,7 +209,8 @@ void FlowLink::addDevice(Device device)
   // create a new chat window and store its pointer by address string in the map
   if (m_chatWindowMap.find(device.address) == m_chatWindowMap.end())
   {
-    ChatWindow *chatWindow = new ChatWindow(device.address);
+    ChatWindow *chatWindow = new ChatWindow(device.address, m_port);
+    m_port++;
     m_chatWindowMap[device.address] = chatWindow;
   }
 }

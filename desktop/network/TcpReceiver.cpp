@@ -4,22 +4,22 @@
 
 #include "TcpReceiver.h"
 
-TcpReceiver::TcpReceiver(QObject *parent)
+TcpReceiver::TcpReceiver(int port, QObject *parent)
     : QObject(parent),
       server(new QTcpServer),
       tcpSocketIPv4(new QTcpSocket)
 {
-    createConnection();
+    createConnection(port);
 }
 
 TcpReceiver::~TcpReceiver()
 {
 }
 
-void TcpReceiver::createConnection()
+void TcpReceiver::createConnection(int port)
 {
-    // Listen for incoming connections on port 8000
-    if (!server->listen(QHostAddress::AnyIPv4, 8000))
+    // Listen for incoming connections on port
+    if (!server->listen(QHostAddress::AnyIPv4, port))
     {
         PLOG_DEBUG << "Failed to start TCP server";
         return;

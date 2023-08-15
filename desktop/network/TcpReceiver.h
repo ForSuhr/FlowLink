@@ -8,15 +8,14 @@ class TcpReceiver : public QObject
     Q_OBJECT
 
 public:
-    explicit TcpReceiver(QObject *parent = nullptr);
+    explicit TcpReceiver(int port, QObject *parent = nullptr);
     ~TcpReceiver();
-
-    void createConnection();
 
 signals:
     void msgSignal(const QString &msg);
 
 private:
+    void createConnection(int port = 8000);
     void handleNewConnection();
     void processPendingDatagrams();
     void parserMap(const QVariantMap &vMap);

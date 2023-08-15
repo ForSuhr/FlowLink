@@ -68,6 +68,7 @@ private:
   /* network */
   UdpReceiver *m_udpReceiver = nullptr;
   UdpSender *m_udpSender = nullptr;
+  int m_port = 8000;
 
   // dockmanager
   ads::CDockManager *m_dockManager = nullptr;
