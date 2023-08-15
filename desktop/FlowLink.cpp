@@ -108,7 +108,7 @@ void FlowLink::createPerspectiveUi()
 
 void FlowLink::createCentralUI()
 {
-  m_centralDockWidget = new CDockWidget("");
+  m_centralDockWidget = new CDockWidget("Chat");
   QLabel *centralDockLabel = new QLabel("Flow Link");
   centralDockLabel->setAlignment(Qt::AlignCenter);
   m_centralDockWidget->setWidget(centralDockLabel);
@@ -177,8 +177,7 @@ void FlowLink::onDisconnectActionClicked()
   m_disconnectAction->setEnabled(false);
 }
 
-/// @brief
-/// select device in the table and click on chat button,  open a chat window and connect to the device
+/// @brief open a chat window of the selected device
 void FlowLink::onChatActionClicked()
 {
   // get indexes from the selected part of the table
@@ -192,30 +191,38 @@ void FlowLink::onChatActionClicked()
     QModelIndex index = indexes.first();
     QString address = index.data().toString();
 
-    // if the map does not contain a chat window of this adress, create a new chat window and store its pointer by address string in the map
-    if (m_chatWindowMap.find(address) == m_chatWindowMap.end())
-    {
-      ChatWindow *chatWindow = new ChatWindow(address);
-      m_chatWindowMap[address] = chatWindow;
-    }
-
     // get chat window by address<QString>
-    static ChatWindow *chatWindow = m_chatWindowMap[address];
+    ChatWindow *chatWindow = m_chatWindowMap[address];
 
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
   }
 }
 
+/// @brief add device to the table view and create a chat window for it
+/// @param the to be added device
 void FlowLink::addDevice(Device device)
 {
   m_deviceTableModel->addRow(device.name, device.address);
+
+  // if the chat window map does not contain a chat window of this device,
+  // create a new chat window and store its pointer by address string in the map
+  if (m_chatWindowMap.find(device.address) == m_chatWindowMap.end())
+  {
+    ChatWindow *chatWindow = new ChatWindow(device.address);
+    m_chatWindowMap[device.address] = chatWindow;
+  }
 }
 
+/// @brief remove all devices from the table view and delete all chat windows
 void FlowLink::removeDevices()
 {
+  // remove all devices from the table
   int rowNum = m_deviceTableModel->rowCount(QModelIndex());
   m_deviceTableModel->removeRows(0, rowNum, QModelIndex());
+
+  // clear the chat window map
+  m_chatWindowMap.clear();
 }
 
 void FlowLink::savePerspective()
