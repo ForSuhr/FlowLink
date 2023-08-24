@@ -79,9 +79,14 @@ void TcpReceiver::parserMap(const QVariantMap &vMap)
             emit msgSignal(vMap.value("0").toString());
             break;
         }
+        case DataType::Binary:
+        {
+            PLOG_DEBUG << "Info: received a binary data.";
+            break;
+        }
         default:
         {
-            PLOG_DEBUG << "Error: no valid datatype in QCborMap";
+            PLOG_DEBUG << "Error: no valid datatype in QCborMap.";
             break;
         }
         }

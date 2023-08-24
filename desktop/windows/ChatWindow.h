@@ -1,8 +1,9 @@
 #ifndef CHAT_WINDOW_H
 #define CHAT_WINDOW_H
 
-#include <QWidget>
 #include <Qt>
+#include <QWidget>
+#include <QFileDialog>
 
 #include "../network/TcpSender.h"
 #include "../network/TcpReceiver.h"
@@ -24,9 +25,15 @@ public:
 
     QString msgText();
 
+    /* friend functions */
     friend void leftAlignedAppend(const ChatWindow *chatWindow, const QString &text);
     friend void rightAlignedAppend(const ChatWindow *chatWindow, const QString &text);
     friend void centerAlignedAppend(const ChatWindow *chatWindow, const QString &text);
+
+    /* slots */
+private slots:
+    void on_btnSelectFile_clicked();
+    void on_btnSend_clicked();
 
 private:
     Ui::ChatWindow *ui;

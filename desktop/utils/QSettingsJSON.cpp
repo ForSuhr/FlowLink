@@ -67,7 +67,7 @@ QJsonObject restoreJsonObject(QMap<QString, QVariant> &map)
     keys = map.keys();
     for (int i = 0; i < keys.size(); i++)
     {
-        bool found = false;
+        bool isFound = false;
         QString key = keys[i];
 
         for (int j = 0; j < subMaps.size(); j++)
@@ -76,12 +76,12 @@ QJsonObject restoreJsonObject(QMap<QString, QVariant> &map)
             if (subKey.contains(key.section('/', 0, 0)))
             {
                 subMaps[j].insert(key.section('/', 1), map.value(key));
-                found = true;
+                isFound = true;
                 break;
             }
         }
 
-        if (!found)
+        if (!isFound)
         {
             QMap<QString, QVariant> tmp;
             tmp.insert(key.section('/', 0, 0), QString("__key__"));

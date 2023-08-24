@@ -8,12 +8,6 @@ ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
 {
     ui->setupUi(this);
 
-    // send message connection
-    connect(ui->btnSend, &QPushButton::clicked, [&]()
-            { QString msg = msgText();
-            m_tcpSender->sendMsg(msg);
-            rightAlignedAppend(this, msg); });
-
     // receive message connection
     connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
             { leftAlignedAppend(this, msg); });
@@ -31,6 +25,28 @@ ChatWindow::~ChatWindow()
 QString ChatWindow::msgText()
 {
     return ui->textEditMsg->toPlainText();
+}
+
+/// @brief send the message in the editor, after that, clear the message
+void ChatWindow::on_btnSend_clicked()
+{
+    QString msg = msgText();
+    m_tcpSender->sendMsg(msg);
+    rightAlignedAppend(this, msg);
+    ui->textEditMsg->clear();
+}
+
+/// @brief select a file to transfer
+void ChatWindow::on_btnSelectFile_clicked()
+{
+    PLOG_DEBUG << "Select a file to transfer.";
+
+    QString fileName = QFileDialog::getOpenFileName(this, "Select File", "/", "All FIles(*.*)");
+    if (!fileName.isEmpty())
+    {
+        PLOG_DEBUG << "Start tranferring.";
+        m_tcpSender->sendBin(fileName);
+    }
 }
 
 void leftAlignedAppend(const ChatWindow *chatWindow, const QString &text)

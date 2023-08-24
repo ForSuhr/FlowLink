@@ -1,6 +1,8 @@
 #ifndef TCP_SENDER_H
 #define TCP_SENDER_H
 
+#include <QFile>
+
 #include "NetworkGlobals.h"
 
 class TcpSender : public QObject
@@ -12,6 +14,7 @@ public:
     ~TcpSender();
 
     void sendMsg(const QString &msg);
+    void sendBin(const QString &path);
 
 private:
     QTcpSocket *tcpSocketIPv4 = nullptr;

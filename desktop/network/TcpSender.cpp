@@ -33,3 +33,19 @@ void TcpSender::sendMsg(const QString &msg)
 
     tcpSocketIPv4->write(datagram);
 }
+
+void TcpSender::sendBin(const QString &path)
+{
+    QByteArray datagram;
+    QCborStreamWriter writer(&datagram);
+
+    writer.startMap();
+    writer.append(DataType::Binary);
+    QFile f(path);
+    if (f.open(QIODevice::ReadOnly))
+        writer.append(f.readAll());
+    writer.endMap();
+
+    tcpSocketIPv4->write(datagram);
+    tcpSocketIPv4->waitForBytesWritten(-1);
+}

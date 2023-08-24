@@ -31,7 +31,8 @@ struct Device
 
 enum DataType
 {
-    PlainText
+    PlainText,
+    Binary
 };
 
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
