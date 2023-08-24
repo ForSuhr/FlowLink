@@ -13,7 +13,7 @@ This is a project in development process, no binaries released yet.
 - [x] Chat
 - [x] File transfer
 - [ ] Video Meeting
-- [ ] Translate
+- [x] Translate
 - [ ] Style Sheet
 
 ## Requirements & Dependencies
