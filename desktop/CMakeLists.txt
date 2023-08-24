@@ -43,15 +43,15 @@ set(PROJECT_SOURCES
 )
 
 set(PROJECT_TRANSLATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_zh_CN.ts
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_en_US.ts
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_de_DE.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/zh_CN.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/en_US.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/de_DE.ts
     )
 
 set(TS_FILES 
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_zh_CN.ts  
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_en_US.ts
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_de_DE.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/zh_CN.ts  
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/en_US.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/de_DE.ts
     )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

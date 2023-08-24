@@ -1,6 +1,7 @@
 #ifndef FLOWLINK_H
 #define FLOWLINK_H
 
+#include <QTranslator>
 #include <QComboBox>
 #include <QDebug>
 #include <QInputDialog>
