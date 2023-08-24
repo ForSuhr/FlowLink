@@ -77,8 +77,8 @@ void FlowLink::setupMenuBar()
 
 void FlowLink::createConnectionActionUi()
 {
-  m_connectAction = new QAction("Connect", this);
-  m_disconnectAction = new QAction("Disconnect", this);
+  m_connectAction = new QAction(tr("Connect"), this);
+  m_disconnectAction = new QAction(tr("Disconnect"), this);
   m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
 
@@ -97,7 +97,7 @@ void FlowLink::createConnectionActionUi()
 
 void FlowLink::createChatActionUi()
 {
-  m_chatAction = new QAction("Chat", this);
+  m_chatAction = new QAction(tr("Chat"), this);
   ui->toolBar->addSeparator();
   ui->toolBar->addAction(m_chatAction);
   connect(m_chatAction, &QAction::triggered, this, &FlowLink::onChatActionClicked);
@@ -105,7 +105,7 @@ void FlowLink::createChatActionUi()
 
 void FlowLink::createPerspectiveUi()
 {
-  m_savePerspectiveAction = new QAction("Create Perspective", this);
+  m_savePerspectiveAction = new QAction(tr("Create Perspective"), this);
   connect(m_savePerspectiveAction, SIGNAL(triggered()), this, SLOT(savePerspective()));
 
   m_perspectiveListAction = new QWidgetAction(this);
@@ -115,7 +115,7 @@ void FlowLink::createPerspectiveUi()
   connect(m_perspectiveComboBox, SIGNAL(currentTextChanged(const QString &)), m_dockManager, SLOT(openPerspective(const QString &)));
   m_perspectiveListAction->setDefaultWidget(m_perspectiveComboBox);
 
-  m_setDefaultPerspective = new QAction("Set Default Perspective", this);
+  m_setDefaultPerspective = new QAction(tr("Set Default Perspective"), this);
   connect(m_setDefaultPerspective, &QAction::triggered, [&]
           { if (m_perspectiveComboBox->count()!=0)
             config.setValue("Perspective", m_perspectiveComboBox->currentText()); });
@@ -150,7 +150,7 @@ void FlowLink::createDeviceTableUi()
   m_deviceTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   m_deviceTableView->setSortingEnabled(true);
 
-  CDockWidget *deviceDockWidget = new CDockWidget("Devices");
+  CDockWidget *deviceDockWidget = new CDockWidget(tr("Devices"));
   deviceDockWidget->setWidget(m_deviceTableView);
   deviceDockWidget->setMinimumSizeHintMode(
       CDockWidget::MinimumSizeHintFromDockWidget);
@@ -164,7 +164,7 @@ void FlowLink::createPropertiesTableUi()
   m_propertiesTable = new QTableWidget();
   m_propertiesTable->setColumnCount(1);
   m_propertiesTable->setRowCount(10);
-  CDockWidget *propertiesDockWidget = new CDockWidget("Properties");
+  CDockWidget *propertiesDockWidget = new CDockWidget(tr("Properties"));
   propertiesDockWidget->setWidget(m_propertiesTable);
   propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
   propertiesDockWidget->resize(200, 150);
@@ -253,7 +253,7 @@ void FlowLink::removeDevices()
 
 void FlowLink::savePerspective()
 {
-  QString perspectiveName = QInputDialog::getText(this, "Save Perspective", "Perspective Name:");
+  QString perspectiveName = QInputDialog::getText(this, tr("Save Perspective"), tr("Perspective Name:"));
   if (perspectiveName.isEmpty())
   {
     return;

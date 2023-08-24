@@ -1,0 +1,39 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en_US" language="zh_CN">
+<phrase>
+    <source>File</source>
+    <target>文件</target>
+</phrase>
+<phrase>
+    <source>Edit</source>
+    <target>编辑</target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target>视图</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>偏好设置</target>
+</phrase>
+<phrase>
+    <source>Create Perspective</source>
+    <target>新建视图布局</target>
+</phrase>
+<phrase>
+    <source>Set Default Perspective</source>
+    <target>设为默认视图布局</target>
+</phrase>
+<phrase>
+    <source>Devices</source>
+    <target>设备</target>
+</phrase>
+<phrase>
+    <source>Save Perspective</source>
+    <target>保存视图布局</target>
+</phrase>
+<phrase>
+    <source>Perspective Name:</source>
+    <target>视图布局名称：</target>
+</phrase>
+</QPH>

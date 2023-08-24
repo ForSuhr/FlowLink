@@ -5,8 +5,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui Core Network REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui Core Network REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui Core Network LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui Core Network LinguistTools REQUIRED)
 
 set(PROJECT_SOURCES
         Main.cpp
@@ -42,21 +42,28 @@ set(PROJECT_SOURCES
         utils/TabBar.cpp
 )
 
+set(PROJECT_TRANSLATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_zh_CN.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_en_US.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_de_DE.ts
+    )
+
+set(TS_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_zh_CN.ts  
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_en_US.ts
+    ${CMAKE_CURRENT_SOURCE_DIR}/translate/MeasureBench_de_DE.ts
+    )
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(FlowLink
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${PROJECT_TRANSLATE}
     )
+    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
-    if(ANDROID)
-        add_library(FlowLink SHARED
-            ${PROJECT_SOURCES}
-        )
-    else()
-        add_executable(FlowLink
-            ${PROJECT_SOURCES}
-        )
-    endif()
+    add_executable(FlowLink ${PROJECT_SOURCES} ${PROJECT_TRANSLATE})
+    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_include_directories(FlowLink PRIVATE "${CMAKE_SOURCE_DIR}/3rdparty/ads")

@@ -1,0 +1,39 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en_US" language="zh_CN">
+<phrase>
+    <source>File</source>
+    <target>Datei</target>
+</phrase>
+<phrase>
+    <source>Edit</source>
+    <target>Bearbeiten</target>
+</phrase>
+<phrase>
+    <source>View</source>
+    <target>Aussicht</target>
+</phrase>
+<phrase>
+    <source>Preferences</source>
+    <target>Präferenzen</target>
+</phrase>
+<phrase>
+    <source>Create Perspective</source>
+    <target>Perspektive erstellen</target>
+</phrase>
+<phrase>
+    <source>Set Default Perspective</source>
+    <target>Standardperspektive einstellen</target>
+</phrase>
+<phrase>
+    <source>Devices</source>
+    <target>Geräte</target>
+</phrase>
+<phrase>
+    <source>Save Perspective</source>
+    <target>Perspektive speichern</target>
+</phrase>
+<phrase>
+    <source>Perspective Name:</source>
+    <target>Name der Perspektive:</target>
+</phrase>
+</QPH>
