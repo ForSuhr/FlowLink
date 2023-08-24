@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         windows/ChatWindow.h
         windows/ChatWindow.cpp
         windows/ChatWindow.ui
+        windows/PrefWindow.h
+        windows/PrefWindow.cpp
         network/NetworkGlobals.h
         network/NetworkGlobals.cpp
         network/UdpSender.h
@@ -36,6 +38,8 @@ set(PROJECT_SOURCES
         utils/ConfigParser.cpp
         utils/TableModel.h
         utils/TableModel.cpp
+        utils/TabBar.h
+        utils/TabBar.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -26,6 +26,7 @@
 #include "utils/ConfigParser.h"
 #include "utils/TableModel.h"
 
+#include "windows/PrefWindow.h"
 #include "windows/ChatWindow.h"
 
 #include "network/UdpSender.h"
@@ -52,6 +53,7 @@ protected:
 private:
   void setupLog();
   void setupDockManager();
+  void setupMenuBar();
   void createConnectionActionUi();
   void createChatActionUi();
   void createPerspectiveUi();
@@ -74,6 +76,9 @@ private:
   ads::CDockManager *m_dockManager = nullptr;
   ads::CDockAreaWidget *m_centralDockArea = nullptr;
   ads::CDockWidget *m_centralDockWidget = nullptr;
+
+  /* menubar */
+  PrefWindow *prefWindow = nullptr;
 
   // toolbar
   QAction *m_connectAction = nullptr;

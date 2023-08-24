@@ -15,6 +15,9 @@ FlowLink::FlowLink(QWidget *parent)
 
   setupDockManager();
 
+  /* menubar */
+  setupMenuBar();
+
   /* toolbar */
   createConnectionActionUi();
   createChatActionUi();
@@ -53,6 +56,23 @@ void FlowLink::setupDockManager()
   CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
   CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
   m_dockManager = new CDockManager(this);
+}
+
+void FlowLink::setupMenuBar()
+{
+  /* file menu */
+
+  // preferences
+  QAction *preferencesAction = new QAction(tr("Preferences"), this);
+  ui->menuFile->addAction(preferencesAction);
+  prefWindow = new PrefWindow();
+  connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
+
+  // exit
+  ui->menuFile->addSeparator();
+  QAction *exitAction = new QAction(tr("Exit"), this);
+  ui->menuFile->addAction(exitAction);
+  connect(exitAction, &QAction::triggered, qApp, &QCoreApplication::quit, Qt::QueuedConnection);
 }
 
 void FlowLink::createConnectionActionUi()
