@@ -1,0 +1,18 @@
+/* unique */
+
+/* shared */
+QPushButton#btnSendFile {
+	border-image: url(:/asset/style/lumos/btnSendFile.svg);
+}
+
+QPushButton#btnSendMsg {
+	border-image: url(:/asset/style/lumos/btnSendMsg.svg);
+}
+
+QTextEdit#textEditMsg {
+	margin-left: 10px;
+	margin-right: 10px;
+	border: 1px solid lightgray;
+	border-radius: 16px;
+	background-color: lightgray;
+}

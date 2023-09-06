@@ -32,8 +32,8 @@ public:
 
     /* slots */
 private slots:
-    void on_btnSelectFile_clicked();
-    void on_btnSend_clicked();
+    void on_btnSendFile_clicked();
+    void on_btnSendMsg_clicked();
 
 private:
     Ui::ChatWindow *ui;

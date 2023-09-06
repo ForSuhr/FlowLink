@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.1">
 <context>
     <name>ChatWindow</name>
     <message>
         <location filename="../windows/ChatWindow.ui" line="14"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="86"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../windows/ChatWindow.ui" line="91"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="88"/>
-        <source>Send</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28,19 +22,19 @@
         <location filename="../FlowLink.ui" line="28"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="80"/>
         <source>File</source>
-        <translation>文件</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="33"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
         <source>Edit</source>
-        <translation>编辑</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="38"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
         <source>View</source>
-        <translation>视图</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="48"/>
@@ -60,7 +54,7 @@
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
         <location filename="../FlowLink.cpp" line="66"/>
         <source>Preferences</source>
-        <translation>偏好设置</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="80"/>
@@ -80,17 +74,17 @@
     <message>
         <location filename="../FlowLink.cpp" line="108"/>
         <source>Create Perspective</source>
-        <translation>新建视图布局</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="118"/>
         <source>Set Default Perspective</source>
-        <translation>设为默认视图布局</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="153"/>
         <source>Devices</source>
-        <translation>设备</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="167"/>
@@ -98,27 +92,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Save Perspective</source>
-        <translation>保存视图布局</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Perspective Name:</source>
-        <translation>视图布局名称：</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PrefWindow</name>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="5"/>
+        <location filename="../windows/PrefWindow.cpp" line="13"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="7"/>
+        <location filename="../windows/PrefWindow.cpp" line="16"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="22"/>
+        <source>* The language will be changed after restarting the application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="45"/>
         <source>Preferences</source>
-        <translation>偏好设置</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

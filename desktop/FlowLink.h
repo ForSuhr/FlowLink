@@ -25,6 +25,7 @@
 #include "DockWidget.h"
 
 #include "utils/ConfigParser.h"
+#include "utils/StyleSheet.h"
 #include "utils/TableModel.h"
 
 #include "windows/PrefWindow.h"

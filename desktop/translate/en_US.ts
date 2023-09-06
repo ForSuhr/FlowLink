@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1">
 <context>
     <name>ChatWindow</name>
     <message>
         <location filename="../windows/ChatWindow.ui" line="14"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="86"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../windows/ChatWindow.ui" line="91"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="88"/>
-        <source>Send</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -98,12 +92,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Save Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Perspective Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -111,12 +105,22 @@
 <context>
     <name>PrefWindow</name>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="5"/>
+        <location filename="../windows/PrefWindow.cpp" line="13"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="7"/>
+        <location filename="../windows/PrefWindow.cpp" line="16"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="22"/>
+        <source>* The language will be changed after restarting the application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="45"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>

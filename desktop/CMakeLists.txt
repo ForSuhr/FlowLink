@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
         network/TcpSender.cpp
         network/TcpReceiver.h
         network/TcpReceiver.cpp
+        utils/StyleSheet.h
+        utils/StyleSheet.cpp 
         utils/QSettingsJSON.h
         utils/QSettingsJSON.cpp
         utils/ConfigParser.h
@@ -40,6 +42,7 @@ set(PROJECT_SOURCES
         utils/TableModel.cpp
         utils/TabBar.h
         utils/TabBar.cpp
+        FlowLink.qrc
 )
 
 set(PROJECT_TRANSLATE

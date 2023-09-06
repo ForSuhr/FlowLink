@@ -181,6 +181,9 @@ void FlowLink::loadPreferences()
   m_perspectiveComboBox->clear();
   m_perspectiveComboBox->addItems(m_dockManager->perspectiveNames());
   m_perspectiveComboBox->setCurrentText(config.value("Perspective").toString());
+
+  /* load stylesheet */
+  StyleSheet::Instance().loadQSS(this, qssPathLumos);
 }
 
 void FlowLink::onConnectActionClicked()

@@ -28,7 +28,7 @@ QString ChatWindow::msgText()
 }
 
 /// @brief send the message in the editor, after that, clear the message
-void ChatWindow::on_btnSend_clicked()
+void ChatWindow::on_btnSendMsg_clicked()
 {
     QString msg = msgText();
     m_tcpSender->sendMsg(msg);
@@ -37,7 +37,7 @@ void ChatWindow::on_btnSend_clicked()
 }
 
 /// @brief select a file to transfer
-void ChatWindow::on_btnSelectFile_clicked()
+void ChatWindow::on_btnSendFile_clicked()
 {
     PLOG_DEBUG << "Select a file to transfer.";
 

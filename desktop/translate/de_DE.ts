@@ -9,12 +9,6 @@
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../windows/ChatWindow.ui" line="91"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="88"/>
-        <source>Send</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>FlowLink</name>
@@ -28,19 +22,19 @@
         <location filename="../FlowLink.ui" line="28"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="80"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="33"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="38"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
         <source>View</source>
-        <translation>Aussicht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="48"/>
@@ -60,7 +54,7 @@
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
         <location filename="../FlowLink.cpp" line="66"/>
         <source>Preferences</source>
-        <translation>Präferenzen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="80"/>
@@ -80,17 +74,17 @@
     <message>
         <location filename="../FlowLink.cpp" line="108"/>
         <source>Create Perspective</source>
-        <translation>Perspektive erstellen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="118"/>
         <source>Set Default Perspective</source>
-        <translation>Standardperspektive einstellen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="153"/>
         <source>Devices</source>
-        <translation>Geräte</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="167"/>
@@ -98,27 +92,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Save Perspective</source>
-        <translation>Perspektive speichern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="256"/>
+        <location filename="../FlowLink.cpp" line="259"/>
         <source>Perspective Name:</source>
-        <translation>Name der Perspektive:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PrefWindow</name>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="5"/>
+        <location filename="../windows/PrefWindow.cpp" line="13"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="7"/>
+        <location filename="../windows/PrefWindow.cpp" line="16"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="22"/>
+        <source>* The language will be changed after restarting the application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="45"/>
         <source>Preferences</source>
-        <translation>Präferenzen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

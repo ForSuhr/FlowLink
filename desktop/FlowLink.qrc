@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>asset/style/lumos/lumos.qss</file>
+        <file>asset/style/lumos/btnSendFile.svg</file>
+        <file>asset/style/lumos/btnSendMsg.svg</file>
+    </qresource>
+</RCC>
+
