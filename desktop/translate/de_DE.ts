@@ -5,7 +5,7 @@
     <name>ChatWindow</name>
     <message>
         <location filename="../windows/ChatWindow.ui" line="14"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="86"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="88"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -110,17 +110,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="16"/>
+        <location filename="../windows/PrefWindow.cpp" line="17"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="22"/>
+        <location filename="../windows/PrefWindow.cpp" line="23"/>
         <source>* The language will be changed after restarting the application.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="45"/>
+        <location filename="../windows/PrefWindow.cpp" line="25"/>
+        <source>Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="60"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
