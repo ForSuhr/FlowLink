@@ -16,3 +16,9 @@ QTextEdit#textEditMsg {
 	border-radius: 16px;
 	background-color: lightgray;
 }
+
+QTextEdit#textEditView {
+	border: 1px solid white;
+	border-radius: 16px;
+	background-color: white;
+}
