@@ -12,6 +12,9 @@ ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
     connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
             { leftAlignedAppend(this, msg); });
 
+    // shortcut connection
+    connect(ui->lineEditMsg, &QLineEdit::returnPressed, this, &ChatWindow::on_btnSendMsg_clicked);
+
     // connect to the device
     m_tcpSender = new TcpSender(address);
     centerAlignedAppend(this, address + " connected");
@@ -24,16 +27,19 @@ ChatWindow::~ChatWindow()
 
 QString ChatWindow::msgText()
 {
-    return ui->textEditMsg->toPlainText();
+    return ui->lineEditMsg->text();
 }
 
 /// @brief send the message in the editor, after that, clear the message
 void ChatWindow::on_btnSendMsg_clicked()
 {
     QString msg = msgText();
-    m_tcpSender->sendMsg(msg);
-    rightAlignedAppend(this, msg);
-    ui->textEditMsg->clear();
+    if (!msg.isEmpty())
+    {
+        m_tcpSender->sendMsg(msg);
+        rightAlignedAppend(this, msg);
+        ui->lineEditMsg->clear();
+    }
 }
 
 /// @brief select a file to transfer

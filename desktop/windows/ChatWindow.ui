@@ -52,7 +52,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEditMsg">
+      <widget class="QLineEdit" name="lineEditMsg">
        <property name="minimumSize">
         <size>
          <width>200</width>

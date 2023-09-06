@@ -9,7 +9,7 @@ QPushButton#btnSendMsg {
 	border-image: url(:/asset/style/lumos/btnSendMsg.svg);
 }
 
-QTextEdit#textEditMsg {
+QLineEdit#lineEditMsg {
 	margin-left: 10px;
 	margin-right: 10px;
 	border: 1px solid lightgray;
