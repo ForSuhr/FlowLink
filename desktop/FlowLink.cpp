@@ -65,7 +65,9 @@ void FlowLink::setupMenuBar()
   // preferences
   QAction *preferencesAction = new QAction(tr("Preferences"), this);
   ui->menuFile->addAction(preferencesAction);
-  prefWindow = new PrefWindow();
+  prefWindow = new PrefWindow(this);
+  prefWindow->setWindowFlag(Qt::Window);
+  prefWindow->setWindowModality(Qt::WindowModal);
   connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
 
   // exit
