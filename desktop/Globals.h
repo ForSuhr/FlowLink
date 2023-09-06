@@ -11,7 +11,10 @@
 #include <QMap>
 #include <QString>
 
-/* Translate File Path */
+// translate files path
 void setUpLanguageMap(QMap<QString, QString> &map);
+
+// stylesheet files path
+void setUpStylesheetMap(QMap<QString, QString> &map);
 
 #endif // GLOBALS_H

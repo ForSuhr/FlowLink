@@ -5,8 +5,6 @@
 #include <QString>
 #include <QFile>
 
-static QString qssPathLumos = ":/asset/style/lumos/lumos.qss";
-
 class StyleSheet
 {
 public:

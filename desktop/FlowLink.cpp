@@ -183,7 +183,9 @@ void FlowLink::loadPreferences()
   m_perspectiveComboBox->setCurrentText(config.value("Perspective").toString());
 
   /* load stylesheet */
-  StyleSheet::Instance().loadQSS(this, qssPathLumos);
+  QMap<QString, QString> stylesheetMap;
+  setUpStylesheetMap(stylesheetMap);
+  StyleSheet::Instance().loadQSS(this, stylesheetMap["Lumos"]);
 }
 
 void FlowLink::onConnectActionClicked()
