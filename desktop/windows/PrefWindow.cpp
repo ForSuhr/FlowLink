@@ -2,8 +2,21 @@
 
 PrefWindow::PrefWindow(QWidget *parent) : TabWidget(parent)
 {
+    setupDefaultPreferences();
     setupApperanceTab();
     setupWindowProperties();
+}
+
+/// @brief create a default preferences file if it does not exists
+void PrefWindow::setupDefaultPreferences()
+{
+    if (!QFile::exists(CONFIG_PATH))
+    {
+        config.beginGroup("Appearance");
+        config.setValue("Language", "English");
+        config.setValue("Style", "Lumos");
+        config.endGroup();
+    }
 }
 
 void PrefWindow::setupApperanceTab()
@@ -47,16 +60,10 @@ void PrefWindow::setupApperanceTab()
     /* signal-slot */
     // save the language setting to config file
     connect(languageComboBox, &QComboBox::currentTextChanged, [&](QString languageName)
-            { 
-                config.beginGroup("Appearance");
-                config.setValue("Language", languageName);
-                config.endGroup(); });
+            { config.setValue("Appearance/Language", languageName); });
     // save the style setting to config file
     connect(styleComboBox, &QComboBox::currentTextChanged, [&](QString styleName)
-            { 
-                config.beginGroup("Appearance");
-                config.setValue("Style", styleName);
-                config.endGroup(); });
+            { config.setValue("Appearance/Style", styleName); });
 }
 
 void PrefWindow::setupWindowProperties()

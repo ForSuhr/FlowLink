@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QComboBox>
+#include <QFile>
 
 #include "../utils/TabBar.h"
 #include "../utils/ConfigParser.h"
@@ -17,6 +18,7 @@ public:
     explicit PrefWindow(QWidget *parent = nullptr);
 
 private:
+    void setupDefaultPreferences();
     void setupApperanceTab();
     void setupWindowProperties();
 
