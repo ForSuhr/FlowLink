@@ -59,7 +59,6 @@ void PrefWindow::setupCommonTab()
     connect(selectDirectoryBtn, &QPushButton::clicked, [&]()
             {
                 QString downloadDirectory = QFileDialog::getExistingDirectory(this, tr("Select Directory"), config.value("common/downloadDirectory").toString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-                qDebug() << downloadDirectory;
                 if (!downloadDirectory.isEmpty())
                 {
                     config.setValue("common/downloadDirectory", downloadDirectory);

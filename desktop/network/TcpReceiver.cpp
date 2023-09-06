@@ -41,9 +41,49 @@ void TcpReceiver::handleNewConnection()
 
 void TcpReceiver::processPendingDatagrams()
 {
-    QByteArray datagram = tcpSocketIPv4->readAll();
+    QByteArray ba = tcpSocketIPv4->readAll();
 
-    QCborStreamReader reader(datagram);
+    // get header size
+    QByteArray baHeaderSize = ba.left(SIZE_OF_LONG_LONG);
+    QDataStream dataStream1(&baHeaderSize, QIODevice::ReadOnly);
+    long long int headerSize;
+    dataStream1 >> headerSize;
+
+    // get header
+    QByteArray baHeader = ba.mid(SIZE_OF_LONG_LONG, headerSize);
+    QDataStream dataStream2(&baHeader, QIODevice::ReadOnly);
+    QVariantMap *headerVMap = new QVariantMap();
+    dataStream2 >> *headerVMap;
+
+    // get file size and file name from the header
+    int contentType = (*headerVMap)["contentType"].toInt();
+    qlonglong totalFileBytes = (*headerVMap)["totalBytes"].toLongLong();
+    QString fileName = (*headerVMap)["fileName"].toString();
+
+    // get body
+    QByteArray baBody = ba.mid(SIZE_OF_LONG_LONG + headerSize);
+    qlonglong receivedFileBytes = baBody.size();
+
+    // use QCborStreamReader to read the bytearray body
+    QCborStreamReader reader(baBody);
+
+    if (contentType == ContentType::Binary)
+    {
+        PLOG_DEBUG << "totalFileBytes is " << totalFileBytes;
+        PLOG_DEBUG << "receivedFileBytes is " << receivedFileBytes;
+
+        while (receivedFileBytes < totalFileBytes)
+        {
+            tcpSocketIPv4->waitForReadyRead();
+
+            QByteArray baCurrent = tcpSocketIPv4->readAll();
+
+            reader.addData(baCurrent);
+            receivedFileBytes += baCurrent.size();
+            PLOG_DEBUG << "receivedFileBytes is " << receivedFileBytes;
+        }
+    }
+
     QCborValue contents = QCborValue::fromCbor(reader);
     QCborMap cMap;
     QVariantMap vMap;
@@ -54,7 +94,7 @@ void TcpReceiver::processPendingDatagrams()
     {
         cMap = contents.toMap();
         vMap = cMap.toVariantMap();
-        parserMap(vMap);
+        parserMap(vMap, fileName);
         break;
     }
     default:
@@ -67,21 +107,29 @@ void TcpReceiver::processPendingDatagrams()
     return;
 }
 
-void TcpReceiver::parserMap(const QVariantMap &vMap)
+void TcpReceiver::parserMap(const QVariantMap &vMap, const QString &fileName = "new_file.bin")
 {
     QString key;
     foreach (key, vMap.keys())
     {
         switch (key.toInt())
         {
-        case DataType::PlainText:
+        case ContentType::PlainText:
         {
-            emit msgSignal(vMap.value("0").toString());
+            QString msg = vMap.value(key).toString();
+            emit msgSignal(msg);
             break;
         }
-        case DataType::Binary:
+        case ContentType::Binary:
         {
             PLOG_DEBUG << "Info: received a binary data.";
+            QFile f(config.value("common/downloadDirectory").toString() + "/" + fileName);
+            if (f.open(QIODevice::WriteOnly))
+            {
+                QByteArray ba = vMap.value(key).toByteArray();
+                f.write(ba);
+                f.close();
+            }
             break;
         }
         default:

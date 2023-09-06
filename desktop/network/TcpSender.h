@@ -14,7 +14,7 @@ public:
     ~TcpSender();
 
     void sendMsg(const QString &msg);
-    void sendBin(const QString &path);
+    void sendBin(const QString &filePath);
 
 private:
     QTcpSocket *tcpSocketIPv4 = nullptr;

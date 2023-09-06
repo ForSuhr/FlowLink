@@ -41,11 +41,11 @@ void ChatWindow::on_btnSendFile_clicked()
 {
     PLOG_DEBUG << "Select a file to transfer.";
 
-    QString fileName = QFileDialog::getOpenFileName(this, "Select File", "/", "All FIles(*.*)");
-    if (!fileName.isEmpty())
+    QString filePath = QFileDialog::getOpenFileName(this, "Select File", "/", "All FIles(*.*)");
+    if (!filePath.isEmpty())
     {
         PLOG_DEBUG << "Start tranferring.";
-        m_tcpSender->sendBin(fileName);
+        m_tcpSender->sendBin(filePath);
     }
 }
 

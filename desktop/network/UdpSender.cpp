@@ -14,7 +14,7 @@ UdpSender::UdpSender(QObject *parent)
 
 void UdpSender::sendDeviceInfo()
 {
-    Device device = getLocalHostName();
+    Device device = localHostName();
     QByteArray datagram;
     QDataStream stream(&datagram, QIODevice::ReadWrite);
     stream << device;

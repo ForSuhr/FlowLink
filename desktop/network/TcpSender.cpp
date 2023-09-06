@@ -22,30 +22,57 @@ TcpSender::~TcpSender()
 
 void TcpSender::sendMsg(const QString &msg)
 {
-
-    QByteArray datagram;
-    QCborStreamWriter writer(&datagram);
+    QByteArray baBody;
+    QCborStreamWriter writer(&baBody);
 
     writer.startMap();
-    writer.append(DataType::PlainText);
+    writer.append(ContentType::PlainText);
     writer.append(msg);
     writer.endMap();
 
-    tcpSocketIPv4->write(datagram);
+    // convert the file header to QByteArray
+    QByteArray baHeader;
+    QDataStream dataStream1(&baHeader, QIODevice::WriteOnly);
+    QVariantMap headerVMap = header(ContentType::PlainText);
+    dataStream1 << headerVMap;
+    qlonglong headerSize = baHeader.size();
+
+    // convert the header size to QByteArray
+    QByteArray baHeaderSize;
+    QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
+    dataStream2 << headerSize;
+
+    tcpSocketIPv4->write(baHeaderSize + baHeader + baBody);
 }
 
-void TcpSender::sendBin(const QString &path)
+void TcpSender::sendBin(const QString &filePath)
 {
-    QByteArray datagram;
-    QCborStreamWriter writer(&datagram);
+    QByteArray baBody;
+    QCborStreamWriter writer(&baBody);
 
     writer.startMap();
-    writer.append(DataType::Binary);
-    QFile f(path);
+    writer.append(ContentType::Binary);
+    QFile f(filePath);
     if (f.open(QIODevice::ReadOnly))
+    {
         writer.append(f.readAll());
+        f.close();
+    }
     writer.endMap();
 
-    tcpSocketIPv4->write(datagram);
+    // convert the file header to QByteArray
+    QByteArray baHeader;
+    QDataStream dataStream1(&baHeader, QIODevice::WriteOnly);
+    QVariantMap headerVMap = header(ContentType::Binary, filePath);
+    headerVMap["totalBytes"] = baBody.size();
+    dataStream1 << headerVMap;
+    qlonglong headerSize = baHeader.size();
+
+    // convert the header size to QByteArray
+    QByteArray baHeaderSize;
+    QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
+    dataStream2 << headerSize;
+
+    tcpSocketIPv4->write(baHeaderSize + baHeader + baBody);
     tcpSocketIPv4->waitForBytesWritten(-1);
 }

@@ -18,7 +18,7 @@ private:
     void createConnection(int port = 8000);
     void handleNewConnection();
     void processPendingDatagrams();
-    void parserMap(const QVariantMap &vMap);
+    void parserMap(const QVariantMap &vMap, const QString &fileName);
 
     QTcpServer *server = nullptr;
     QTcpSocket *tcpSocketIPv4 = nullptr;
