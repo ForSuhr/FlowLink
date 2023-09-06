@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QTranslator translator;
     QMap<QString, QString> languageMap;
     setUpLanguageMap(languageMap);
-    const QString baseName = config.value("Appearance/Language").toString();
+    const QString baseName = config.value("appearance/language").toString();
     if (translator.load(languageMap[baseName]))
     {
         a.installTranslator(&translator);

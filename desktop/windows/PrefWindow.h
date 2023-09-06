@@ -3,9 +3,13 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QVBoxLayout>
+#include <QBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QComboBox>
 #include <QFile>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include "../utils/TabBar.h"
 #include "../utils/ConfigParser.h"
@@ -19,10 +23,16 @@ public:
 
 private:
     void setupDefaultPreferences();
+    void setupCommonTab();
     void setupApperanceTab();
     void setupWindowProperties();
 
+    /* tabs */
+    QWidget *m_commonTab = nullptr;
     QWidget *m_apperanceTab = nullptr;
+
+    /* members */
+    QLineEdit *downloadDirectoryLineEdit = nullptr;
 };
 
 #endif

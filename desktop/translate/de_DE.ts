@@ -92,12 +92,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="259"/>
+        <location filename="../FlowLink.cpp" line="261"/>
         <source>Save Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="259"/>
+        <location filename="../FlowLink.cpp" line="261"/>
         <source>Perspective Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -105,27 +105,42 @@
 <context>
     <name>PrefWindow</name>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="13"/>
+        <location filename="../windows/PrefWindow.cpp" line="33"/>
+        <source>Common</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="39"/>
+        <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="61"/>
+        <source>Select Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../windows/PrefWindow.cpp" line="74"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="17"/>
-        <source>Language</source>
+        <location filename="../windows/PrefWindow.cpp" line="80"/>
+        <source>&lt;b&gt;Language&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="23"/>
+        <location filename="../windows/PrefWindow.cpp" line="86"/>
         <source>* The language will be changed after restarting the application.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="25"/>
-        <source>Style</source>
+        <location filename="../windows/PrefWindow.cpp" line="90"/>
+        <source>&lt;b&gt;Style&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="60"/>
+        <location filename="../windows/PrefWindow.cpp" line="119"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
