@@ -14,7 +14,7 @@ This is a project in development process, no binaries released yet.
 - [x] File transfer
 - [ ] Video Meeting
 - [x] Translate
-- [ ] Style Sheet
+- [x] Style Sheet
 
 ## Requirements & Dependencies
 
