@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         windows/ChatWindow.ui
         windows/PrefWindow.h
         windows/PrefWindow.cpp
+        windows/ProgressWidget.h
+        windows/ProgressWidget.cpp
         network/NetworkGlobals.h
         network/NetworkGlobals.cpp
         network/UdpSender.h

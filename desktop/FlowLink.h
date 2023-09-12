@@ -33,6 +33,7 @@
 
 #include "windows/PrefWindow.h"
 #include "windows/ChatWindow.h"
+#include "windows/ProgressWidget.h"
 
 #include "network/UdpSender.h"
 #include "network/UdpReceiver.h"
@@ -63,7 +64,7 @@ private:
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
-  void createPropertiesTableUi();
+  void createProgressTableUi();
   void loadPreferences();
 
   void addDevice(Device device);
@@ -103,13 +104,15 @@ private:
   TableModel *m_deviceTableModel = nullptr;
   QSortFilterProxyModel *m_deviceProxyModel = nullptr;
   QTableView *m_deviceTableView = nullptr;
-  QTableWidget *m_propertiesTable = nullptr;
+  QTableWidget *m_progressTable = nullptr;
 
-  // field for dockwidget
-  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {}; // a map used to store chat window pointers
+  // field for customized widgets
+  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {};         // a map used to store chat window pointers
+  std::unordered_map<QString, ProgressWidget *> m_progressWidgetMap = {}; // a map used to store progress widgets, one widget per downloading file
 
 private slots:
-  void onConnectActionClicked();
+  void
+  onConnectActionClicked();
   void onDisconnectActionClicked();
   void openChatWindow();
   void NewPerspective();

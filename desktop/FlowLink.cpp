@@ -28,8 +28,8 @@ FlowLink::FlowLink(QWidget *parent)
   /* device table widget */
   createDeviceTableUi();
 
-  /* properties table widget */
-  createPropertiesTableUi();
+  /* progress table widget */
+  createProgressTableUi();
 
   /* load preferences */
   loadPreferences();
@@ -110,7 +110,7 @@ void FlowLink::createPerspectiveUi()
 {
   m_newPerspectiveAction = new QAction(tr("New Perspective"), this);
   connect(m_newPerspectiveAction, SIGNAL(triggered()), this, SLOT(NewPerspective()));
-  m_deletePerspectiveAction = new QAction(tr("Delete current Perspective"), this);
+  m_deletePerspectiveAction = new QAction(tr("Delete Current Perspective"), this);
   connect(m_deletePerspectiveAction, SIGNAL(triggered()), this, SLOT(deletePerspective()));
 
   m_perspectivesMenu = new QMenu(this);
@@ -181,18 +181,18 @@ void FlowLink::createDeviceTableUi()
   connect(m_deviceTableView, &QTableView::clicked, this, &FlowLink::openChatWindow);
 }
 
-void FlowLink::createPropertiesTableUi()
+void FlowLink::createProgressTableUi()
 {
-  m_propertiesTable = new QTableWidget();
-  m_propertiesTable->setColumnCount(1);
-  m_propertiesTable->setRowCount(10);
-  CDockWidget *propertiesDockWidget = new CDockWidget(tr("Properties"));
-  propertiesDockWidget->setWidget(m_propertiesTable);
-  propertiesDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-  propertiesDockWidget->resize(200, 150);
-  propertiesDockWidget->setMinimumSize(200, 150);
-  m_dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, propertiesDockWidget, m_centralDockArea);
-  ui->menuView->addAction(propertiesDockWidget->toggleViewAction());
+  m_progressTable = new QTableWidget();
+  m_progressTable->setColumnCount(1);
+  m_progressTable->setRowCount(10);
+  CDockWidget *progressDockWidget = new CDockWidget(tr("Progress"));
+  progressDockWidget->setWidget(m_progressTable);
+  progressDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
+  progressDockWidget->resize(200, 150);
+  progressDockWidget->setMinimumSize(200, 150);
+  m_dockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, progressDockWidget, m_centralDockArea);
+  ui->menuView->addAction(progressDockWidget->toggleViewAction());
 }
 
 void FlowLink::loadPreferences()
