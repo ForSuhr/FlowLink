@@ -73,6 +73,7 @@ void FlowLink::setupMenuBar()
   prefWindow = new PrefWindow(this);
   prefWindow->setWindowFlag(Qt::Window);
   prefWindow->setWindowModality(Qt::WindowModal);
+  prefWindow->resize(prefWindow->width(), 300);
   connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
 }
 
@@ -110,6 +111,8 @@ void FlowLink::createPerspectiveUi()
 {
   m_newPerspectiveAction = new QAction(tr("New Perspective"), this);
   connect(m_newPerspectiveAction, SIGNAL(triggered()), this, SLOT(NewPerspective()));
+  m_saveAsCurrentPerspectiveAction = new QAction(tr("Save As Current Perspective"), this);
+  connect(m_saveAsCurrentPerspectiveAction, SIGNAL(triggered()), this, SLOT(SaveAsCurrentPerspective()));
   m_deletePerspectiveAction = new QAction(tr("Delete Current Perspective"), this);
   connect(m_deletePerspectiveAction, SIGNAL(triggered()), this, SLOT(deletePerspective()));
 
@@ -141,6 +144,7 @@ void FlowLink::createPerspectiveUi()
   m_perspectivesToolBtn->setMenu(m_perspectivesMenu);
   m_perspectivesMenu->addAction(m_setDefaultPerspective);
   m_perspectivesMenu->addAction(m_newPerspectiveAction);
+  m_perspectivesMenu->addAction(m_saveAsCurrentPerspectiveAction);
   m_perspectivesMenu->addAction(m_deletePerspectiveAction);
   ui->toolBar->addAction(m_perspectiveListAction);
 }
@@ -298,6 +302,21 @@ void FlowLink::NewPerspective()
   m_dockManager->savePerspectives(settings);
 }
 
+void FlowLink::SaveAsCurrentPerspective()
+{
+  QString perspectiveName = m_perspectiveComboBox->currentText();
+
+  m_dockManager->addPerspective(perspectiveName);
+  QSignalBlocker Blocker(m_perspectiveComboBox);
+  m_perspectiveComboBox->clear();
+  m_perspectiveComboBox->addItems(m_dockManager->perspectiveNames());
+  m_perspectiveComboBox->setCurrentText(perspectiveName);
+
+  /*  update current perspectives in combobox to local file */
+  QSettings settings("./config/perspectives.ini", QSettings::IniFormat);
+  m_dockManager->savePerspectives(settings);
+}
+
 void FlowLink::deletePerspective()
 {
   QString perspectiveName = m_perspectiveComboBox->currentText();
@@ -305,9 +324,10 @@ void FlowLink::deletePerspective()
     QMessageBox::warning(this, "", tr("Can not delete last perspective!"));
   else
   {
-    m_perspectiveComboBox->setCurrentIndex(0);
-    m_perspectiveComboBox->removeItem(m_perspectiveComboBox->findText(perspectiveName));
     m_dockManager->removePerspective(perspectiveName);
+    m_perspectiveComboBox->clear();
+    m_perspectiveComboBox->addItems(m_dockManager->perspectiveNames());
+    m_perspectiveComboBox->setCurrentIndex(0);
 
     /*  update current perspectives in combobox to local file */
     QSettings settings("./config/perspectives.ini", QSettings::IniFormat);

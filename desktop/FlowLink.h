@@ -95,6 +95,7 @@ private:
   QMenu *m_perspectivesMenu = nullptr;
   QToolButton *m_perspectivesToolBtn = nullptr;
   QAction *m_newPerspectiveAction = nullptr;
+  QAction *m_saveAsCurrentPerspectiveAction = nullptr;
   QAction *m_deletePerspectiveAction = nullptr;
   QWidgetAction *m_perspectiveListAction = nullptr;
   QAction *m_setDefaultPerspective = nullptr;
@@ -117,6 +118,7 @@ private slots:
   void onDisconnectActionClicked();
   void openChatWindow();
   void NewPerspective();
+  void SaveAsCurrentPerspective();
   void deletePerspective();
 };
 #endif // FLOWLINK_H
