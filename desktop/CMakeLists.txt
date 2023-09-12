@@ -15,8 +15,8 @@ set(PROJECT_SOURCES
         FlowLink.ui
         Globals.h
         Globals.cpp
-        windows/Locals.h
-        windows/Locals.cpp
+        windows/WindowsGlobals.h
+        windows/WindowsGlobals.cpp
         windows/ChatWindow.h
         windows/ChatWindow.cpp
         windows/ChatWindow.ui
