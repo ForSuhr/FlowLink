@@ -61,20 +61,20 @@ void FlowLink::setupDockManager()
 void FlowLink::setupMenuBar()
 {
   /* file menu */
-
-  // preferences
-  QAction *preferencesAction = new QAction(tr("Preferences"), this);
-  ui->menuFile->addAction(preferencesAction);
-  prefWindow = new PrefWindow(this);
-  prefWindow->setWindowFlag(Qt::Window);
-  prefWindow->setWindowModality(Qt::WindowModal);
-  connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
-
   // exit
   ui->menuFile->addSeparator();
   QAction *exitAction = new QAction(tr("Exit"), this);
   ui->menuFile->addAction(exitAction);
   connect(exitAction, &QAction::triggered, qApp, &QCoreApplication::quit, Qt::QueuedConnection);
+
+  /* edit menu */
+  // preferences
+  QAction *preferencesAction = new QAction(tr("Preferences"), this);
+  ui->menuEdit->addAction(preferencesAction);
+  prefWindow = new PrefWindow(this);
+  prefWindow->setWindowFlag(Qt::Window);
+  prefWindow->setWindowModality(Qt::WindowModal);
+  connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
 }
 
 void FlowLink::createConnectionActionUi()
