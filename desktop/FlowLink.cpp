@@ -123,6 +123,12 @@ void FlowLink::createPerspectiveUi()
           { if (m_perspectiveComboBox->count()!=0)
             config.setValue("Perspective", m_perspectiveComboBox->currentText()); });
 
+  // add a stretchable spacer beforehand, using an empty QWidget because QToolBar doesn't provide addStretch()
+  QWidget *spacer = new QWidget();
+  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  ui->toolBar->addWidget(spacer);
+
+  // add perspective-actions
   ui->toolBar->addSeparator();
   ui->toolBar->addAction(m_perspectiveListAction);
   ui->toolBar->addAction(m_savePerspectiveAction);
