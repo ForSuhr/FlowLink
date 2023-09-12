@@ -7,6 +7,7 @@ ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
       m_tcpReceiver(new TcpReceiver(port))
 {
     ui->setupUi(this);
+    ui->lineEditMsg->setAlignment(Qt::AlignCenter);
 
     // receive message connection
     connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
