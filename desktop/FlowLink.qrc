@@ -3,6 +3,7 @@
         <file>asset/style/lumos/lumos.qss</file>
         <file>asset/style/lumos/btnSendFile.svg</file>
         <file>asset/style/lumos/btnSendMsg.svg</file>
+        <file>asset/style/lumos/connectAction.svg</file>
+        <file>asset/style/lumos/disconnectAction.svg</file>
     </qresource>
 </RCC>
-
