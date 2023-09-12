@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QInputDialog>
 #include <QLabel>
+#include <QIcon>
 #include <QMainWindow>
 #include <QSortFilterProxyModel>
 #include <QStringListModel>
@@ -57,7 +58,6 @@ private:
   void setupDockManager();
   void setupMenuBar();
   void createConnectionActionUi();
-  void createChatActionUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
@@ -106,7 +106,7 @@ private:
 private slots:
   void onConnectActionClicked();
   void onDisconnectActionClicked();
-  void onChatActionClicked();
+  void openChatWindow();
   void savePerspective();
 };
 #endif // FLOWLINK_H

@@ -20,7 +20,6 @@ FlowLink::FlowLink(QWidget *parent)
 
   /* toolbar */
   createConnectionActionUi();
-  createChatActionUi();
   createPerspectiveUi();
 
   /* central widget */
@@ -81,6 +80,8 @@ void FlowLink::createConnectionActionUi()
 {
   m_connectAction = new QAction(tr("Connect"), this);
   m_disconnectAction = new QAction(tr("Disconnect"), this);
+  m_connectAction->setIcon(QIcon(R"(:/asset/style/lumos/connectAction.svg)"));
+  m_disconnectAction->setIcon(QIcon(R"(:/asset/style/lumos/disconnectAction.svg)"));
   m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
 
@@ -88,21 +89,21 @@ void FlowLink::createConnectionActionUi()
   ui->toolBar->addAction(m_connectAction);
   connect(m_connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
   connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          { if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
+          {
+    if (deviceAction == DeviceAction::Connection)
+    {
+      addDevice(device);
+    } });
 
   // disconnect
   ui->toolBar->addAction(m_disconnectAction);
   connect(m_disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
   connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection) {removeDevices();} });
-}
-
-void FlowLink::createChatActionUi()
-{
-  m_chatAction = new QAction(tr("Chat"), this);
-  ui->toolBar->addSeparator();
-  ui->toolBar->addAction(m_chatAction);
-  connect(m_chatAction, &QAction::triggered, this, &FlowLink::onChatActionClicked);
+          {
+    if (deviceAction == DeviceAction::Disconnection)
+    {
+      removeDevices();
+    } });
 }
 
 void FlowLink::createPerspectiveUi()
@@ -160,8 +161,8 @@ void FlowLink::createDeviceTableUi()
   m_dockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, deviceDockWidget, m_centralDockArea);
   ui->menuView->addAction(deviceDockWidget->toggleViewAction());
 
-  // connect click signal-slot
-  connect(m_deviceTableView, &QTableView::clicked, this, &FlowLink::onChatActionClicked);
+  // connect signal-slot for clicking on a device in the devices table
+  connect(m_deviceTableView, &QTableView::clicked, this, &FlowLink::openChatWindow);
 }
 
 void FlowLink::createPropertiesTableUi()
@@ -198,17 +199,20 @@ void FlowLink::onConnectActionClicked()
   m_udpReceiver->createConnection();
   m_udpSender->sendDeviceInfo();
 
+  m_connectAction->setEnabled(false);
   m_disconnectAction->setEnabled(true);
 }
 
 void FlowLink::onDisconnectActionClicked()
 {
   m_udpReceiver->closeConnection();
+
+  m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
 }
 
 /// @brief open a chat window of the selected device
-void FlowLink::onChatActionClicked()
+void FlowLink::openChatWindow()
 {
   // get indexes from the selected part of the table
   QItemSelectionModel *selectionModel = m_deviceTableView->selectionModel();
