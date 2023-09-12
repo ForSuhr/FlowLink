@@ -22,3 +22,24 @@ QTextEdit#textEditView {
 	border-radius: 16px;
 	background-color: white;
 }
+
+QWidget#progressWidget {
+	border: 1px solid white;
+	border-radius: 16px;
+	background-color: white;
+}
+
+QWidget:hover#progressWidget {
+	border: 1px solid lightgray;
+	border-radius: 16px;
+	background-color: lightgray;
+}
+
+QProgressBar {
+    border: 1px solid lightgray;
+	background-color: rgb(235, 235, 235);
+}
+
+QProgressBar::chunk {
+    background-color: teal;
+}

@@ -29,7 +29,7 @@ FlowLink::FlowLink(QWidget *parent)
   createDeviceTableUi();
 
   /* progress table widget */
-  createProgressTableUi();
+  createProgressWindowUi();
 
   /* load preferences */
   loadPreferences();
@@ -181,13 +181,11 @@ void FlowLink::createDeviceTableUi()
   connect(m_deviceTableView, &QTableView::clicked, this, &FlowLink::openChatWindow);
 }
 
-void FlowLink::createProgressTableUi()
+void FlowLink::createProgressWindowUi()
 {
-  m_progressTable = new QTableWidget();
-  m_progressTable->setColumnCount(1);
-  m_progressTable->setRowCount(10);
+  m_progressWindow = new ProgressWindow();
   CDockWidget *progressDockWidget = new CDockWidget(tr("Progress"));
-  progressDockWidget->setWidget(m_progressTable);
+  progressDockWidget->setWidget(m_progressWindow);
   progressDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
   progressDockWidget->resize(200, 150);
   progressDockWidget->setMinimumSize(200, 150);
