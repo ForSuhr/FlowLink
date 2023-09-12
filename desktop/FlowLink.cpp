@@ -159,6 +159,9 @@ void FlowLink::createDeviceTableUi()
   deviceDockWidget->setMinimumSize(200, 150);
   m_dockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, deviceDockWidget, m_centralDockArea);
   ui->menuView->addAction(deviceDockWidget->toggleViewAction());
+
+  // connect click signal-slot
+  connect(m_deviceTableView, &QTableView::clicked, this, &FlowLink::onChatActionClicked);
 }
 
 void FlowLink::createPropertiesTableUi()
