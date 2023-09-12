@@ -43,6 +43,20 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             break;
         }
     }
+
+    if (role == Qt::TextAlignmentRole)
+    {
+        switch (index.column())
+        {
+        case 0:
+            return Qt::AlignCenter;
+        case 1:
+            return Qt::AlignCenter;
+        default:
+            break;
+        }
+    }
+
     return QVariant();
 }
 
