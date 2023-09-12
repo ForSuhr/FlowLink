@@ -16,6 +16,7 @@
 #include <QItemSelectionModel>
 #include <QWidgetAction>
 #include <QToolButton>
+#include <QMessageBox>
 
 #include <memory>
 #include <unordered_map>
@@ -91,7 +92,8 @@ private:
   // perspective
   QMenu *m_perspectivesMenu = nullptr;
   QToolButton *m_perspectivesToolBtn = nullptr;
-  QAction *m_savePerspectiveAction = nullptr;
+  QAction *m_newPerspectiveAction = nullptr;
+  QAction *m_deletePerspectiveAction = nullptr;
   QWidgetAction *m_perspectiveListAction = nullptr;
   QAction *m_setDefaultPerspective = nullptr;
   QComboBox *m_perspectiveComboBox = nullptr;
@@ -110,6 +112,7 @@ private slots:
   void onConnectActionClicked();
   void onDisconnectActionClicked();
   void openChatWindow();
-  void savePerspective();
+  void NewPerspective();
+  void deletePerspective();
 };
 #endif // FLOWLINK_H

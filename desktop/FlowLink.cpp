@@ -108,8 +108,10 @@ void FlowLink::createConnectionActionUi()
 
 void FlowLink::createPerspectiveUi()
 {
-  m_savePerspectiveAction = new QAction(tr("Save Perspective"), this);
-  connect(m_savePerspectiveAction, SIGNAL(triggered()), this, SLOT(savePerspective()));
+  m_newPerspectiveAction = new QAction(tr("New Perspective"), this);
+  connect(m_newPerspectiveAction, SIGNAL(triggered()), this, SLOT(NewPerspective()));
+  m_deletePerspectiveAction = new QAction(tr("Delete current Perspective"), this);
+  connect(m_deletePerspectiveAction, SIGNAL(triggered()), this, SLOT(deletePerspective()));
 
   m_perspectivesMenu = new QMenu(this);
   m_perspectivesToolBtn = new QToolButton(this);
@@ -125,8 +127,9 @@ void FlowLink::createPerspectiveUi()
 
   m_setDefaultPerspective = new QAction(tr("Set Default Perspective"), this);
   connect(m_setDefaultPerspective, &QAction::triggered, [&]
-          { if (m_perspectiveComboBox->count()!=0)
-            config.setValue("Perspective", m_perspectiveComboBox->currentText()); });
+          {
+    if (m_perspectiveComboBox->count() != 0)
+      config.setValue("Perspective", m_perspectiveComboBox->currentText()); });
 
   // add a stretchable spacer beforehand, using an empty QWidget because QToolBar doesn't provide addStretch()
   QWidget *spacer = new QWidget();
@@ -136,8 +139,9 @@ void FlowLink::createPerspectiveUi()
   // add perspective-actions
   ui->toolBar->addWidget(m_perspectivesToolBtn);
   m_perspectivesToolBtn->setMenu(m_perspectivesMenu);
-  m_perspectivesMenu->addAction(m_savePerspectiveAction);
   m_perspectivesMenu->addAction(m_setDefaultPerspective);
+  m_perspectivesMenu->addAction(m_newPerspectiveAction);
+  m_perspectivesMenu->addAction(m_deletePerspectiveAction);
   ui->toolBar->addAction(m_perspectiveListAction);
 }
 
@@ -277,9 +281,9 @@ void FlowLink::removeDevices()
   m_centralDockWidget->setWidget(centralDockLabel);
 }
 
-void FlowLink::savePerspective()
+void FlowLink::NewPerspective()
 {
-  QString perspectiveName = QInputDialog::getText(this, tr("Save Perspective"), tr("Perspective Name:"));
+  QString perspectiveName = QInputDialog::getText(this, tr("New Perspective"), tr("Perspective Name:"));
   if (perspectiveName.isEmpty())
   {
     return;
@@ -291,9 +295,26 @@ void FlowLink::savePerspective()
   m_perspectiveComboBox->addItems(m_dockManager->perspectiveNames());
   m_perspectiveComboBox->setCurrentText(perspectiveName);
 
-  /*  save perspectives as local file */
+  /*  update current perspectives in combobox to local file */
   QSettings settings("./config/perspectives.ini", QSettings::IniFormat);
   m_dockManager->savePerspectives(settings);
+}
+
+void FlowLink::deletePerspective()
+{
+  QString perspectiveName = m_perspectiveComboBox->currentText();
+  if (m_perspectiveComboBox->count() == 1)
+    QMessageBox::warning(this, "", tr("Can not delete last perspective!"));
+  else
+  {
+    m_perspectiveComboBox->setCurrentIndex(0);
+    m_perspectiveComboBox->removeItem(m_perspectiveComboBox->findText(perspectiveName));
+    m_dockManager->removePerspective(perspectiveName);
+
+    /*  update current perspectives in combobox to local file */
+    QSettings settings("./config/perspectives.ini", QSettings::IniFormat);
+    m_dockManager->savePerspectives(settings);
+  }
 }
 
 void FlowLink::closeEvent(QCloseEvent *event)
