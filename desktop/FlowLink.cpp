@@ -108,13 +108,18 @@ void FlowLink::createConnectionActionUi()
 
 void FlowLink::createPerspectiveUi()
 {
-  m_savePerspectiveAction = new QAction(tr("Create Perspective"), this);
+  m_savePerspectiveAction = new QAction(tr("Save Perspective"), this);
   connect(m_savePerspectiveAction, SIGNAL(triggered()), this, SLOT(savePerspective()));
 
+  m_perspectivesMenu = new QMenu(this);
+  m_perspectivesToolBtn = new QToolButton(this);
+  m_perspectivesToolBtn->setIcon(QIcon(R"(:/asset/style/lumos/perspectivesAction.svg)"));
+  m_perspectivesToolBtn->setPopupMode(QToolButton::InstantPopup);
   m_perspectiveListAction = new QWidgetAction(this);
   m_perspectiveComboBox = new QComboBox(this);
   m_perspectiveComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
   m_perspectiveComboBox->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  m_perspectiveComboBox->setFixedHeight(24);
   connect(m_perspectiveComboBox, SIGNAL(currentTextChanged(const QString &)), m_dockManager, SLOT(openPerspective(const QString &)));
   m_perspectiveListAction->setDefaultWidget(m_perspectiveComboBox);
 
@@ -129,10 +134,11 @@ void FlowLink::createPerspectiveUi()
   ui->toolBar->addWidget(spacer);
 
   // add perspective-actions
-  ui->toolBar->addSeparator();
+  ui->toolBar->addWidget(m_perspectivesToolBtn);
+  m_perspectivesToolBtn->setMenu(m_perspectivesMenu);
+  m_perspectivesMenu->addAction(m_savePerspectiveAction);
+  m_perspectivesMenu->addAction(m_setDefaultPerspective);
   ui->toolBar->addAction(m_perspectiveListAction);
-  ui->toolBar->addAction(m_savePerspectiveAction);
-  ui->toolBar->addAction(m_setDefaultPerspective);
 }
 
 void FlowLink::createCentralUI()

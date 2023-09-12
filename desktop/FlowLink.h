@@ -15,6 +15,7 @@
 #include <QHeaderView>
 #include <QItemSelectionModel>
 #include <QWidgetAction>
+#include <QToolButton>
 
 #include <memory>
 #include <unordered_map>
@@ -88,6 +89,8 @@ private:
   QAction *m_chatAction = nullptr;
 
   // perspective
+  QMenu *m_perspectivesMenu = nullptr;
+  QToolButton *m_perspectivesToolBtn = nullptr;
   QAction *m_savePerspectiveAction = nullptr;
   QWidgetAction *m_perspectiveListAction = nullptr;
   QAction *m_setDefaultPerspective = nullptr;
