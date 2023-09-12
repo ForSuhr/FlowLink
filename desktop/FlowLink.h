@@ -109,8 +109,7 @@ private:
   ProgressWindow *m_progressWindow = nullptr;
 
   // field for customized widgets
-  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {};         // a map used to store chat window pointers
-  std::unordered_map<QString, ProgressWindow *> m_progressWindowMap = {}; // a map used to store progress widgets, one widget per downloading file
+  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {}; // a map used to store chat window pointers
 
 private slots:
   void
