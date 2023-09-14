@@ -6,5 +6,8 @@
         <file>asset/style/lumos/connectAction.svg</file>
         <file>asset/style/lumos/disconnectAction.svg</file>
         <file>asset/style/lumos/perspectivesAction.svg</file>
+        <file>asset/style/lumos/finishSign.png</file>
+        <file>asset/style/lumos/btnClose.svg</file>
+        <file>asset/style/lumos/btnCloseHover.svg</file>
     </qresource>
 </RCC>

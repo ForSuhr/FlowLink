@@ -16,6 +16,14 @@ QPushButton#btnSendMsg {
 	border-image: url(:/asset/style/lumos/btnSendMsg.svg);
 }
 
+QPushButton#btnClose{
+	border-image: url(:/asset/style/lumos/btnClose.svg);
+}
+
+QPushButton:hover#btnClose{
+	border-image: url(:/asset/style/lumos/btnCloseHover.svg);
+}
+
 QLineEdit {
 	border: 2px solid lightgray;
 	border-radius: 4px;
@@ -43,7 +51,7 @@ QWidget#progressWidget {
 }
 
 QWidget:hover#progressWidget {
-	border: 1px solid lightgray;
+	border: 1px solid whitesmoke;
 	border-radius: 16px;
 	background-color: lightgray;
 }

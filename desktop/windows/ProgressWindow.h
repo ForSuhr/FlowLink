@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QBoxLayout>
 #include <QLabel>
+#include <QPushButton>
+#include <QIcon>
+#include <QPixmap>
 #include <QProgressBar>
 #include <QDebug>
 
@@ -23,6 +26,9 @@ public:
     QVBoxLayout *layout();
     void createProgressWidget(const QString &filename, qint64 totalFileBytes);
     void updateProgress(const QString &filename, qint64 bytes, qint64 totalBytes);
+
+public slots:
+    void deleteProgressWidget();
 
 private:
     QVBoxLayout *m_vbox = nullptr;
