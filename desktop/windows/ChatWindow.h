@@ -20,7 +20,7 @@ class ChatWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QString address, int port, QWidget *parent = nullptr);
+    explicit ChatWindow(QString address, QWidget *parent = nullptr);
     ~ChatWindow();
 
     QString msgText();
@@ -30,17 +30,18 @@ public:
     friend void rightAlignedAppend(const ChatWindow *chatWindow, const QString &text);
     friend void centerAlignedAppend(const ChatWindow *chatWindow, const QString &text);
 
-    /* slots */
+    /* network */
+    TcpReceiver *m_tcpReceiver = nullptr;
+    TcpSender *m_tcpSender = nullptr;
+
+    /*private slots */
 private slots:
     void on_btnSendFile_clicked();
     void on_btnSendMsg_clicked();
 
+    /*private field*/
 private:
     Ui::ChatWindow *ui;
-
-    /* network */
-    TcpReceiver *m_tcpReceiver = nullptr;
-    TcpSender *m_tcpSender = nullptr;
 };
 
 #endif

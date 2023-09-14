@@ -5,7 +5,7 @@
     <name>ChatWindow</name>
     <message>
         <location filename="../windows/ChatWindow.ui" line="14"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="88"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_ChatWindow.h" line="89"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -45,59 +45,65 @@
     <message>
         <location filename="../FlowLink.ui" line="59"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="78"/>
-        <location filename="../FlowLink.cpp" line="73"/>
+        <location filename="../FlowLink.cpp" line="67"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="64"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
-        <location filename="../FlowLink.cpp" line="66"/>
+        <location filename="../FlowLink.cpp" line="73"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="80"/>
+        <location filename="../FlowLink.cpp" line="84"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="81"/>
+        <location filename="../FlowLink.cpp" line="85"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="100"/>
-        <source>Chat</source>
+        <location filename="../FlowLink.cpp" line="114"/>
+        <location filename="../FlowLink.cpp" line="294"/>
+        <source>New Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="108"/>
-        <source>Create Perspective</source>
+        <location filename="../FlowLink.cpp" line="116"/>
+        <source>Save As Current Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="118"/>
+        <source>Delete Current Perspective</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="193"/>
+        <source>Progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="330"/>
+        <source>Can not delete last perspective!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="133"/>
         <source>Set Default Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="153"/>
+        <location filename="../FlowLink.cpp" line="178"/>
         <source>Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="167"/>
-        <source>Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="261"/>
-        <source>Save Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="261"/>
+        <location filename="../FlowLink.cpp" line="294"/>
         <source>Perspective Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -120,27 +126,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="74"/>
+        <location filename="../windows/PrefWindow.cpp" line="73"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="80"/>
+        <location filename="../windows/PrefWindow.cpp" line="79"/>
         <source>&lt;b&gt;Language&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="86"/>
+        <location filename="../windows/PrefWindow.cpp" line="85"/>
         <source>* The language will be changed after restarting the application.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="90"/>
+        <location filename="../windows/PrefWindow.cpp" line="89"/>
         <source>&lt;b&gt;Style&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="119"/>
+        <location filename="../windows/PrefWindow.cpp" line="118"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -166,12 +172,12 @@
 <context>
     <name>TableModel</name>
     <message>
-        <location filename="../utils/TableModel.cpp" line="59"/>
+        <location filename="../utils/TableModel.cpp" line="73"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utils/TableModel.cpp" line="61"/>
+        <location filename="../utils/TableModel.cpp" line="75"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>

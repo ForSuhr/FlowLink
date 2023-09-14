@@ -13,6 +13,7 @@
 #include <QNetworkInterface>
 #include <QCborStreamWriter>
 #include <QCborStreamReader>
+#include <QThread>
 
 #include <Log.h>
 #include <Init.h>

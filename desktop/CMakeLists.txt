@@ -34,6 +34,8 @@ set(PROJECT_SOURCES
         network/TcpSender.cpp
         network/TcpReceiver.h
         network/TcpReceiver.cpp
+        network/WorkerThread.h
+        network/WorkerThread.cpp
         utils/StyleSheet.h
         utils/StyleSheet.cpp 
         utils/QSettingsJSON.h

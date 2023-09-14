@@ -56,11 +56,20 @@ public:
 protected:
   virtual void closeEvent(QCloseEvent *event) override;
 
+private slots:
+  void
+  onConnectActionClicked();
+  void onDisconnectActionClicked();
+  void openChatWindow();
+  void NewPerspective();
+  void SaveAsCurrentPerspective();
+  void deletePerspective();
+
 private:
   void setupLog();
   void setupDockManager();
   void setupMenuBar();
-  void createConnectionActionUi();
+  void createConnectionUi();
   void createPerspectiveUi();
   void createCentralUI();
   void createDeviceTableUi();
@@ -109,15 +118,6 @@ private:
   ProgressWindow *m_progressWindow = nullptr;
 
   // field for customized widgets
-  std::unordered_map<QString, ChatWindow *> m_chatWindowMap = {}; // a map used to store chat window pointers
-
-private slots:
-  void
-  onConnectActionClicked();
-  void onDisconnectActionClicked();
-  void openChatWindow();
-  void NewPerspective();
-  void SaveAsCurrentPerspective();
-  void deletePerspective();
+  std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap; // a map used to store chat window pointers
 };
 #endif // FLOWLINK_H

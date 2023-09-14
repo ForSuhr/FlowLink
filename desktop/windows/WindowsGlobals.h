@@ -4,6 +4,8 @@
 #include <QtEndian>
 #include <QString>
 
+#include "../Globals.h"
+
 struct ConvertedNumber
 {
     double number;

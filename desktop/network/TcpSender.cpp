@@ -4,7 +4,7 @@ TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
     : QObject(parent),
       tcpSocketIPv4(new QTcpSocket)
 {
-    tcpSocketIPv4->connectToHost(ipv4Address, 8000);
+    tcpSocketIPv4->connectToHost(ipv4Address, 880);
 
     if (!tcpSocketIPv4->waitForConnected(5000))
     {

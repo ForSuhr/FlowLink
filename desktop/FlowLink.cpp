@@ -7,7 +7,8 @@ FlowLink::FlowLink(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::FlowLink),
       m_udpReceiver(new UdpReceiver),
-      m_udpSender(new UdpSender)
+      m_udpSender(new UdpSender),
+      m_chatWindowMap(new std::unordered_map<QString, ChatWindow *>)
 {
   setupLog();
 
@@ -19,7 +20,7 @@ FlowLink::FlowLink(QWidget *parent)
   setupMenuBar();
 
   /* toolbar */
-  createConnectionActionUi();
+  createConnectionUi();
   createPerspectiveUi();
 
   /* central widget */
@@ -33,6 +34,8 @@ FlowLink::FlowLink(QWidget *parent)
 
   /* load preferences */
   loadPreferences();
+
+  PLOG_DEBUG << "running on main thread: " << QThread::currentThread();
 }
 
 FlowLink::~FlowLink()
@@ -77,7 +80,7 @@ void FlowLink::setupMenuBar()
   connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
 }
 
-void FlowLink::createConnectionActionUi()
+void FlowLink::createConnectionUi()
 {
   m_connectAction = new QAction(tr("Connect"), this);
   m_disconnectAction = new QAction(tr("Disconnect"), this);
@@ -244,7 +247,7 @@ void FlowLink::openChatWindow()
     QString address = index.data().toString();
 
     // get chat window by address<QString>
-    ChatWindow *chatWindow = m_chatWindowMap[address];
+    ChatWindow *chatWindow = (*m_chatWindowMap)[address];
 
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
@@ -258,12 +261,16 @@ void FlowLink::addDevice(Device device)
   m_deviceTableModel->addRow(device.name, device.address);
 
   // if the chat window map does not contain a chat window of this device,
-  // create a new chat window and store its pointer by address string in the map
-  if (m_chatWindowMap.find(device.address) == m_chatWindowMap.end())
+  if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
   {
-    ChatWindow *chatWindow = new ChatWindow(device.address, m_port);
-    m_port++;
-    m_chatWindowMap[device.address] = chatWindow;
+    // create a new chat window and store its pointer by address string in the map
+    ChatWindow *chatWindow = new ChatWindow(device.address);
+    (*m_chatWindowMap)[device.address] = chatWindow;
+
+    // create a connection to notify the progress window that there is a new download task
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
+    // create a connection to bind progress-update signal to progress widgets
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
   }
 }
 
@@ -275,11 +282,11 @@ void FlowLink::removeDevices()
   m_deviceTableModel->removeRows(0, rowNum, QModelIndex());
 
   // clear the chat window map
-  for (auto &i : m_chatWindowMap)
+  for (auto &i : (*m_chatWindowMap))
   {
     i.second->deleteLater();
   }
-  m_chatWindowMap.clear();
+  m_chatWindowMap->clear();
   m_centralDockWidget->setWidget(centralDockLabel);
 }
 

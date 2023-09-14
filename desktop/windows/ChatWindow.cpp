@@ -1,10 +1,10 @@
 #include "./ui_ChatWindow.h"
 #include "ChatWindow.h"
 
-ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
+ChatWindow::ChatWindow(QString address, QWidget *parent)
     : QWidget(parent),
       ui(new Ui::ChatWindow),
-      m_tcpReceiver(new TcpReceiver(port))
+      m_tcpReceiver(new TcpReceiver)
 {
     ui->setupUi(this);
     ui->lineEditMsg->setAlignment(Qt::AlignCenter);

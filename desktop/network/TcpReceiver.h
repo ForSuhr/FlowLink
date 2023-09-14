@@ -2,26 +2,21 @@
 #define TCP_RECEIVER_H
 
 #include "NetworkGlobals.h"
+#include "WorkerThread.h"
 
 class TcpReceiver : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TcpReceiver(int port, QObject *parent = nullptr);
+    explicit TcpReceiver(QObject *parent = nullptr);
     ~TcpReceiver();
 
 signals:
+    void threadStartedSignal();
     void msgSignal(const QString &msg);
-
-private:
-    void createConnection(int port = 8000);
-    void handleNewConnection();
-    void processPendingDatagrams();
-    void parserMap(const QVariantMap &vMap, const QString &fileName);
-
-    QTcpServer *server = nullptr;
-    QTcpSocket *tcpSocketIPv4 = nullptr;
+    void startNewTaskSignal(const QString &filename, qint64 totalFileBytes);
+    void updateProgressSignal(const QString &filename, qint64 receivedBytes, qint64 totalBytes);
 };
 
-#endif
+#endif // TCP_RECEIVER_H

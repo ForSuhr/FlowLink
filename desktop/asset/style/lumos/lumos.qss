@@ -1,6 +1,13 @@
 /* unique */
 
 /* shared */
+QComboBox{
+	border: 2px solid lightgray;
+	border-radius: 4px;
+	padding:2px;
+	background-color: whitesmoke;
+}
+
 QPushButton#btnSendFile {
 	border-image: url(:/asset/style/lumos/btnSendFile.svg);
 }
@@ -9,12 +16,18 @@ QPushButton#btnSendMsg {
 	border-image: url(:/asset/style/lumos/btnSendMsg.svg);
 }
 
+QLineEdit {
+	border: 2px solid lightgray;
+	border-radius: 4px;
+	background-color: whitesmoke;
+}
+
 QLineEdit#lineEditMsg {
 	margin-left: 10px;
 	margin-right: 10px;
 	border: 1px solid lightgray;
 	border-radius: 16px;
-	background-color: lightgray;
+	background-color: whitesmoke;
 }
 
 QTextEdit#textEditView {
