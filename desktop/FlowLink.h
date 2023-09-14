@@ -118,6 +118,7 @@ private:
   ProgressWindow *m_progressWindow = nullptr;
 
   // field for customized widgets
-  std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap; // a map used to store chat window pointers
+  std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap = nullptr; // a map used to store chat window pointers
+  QString m_currentChatWindowAddress;
 };
 #endif // FLOWLINK_H

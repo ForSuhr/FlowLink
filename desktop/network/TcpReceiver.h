@@ -12,9 +12,16 @@ public:
     explicit TcpReceiver(QObject *parent = nullptr);
     ~TcpReceiver();
 
+    void closeConnection();
+
+    WorkerThread *workerForMsg = nullptr;
+    WorkerThread *workerForBin = nullptr;
+
 signals:
     void threadForMsgStartedSignal(int port);
     void threadForBinStartedSignal(int port);
+    void connectionForMsgClosedSignal();
+    void connectionForBinClosedSignal();
     void msgSignal(const QString &msg);
     void startNewTaskSignal(const QString &filename, qint64 totalFileBytes);
     void updateProgressSignal(const QString &filename, qint64 receivedBytes, qint64 totalBytes);

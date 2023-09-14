@@ -26,6 +26,13 @@ void WorkerThread::createConnection(int port)
     connect(m_server, &QTcpServer::newConnection, this, &WorkerThread::handleNewConnection);
 }
 
+void WorkerThread::closeConnection()
+{
+    m_tcpSocketIPv4->close();
+    m_server->close();
+    PLOG_DEBUG << "All connections closed";
+}
+
 void WorkerThread::handleNewConnection()
 {
     m_tcpSocketIPv4 = m_server->nextPendingConnection();

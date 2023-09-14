@@ -18,11 +18,12 @@ public:
     ~WorkerThread();
 
     void parserMap(const QVariantMap &vMap, const QString &fileName);
+    void handleNewConnection();
+    void processPendingDatagrams();
 
 public slots:
     void createConnection(int port);
-    void handleNewConnection();
-    void processPendingDatagrams();
+    void closeConnection();
 
 signals:
     void msgSignal(const QString &msg);

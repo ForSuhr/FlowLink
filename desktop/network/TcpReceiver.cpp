@@ -4,8 +4,9 @@ TcpReceiver::TcpReceiver(QObject *parent)
     : QObject(parent)
 {
     // add a new worker for handling messages
-    WorkerThread *workerForMsg = new WorkerThread();
+    workerForMsg = new WorkerThread();
     connect(this, &TcpReceiver::threadForMsgStartedSignal, workerForMsg, &WorkerThread::createConnection);
+    connect(this, &TcpReceiver::connectionForMsgClosedSignal, workerForMsg, &WorkerThread::closeConnection);
     connect(workerForMsg, &WorkerThread::msgSignal, this, &TcpReceiver::msgSignal);
 
     // leave the new thread to work on establishing new connection and handling pending datagrams
@@ -15,8 +16,9 @@ TcpReceiver::TcpReceiver(QObject *parent)
     emit threadForMsgStartedSignal(8080);
 
     // then do the same for handling binary files
-    WorkerThread *workerForBin = new WorkerThread();
+    workerForBin = new WorkerThread();
     connect(this, &TcpReceiver::threadForBinStartedSignal, workerForBin, &WorkerThread::createConnection);
+    connect(this, &TcpReceiver::connectionForBinClosedSignal, workerForBin, &WorkerThread::closeConnection);
     connect(workerForBin, &WorkerThread::startNewTaskSignal, this, &TcpReceiver::startNewTaskSignal);
     connect(workerForBin, &WorkerThread::updateProgressSignal, this, &TcpReceiver::updateProgressSignal);
 
@@ -28,4 +30,10 @@ TcpReceiver::TcpReceiver(QObject *parent)
 
 TcpReceiver::~TcpReceiver()
 {
+}
+
+void TcpReceiver::closeConnection()
+{
+    emit connectionForMsgClosedSignal();
+    emit connectionForBinClosedSignal();
 }

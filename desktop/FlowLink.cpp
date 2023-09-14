@@ -226,8 +226,16 @@ void FlowLink::onConnectActionClicked()
 
 void FlowLink::onDisconnectActionClicked()
 {
+  /* close tcp connection */
+  for (const auto &pair : (*m_chatWindowMap))
+  {
+    pair.second->m_tcpReceiver->closeConnection();
+  }
+
+  /* close udp connection and clear chatwindow */
   m_udpReceiver->closeConnection();
 
+  /* ui */
   m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
 }
@@ -248,6 +256,7 @@ void FlowLink::openChatWindow()
 
     // get chat window by address<QString>
     ChatWindow *chatWindow = (*m_chatWindowMap)[address];
+    m_currentChatWindowAddress = address;
 
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);

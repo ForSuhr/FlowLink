@@ -45,65 +45,65 @@
     <message>
         <location filename="../FlowLink.ui" line="59"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="78"/>
-        <location filename="../FlowLink.cpp" line="67"/>
+        <location filename="../FlowLink.cpp" line="68"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="64"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
-        <location filename="../FlowLink.cpp" line="73"/>
+        <location filename="../FlowLink.cpp" line="74"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="84"/>
+        <location filename="../FlowLink.cpp" line="85"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="85"/>
+        <location filename="../FlowLink.cpp" line="86"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="114"/>
-        <location filename="../FlowLink.cpp" line="294"/>
+        <location filename="../FlowLink.cpp" line="115"/>
+        <location filename="../FlowLink.cpp" line="305"/>
         <source>New Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="116"/>
+        <location filename="../FlowLink.cpp" line="117"/>
         <source>Save As Current Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="118"/>
+        <location filename="../FlowLink.cpp" line="119"/>
         <source>Delete Current Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="193"/>
+        <location filename="../FlowLink.cpp" line="194"/>
         <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="330"/>
+        <location filename="../FlowLink.cpp" line="341"/>
         <source>Can not delete last perspective!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="133"/>
+        <location filename="../FlowLink.cpp" line="134"/>
         <source>Set Default Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="178"/>
+        <location filename="../FlowLink.cpp" line="179"/>
         <source>Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="294"/>
+        <location filename="../FlowLink.cpp" line="305"/>
         <source>Perspective Name:</source>
         <translation type="unfinished"></translation>
     </message>
