@@ -8,12 +8,12 @@ WorkerThread::~WorkerThread()
 {
 }
 
-void WorkerThread::createConnection()
+void WorkerThread::createConnection(int port)
 {
     m_server = new QTcpServer();
 
     // Listen for incoming connections on port
-    if (!m_server->listen(QHostAddress::AnyIPv4, 880))
+    if (!m_server->listen(QHostAddress::AnyIPv4, port))
     {
         PLOG_DEBUG << "Failed to start TCP server";
         return;

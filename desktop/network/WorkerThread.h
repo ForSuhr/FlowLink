@@ -20,7 +20,7 @@ public:
     void parserMap(const QVariantMap &vMap, const QString &fileName);
 
 public slots:
-    void createConnection();
+    void createConnection(int port);
     void handleNewConnection();
     void processPendingDatagrams();
 

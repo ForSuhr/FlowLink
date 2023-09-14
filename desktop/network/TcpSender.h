@@ -17,7 +17,8 @@ public:
     void sendBin(const QString &filePath);
 
 private:
-    QTcpSocket *tcpSocketIPv4 = nullptr;
+    QTcpSocket *tcpSocketIPv4ForMsg = nullptr;
+    QTcpSocket *tcpSocketIPv4ForBin = nullptr;
 };
 
 #endif

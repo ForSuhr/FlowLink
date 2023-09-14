@@ -13,7 +13,8 @@ public:
     ~TcpReceiver();
 
 signals:
-    void threadStartedSignal();
+    void threadForMsgStartedSignal(int port);
+    void threadForBinStartedSignal(int port);
     void msgSignal(const QString &msg);
     void startNewTaskSignal(const QString &filename, qint64 totalFileBytes);
     void updateProgressSignal(const QString &filename, qint64 receivedBytes, qint64 totalBytes);

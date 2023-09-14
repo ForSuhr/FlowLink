@@ -2,17 +2,29 @@
 
 TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
     : QObject(parent),
-      tcpSocketIPv4(new QTcpSocket)
+      tcpSocketIPv4ForMsg(new QTcpSocket),
+      tcpSocketIPv4ForBin(new QTcpSocket)
 {
-    tcpSocketIPv4->connectToHost(ipv4Address, 880);
+    tcpSocketIPv4ForMsg->connectToHost(ipv4Address, 8080);
 
-    if (!tcpSocketIPv4->waitForConnected(5000))
+    if (!tcpSocketIPv4ForMsg->waitForConnected(5000))
     {
-        PLOG_DEBUG << "Failed to connect to host";
+        PLOG_DEBUG << "Msg socket: Failed to connect to host";
     }
     else
     {
-        PLOG_DEBUG << "Connected to host successfully";
+        PLOG_DEBUG << "Msg socket: Connected to host successfully";
+    }
+
+    tcpSocketIPv4ForBin->connectToHost(ipv4Address, 8081);
+
+    if (!tcpSocketIPv4ForBin->waitForConnected(5000))
+    {
+        PLOG_DEBUG << "Bin socket: Failed to connect to host";
+    }
+    else
+    {
+        PLOG_DEBUG << "Bin socket: Connected to host successfully";
     }
 }
 
@@ -42,7 +54,7 @@ void TcpSender::sendMsg(const QString &msg)
     QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
     dataStream2 << headerSize;
 
-    tcpSocketIPv4->write(baHeaderSize + baHeader + baBody);
+    tcpSocketIPv4ForMsg->write(baHeaderSize + baHeader + baBody);
 }
 
 void TcpSender::sendBin(const QString &filePath)
@@ -73,6 +85,6 @@ void TcpSender::sendBin(const QString &filePath)
     QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
     dataStream2 << headerSize;
 
-    tcpSocketIPv4->write(baHeaderSize + baHeader + baBody);
-    tcpSocketIPv4->waitForBytesWritten(-1);
+    tcpSocketIPv4ForBin->write(baHeaderSize + baHeader + baBody);
+    tcpSocketIPv4ForBin->waitForBytesWritten(-1);
 }
