@@ -1,7 +1,7 @@
 #include "./ui_ChatWindow.h"
 #include "ChatWindow.h"
 
-ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
+ChatWindow::ChatWindow(bool isServer, QString address, int port, QWidget *parent)
     : QWidget(parent),
       ui(new Ui::ChatWindow)
 {
@@ -9,7 +9,10 @@ ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
     ui->lineEditMsg->setAlignment(Qt::AlignCenter);
 
     // get port
-    m_port = port;
+    if (isServer)
+        m_port = g_port;
+    else
+        m_port = port;
     PLOG_DEBUG << "port for current chat window: " << m_port << " for msg and " << m_port + 1 << " for bin";
 
     // initialize tcp receiver, i.e. set up a tcp server to listen to the given port

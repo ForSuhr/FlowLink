@@ -15,7 +15,7 @@ UdpReceiver::~UdpReceiver()
     m_udpSocketIPv4.close();
 }
 
-void UdpReceiver::createConnection()
+void UdpReceiver::connectToLocalNetwork()
 {
     m_udpSocketIPv4.joinMulticastGroup(m_groupAddressIPv4);
 }
@@ -41,7 +41,6 @@ void UdpReceiver::processPendingDatagrams()
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> m_device;
     m_device.address = senderIp.toString();
-    PLOG_DEBUG << m_device.port;
 
     if (m_device.name != localHostName().name)
         emit receivedDeviceInfo(m_device, DeviceAction::Connection);

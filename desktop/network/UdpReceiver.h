@@ -17,7 +17,7 @@ class UdpReceiver : public QObject
 public:
     explicit UdpReceiver(QObject *parent = nullptr);
     ~UdpReceiver();
-    void createConnection();
+    void connectToLocalNetwork();
     void closeConnection();
 
 signals:

@@ -58,6 +58,7 @@ protected:
   virtual void closeEvent(QCloseEvent *event) override;
 
 private slots:
+  void onScanActionClicked();
   void onConnectActionClicked();
   void onDisconnectActionClicked();
   void onToggleShowLocalHostActionClicked();
@@ -101,6 +102,7 @@ private:
   PrefWindow *prefWindow = nullptr;
 
   // toolbar
+  QAction *m_scanAction = nullptr;
   QAction *m_connectAction = nullptr;
   QAction *m_disconnectAction = nullptr;
   QAction *m_toggleShowLocalHostAction = nullptr;
@@ -128,6 +130,7 @@ private:
   Device m_localHostDevice;
 
   /* flags */
+  bool m_isServer;
   bool m_isShowLocalHost;
 };
 #endif // FLOWLINK_H

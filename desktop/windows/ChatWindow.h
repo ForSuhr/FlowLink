@@ -20,7 +20,7 @@ class ChatWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QString address, int port, QWidget *parent = nullptr);
+    explicit ChatWindow(bool isServer, QString address, int port, QWidget *parent = nullptr);
     ~ChatWindow();
 
     QString msgText();
