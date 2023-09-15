@@ -101,16 +101,10 @@ void FlowLink::createConnectionUi()
   // connect
   ui->toolBar->addAction(m_connectAction);
   connect(m_connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(m_disconnectAction);
   connect(m_disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
 
   // show local host
   ui->toolBar->addAction(m_toggleShowLocalHostAction);
@@ -236,8 +230,18 @@ void FlowLink::castToLocalNetwork()
 
 void FlowLink::onConnectActionClicked()
 {
+  // join group
   m_udpReceiver->connectToLocalNetwork();
 
+  // ready for receiving udp signal
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
+
+  // sending udp signal
   castToLocalNetwork();
   m_castToLocalNetworkTimer->start(2000);
 
