@@ -85,7 +85,7 @@ void FlowLink::createConnectionUi()
   m_scanAction = new QAction(this);
   m_scanAction->setIcon(QIcon(R"(:/asset/style/lumos/scanAction.svg)"));
   m_scanAction->setToolTip(tr("Scan devices in local network"));
-  m_scanLocalNetworkTimer = new QTimer(this);
+  m_castToLocalNetworkTimer = new QTimer(this);
   m_connectAction = new QAction(this);
   m_connectAction->setIcon(QIcon(R"(:/asset/style/lumos/connectAction.svg)"));
   m_connectAction->setToolTip(tr("Connect to local network"));
@@ -103,7 +103,7 @@ void FlowLink::createConnectionUi()
   connect(m_scanAction, &QAction::triggered, this, &FlowLink::onScanActionClicked);
 
   // a timer for scanning devices in local network
-  connect(m_scanLocalNetworkTimer, &QTimer::timeout, this, &FlowLink::scanLocalNetwork);
+  connect(m_castToLocalNetworkTimer, &QTimer::timeout, this, &FlowLink::castToLocalNetwork);
 
   // connect
   ui->toolBar->addAction(m_connectAction);
@@ -236,15 +236,23 @@ void FlowLink::loadPreferences()
   StyleSheet::Instance().loadQSS(this, stylesheetMap["Lumos"]);
 }
 
+void FlowLink::castToLocalNetwork()
+{
+  m_udpSender->sendDeviceInfo();
+}
+
 void FlowLink::onScanActionClicked()
 {
-  scanLocalNetwork();
-  m_scanLocalNetworkTimer->start(2000);
+  m_isServer = true; // if you scan the local network proactively, the local host will be a server
+
+  m_udpReceiver->connectToLocalNetwork();
 }
 
 void FlowLink::onConnectActionClicked()
 {
-  m_udpReceiver->connectToLocalNetwork();
+  m_isServer = false; // if you cast your host info to local network, the local host will be a client
+  castToLocalNetwork();
+  m_castToLocalNetworkTimer->start(2000);
 
   m_connectAction->setEnabled(false);
   m_disconnectAction->setEnabled(true);
@@ -252,7 +260,7 @@ void FlowLink::onConnectActionClicked()
 
 void FlowLink::onDisconnectActionClicked()
 {
-  m_scanLocalNetworkTimer->stop();
+  m_castToLocalNetworkTimer->stop();
 
   /* close tcp connection */
   for (const auto &pair : (*m_chatWindowMap))
@@ -307,13 +315,6 @@ void FlowLink::openChatWindow()
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
   }
-}
-
-void FlowLink::scanLocalNetwork()
-{
-  m_isServer = true; // if you scan the local network proactively, the local host will be a server
-
-  m_udpSender->sendDeviceInfo();
 }
 
 /// @brief add device to the table view and create a chat window for it

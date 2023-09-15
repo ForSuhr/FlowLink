@@ -78,7 +78,7 @@ private:
   void createProgressWindowUi();
   void loadPreferences();
 
-  void scanLocalNetwork();
+  void castToLocalNetwork();
   void addDevice(Device device);
   void addLocalHostDevice(Device device);
   void removeDevice(Device device);
@@ -88,7 +88,7 @@ private:
   Ui::FlowLink *ui;
 
   /* network */
-  QTimer *m_scanLocalNetworkTimer = nullptr;
+  QTimer *m_castToLocalNetworkTimer = nullptr;
   UdpReceiver *m_udpReceiver = nullptr;
   UdpSender *m_udpSender = nullptr;
   int m_port = 8000;
