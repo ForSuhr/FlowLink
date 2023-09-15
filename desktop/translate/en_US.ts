@@ -57,53 +57,58 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="85"/>
-        <source>Connect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="86"/>
-        <source>Disconnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="115"/>
-        <location filename="../FlowLink.cpp" line="305"/>
+        <location filename="../FlowLink.cpp" line="118"/>
+        <location filename="../FlowLink.cpp" line="346"/>
         <source>New Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="117"/>
+        <location filename="../FlowLink.cpp" line="120"/>
         <source>Save As Current Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="119"/>
+        <location filename="../FlowLink.cpp" line="122"/>
         <source>Delete Current Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="194"/>
+        <location filename="../FlowLink.cpp" line="197"/>
         <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="341"/>
+        <location filename="../FlowLink.cpp" line="382"/>
         <source>Can not delete last perspective!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="134"/>
+        <location filename="../FlowLink.cpp" line="137"/>
         <source>Set Default Perspective</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="179"/>
+        <location filename="../FlowLink.cpp" line="87"/>
+        <source>Connect to local network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="91"/>
+        <source>Disonnect from local network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="95"/>
+        <source>Show/Hide local host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="182"/>
         <source>Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="305"/>
+        <location filename="../FlowLink.cpp" line="346"/>
         <source>Perspective Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -111,42 +116,42 @@
 <context>
     <name>PrefWindow</name>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="33"/>
+        <location filename="../windows/PrefWindow.cpp" line="34"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="39"/>
+        <location filename="../windows/PrefWindow.cpp" line="40"/>
         <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="61"/>
+        <location filename="../windows/PrefWindow.cpp" line="62"/>
         <source>Select Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="73"/>
+        <location filename="../windows/PrefWindow.cpp" line="74"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="79"/>
+        <location filename="../windows/PrefWindow.cpp" line="80"/>
         <source>&lt;b&gt;Language&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="85"/>
+        <location filename="../windows/PrefWindow.cpp" line="86"/>
         <source>* The language will be changed after restarting the application.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="89"/>
+        <location filename="../windows/PrefWindow.cpp" line="90"/>
         <source>&lt;b&gt;Style&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../windows/PrefWindow.cpp" line="118"/>
+        <location filename="../windows/PrefWindow.cpp" line="119"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
