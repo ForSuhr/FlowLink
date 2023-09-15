@@ -244,8 +244,6 @@ void FlowLink::onScanActionClicked()
 
 void FlowLink::onConnectActionClicked()
 {
-  m_isServer = false; // if you join the local network proactively, the local host will be a client
-
   m_udpReceiver->connectToLocalNetwork();
 
   m_connectAction->setEnabled(false);

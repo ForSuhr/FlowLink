@@ -10,9 +10,16 @@ ChatWindow::ChatWindow(bool isServer, QString address, int port, QWidget *parent
 
     // get port
     if (isServer)
+    {
         m_port = g_port;
+        PLOG_DEBUG << "This is a server";
+    }
     else
+    {
         m_port = port;
+        PLOG_DEBUG << "This is a client";
+    }
+
     PLOG_DEBUG << "port for current chat window: " << m_port << " for msg and " << m_port + 1 << " for bin";
 
     // initialize tcp receiver, i.e. set up a tcp server to listen to the given port

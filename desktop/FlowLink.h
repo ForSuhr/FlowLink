@@ -130,7 +130,7 @@ private:
   Device m_localHostDevice;
 
   /* flags */
-  bool m_isServer;
+  bool m_isServer = false;
   bool m_isShowLocalHost;
 };
 #endif // FLOWLINK_H

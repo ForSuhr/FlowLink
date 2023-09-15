@@ -16,7 +16,7 @@ TcpSender::TcpSender(const QString &ipv4Address, int port, QObject *parent)
         PLOG_DEBUG << "Msg socket: Connected to host successfully";
     }
 
-    tcpSocketIPv4ForBin->connectToHost(ipv4Address, port);
+    tcpSocketIPv4ForBin->connectToHost(ipv4Address, port + 1);
 
     if (!tcpSocketIPv4ForBin->waitForConnected(5000))
     {
