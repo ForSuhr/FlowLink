@@ -23,12 +23,19 @@ QVBoxLayout *ProgressWindow::layout()
 
 void ProgressWindow::createProgressWidget(const QString &filename, qint64 totalFileBytes)
 {
+    if (m_progressWidgetMap->find(filename) != m_progressWidgetMap->end())
+    {
+        (*m_progressWidgetMap)[filename]->deleteLater();
+        m_progressWidgetMap->erase(filename);
+    }
+
     // widgets
     // row 1
     QWidget *progressWidget = new QWidget();
     progressWidget->setObjectName("progressWidget");
     progressWidget->setFixedHeight(64);
     QLabel *filenameLabel = new QLabel(filename);
+    filenameLabel->setObjectName("filenameLabel");
     QPushButton *btnClose = new QPushButton(progressWidget);
     btnClose->setObjectName("btnClose");
     btnClose->setFixedSize(12, 16);
@@ -103,4 +110,6 @@ void ProgressWindow::deleteProgressWidget()
 {
     QPushButton *button = qobject_cast<QPushButton *>(sender());
     button->parentWidget()->deleteLater();
+    QString filename = button->parentWidget()->findChild<QLabel *>("filenameLabel")->text();
+    m_progressWidgetMap->erase(filename);
 }

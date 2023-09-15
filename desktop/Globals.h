@@ -11,6 +11,8 @@
 #include <QMap>
 #include <QString>
 
+#include "utils/ConfigParser.h"
+
 // translate files path
 void setUpLanguageMap(QMap<QString, QString> &map);
 
