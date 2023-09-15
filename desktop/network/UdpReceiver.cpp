@@ -45,5 +45,8 @@ void UdpReceiver::processPendingDatagrams()
     if (m_device.name != localHostName().name)
         emit receivedDeviceInfo(m_device, DeviceAction::Connection);
     else // delete the whole "else" section, if you want to filter the local host
+    {
+        m_device.port = 8081; // use the reserved port 8081 for local host
         emit receivedDeviceInfo(m_device, DeviceAction::LocalHostConnection);
+    }
 }

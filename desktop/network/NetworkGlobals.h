@@ -32,7 +32,7 @@ struct Device
 {
     QString name = "NA";
     QString address = "NA";
-    int port = 8081;
+    int port = 8083;
 
     bool operator==(const Device &device) const
     {

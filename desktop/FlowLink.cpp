@@ -82,9 +82,6 @@ void FlowLink::setupMenuBar()
 
 void FlowLink::createConnectionUi()
 {
-  m_scanAction = new QAction(this);
-  m_scanAction->setIcon(QIcon(R"(:/asset/style/lumos/scanAction.svg)"));
-  m_scanAction->setToolTip(tr("Scan devices in local network"));
   m_castToLocalNetworkTimer = new QTimer(this);
   m_connectAction = new QAction(this);
   m_connectAction->setIcon(QIcon(R"(:/asset/style/lumos/connectAction.svg)"));
@@ -98,11 +95,7 @@ void FlowLink::createConnectionUi()
   m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
   m_toggleShowLocalHostAction->setToolTip(tr("Show/Hide local host"));
 
-  // scan
-  ui->toolBar->addAction(m_scanAction);
-  connect(m_scanAction, &QAction::triggered, this, &FlowLink::onScanActionClicked);
-
-  // a timer for scanning devices in local network
+  // a timer for casting local host info to the local network
   connect(m_castToLocalNetworkTimer, &QTimer::timeout, this, &FlowLink::castToLocalNetwork);
 
   // connect
@@ -241,16 +234,10 @@ void FlowLink::castToLocalNetwork()
   m_udpSender->sendDeviceInfo();
 }
 
-void FlowLink::onScanActionClicked()
-{
-  m_isServer = true; // if you scan the local network proactively, the local host will be a server
-
-  m_udpReceiver->connectToLocalNetwork();
-}
-
 void FlowLink::onConnectActionClicked()
 {
-  m_isServer = false; // if you cast your host info to local network, the local host will be a client
+  m_udpReceiver->connectToLocalNetwork();
+
   castToLocalNetwork();
   m_castToLocalNetworkTimer->start(2000);
 
@@ -327,11 +314,8 @@ void FlowLink::addDevice(Device device)
   if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
   {
     // create a new chat window and store its pointer by address string in the map
-    ChatWindow *chatWindow = new ChatWindow(m_isServer, device.address, device.port);
+    ChatWindow *chatWindow = new ChatWindow(device.address, device.port);
     (*m_chatWindowMap)[device.address] = chatWindow;
-
-    // increase port number to avoid port conflicts
-    g_port += 2;
 
     // create a connection to notify the progress window that there is a new download task
     connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);

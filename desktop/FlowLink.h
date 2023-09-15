@@ -58,7 +58,6 @@ protected:
   virtual void closeEvent(QCloseEvent *event) override;
 
 private slots:
-  void onScanActionClicked();
   void onConnectActionClicked();
   void onDisconnectActionClicked();
   void onToggleShowLocalHostActionClicked();
@@ -130,7 +129,6 @@ private:
   Device m_localHostDevice;
 
   /* flags */
-  bool m_isServer = false;
   bool m_isShowLocalHost;
 };
 #endif // FLOWLINK_H
