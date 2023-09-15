@@ -316,6 +316,9 @@ void FlowLink::addDevice(Device device)
     ChatWindow *chatWindow = new ChatWindow(device.address, device.port);
     (*m_chatWindowMap)[device.address] = chatWindow;
 
+    // increase port number to avoid port conflicts
+    g_port += 2;
+
     // create a connection to notify the progress window that there is a new download task
     connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
     // create a connection to bind progress-update signal to progress widgets

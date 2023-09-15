@@ -41,14 +41,10 @@ void UdpReceiver::processPendingDatagrams()
     QDataStream stream(&datagram, QIODevice::ReadOnly);
     stream >> m_device;
     m_device.address = senderIp.toString();
+    PLOG_DEBUG << m_device.port;
 
     if (m_device.name != localHostName().name)
-    {
         emit receivedDeviceInfo(m_device, DeviceAction::Connection);
-    }
     else // delete the whole "else" section, if you want to filter the local host
-    {
         emit receivedDeviceInfo(m_device, DeviceAction::LocalHostConnection);
-        PLOG_DEBUG << m_device.port;
-    }
 }

@@ -26,11 +26,13 @@
 
 #define SIZE_OF_LONG_LONG 8
 
+extern int g_port; // a gobal variable of port for distribution
+
 struct Device
 {
     QString name = "NA";
     QString address = "NA";
-    int port = 8079;
+    int port = 8081;
 
     bool operator==(const Device &device) const
     {
@@ -51,7 +53,7 @@ inline QDataStream &operator<<(QDataStream &stream, const Device &device)
 
 inline QDataStream &operator>>(QDataStream &stream, Device &device)
 {
-    return stream >> device.name >> device.address << device.port;
+    return stream >> device.name >> device.address >> device.port;
 }
 
 /**
