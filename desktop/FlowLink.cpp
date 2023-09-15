@@ -253,16 +253,19 @@ void FlowLink::onDisconnectActionClicked()
 {
   m_castToLocalNetworkTimer->stop();
 
-  /* close tcp connection */
+  // close tcp connection
   for (const auto &pair : (*m_chatWindowMap))
   {
     pair.second->m_tcpReceiver->closeConnection();
   }
 
-  /* close udp connection and clear chatwindow */
+  // close udp connection and clear chatwindow
   m_udpReceiver->closeConnection();
 
-  /* ui */
+  // disconnect signal slots
+  disconnect(m_udpReceiver);
+
+  // ui
   m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
 }
