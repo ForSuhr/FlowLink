@@ -28,8 +28,13 @@ void WorkerThread::createConnection(int port)
 
 void WorkerThread::closeConnection()
 {
-    m_tcpSocketIPv4->close();
-    m_server->close();
+    if (m_tcpSocketIPv4 != nullptr)
+    {
+        if (m_tcpSocketIPv4->ConnectedState == QAbstractSocket::ConnectedState)
+            m_tcpSocketIPv4->close();
+    }
+    if (m_server->isListening())
+        m_server->close();
     PLOG_DEBUG << "All connections closed";
 }
 
