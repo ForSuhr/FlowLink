@@ -24,6 +24,14 @@ QPushButton:hover#btnClose{
 	border-image: url(:/asset/style/lumos/btnCloseHover.svg);
 }
 
+QPushButton#btnFolderOpen{
+	border-image: url(:/asset/style/lumos/btnFolderOpen.svg);
+}
+
+QPushButton:hover#btnFolderOpen{
+	border-image: url(:/asset/style/lumos/btnFolderOpenHover.svg);
+}
+
 QLineEdit {
 	border: 2px solid lightgray;
 	border-radius: 4px;

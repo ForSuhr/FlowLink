@@ -9,6 +9,8 @@
 #include <QPixmap>
 #include <QProgressBar>
 #include <QDebug>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <memory>
 

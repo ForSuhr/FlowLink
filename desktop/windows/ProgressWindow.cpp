@@ -50,6 +50,10 @@ void ProgressWindow::createProgressWidget(const QString &filename, qint64 totalF
     finishSign->setPixmap(pixmap);
     finishSign->setFixedSize(pixmap.size());
     finishSign->setVisible(false);
+    QPushButton *btnFolderOpen = new QPushButton(progressWidget);
+    btnFolderOpen->setObjectName("btnFolderOpen");
+    btnFolderOpen->setFixedSize(16, 16);
+    btnFolderOpen->setVisible(false);
     // row 3
     QProgressBar *progressBar = new QProgressBar();
     progressBar->setObjectName("progressBar");
@@ -73,6 +77,8 @@ void ProgressWindow::createProgressWidget(const QString &filename, qint64 totalF
     hbox2->addWidget(fileTotalSizeLabel);
     hbox2->addSpacing(5);
     hbox2->addWidget(finishSign);
+    hbox2->addSpacing(5);
+    hbox2->addWidget(btnFolderOpen);
     hbox2->addStretch();
     vbox->addLayout(hbox1);
     vbox->addLayout(hbox2);
@@ -80,6 +86,8 @@ void ProgressWindow::createProgressWidget(const QString &filename, qint64 totalF
 
     // connection
     connect(btnClose, &QPushButton::clicked, this, &ProgressWindow::deleteProgressWidget);
+    connect(btnFolderOpen, &QPushButton::clicked, [&]()
+            { QDesktopServices::openUrl(QUrl(config.value("common/downloadDirectory").toString())); });
 
     // store the progress widget to a map for the convenience we query it
     if (m_progressWidgetMap->find(filename) == m_progressWidgetMap->end())
@@ -103,6 +111,8 @@ void ProgressWindow::updateProgress(const QString &filename, qint64 receivedByte
     {
         QLabel *finishSign = progressWidget->findChild<QLabel *>("finishSign");
         finishSign->setVisible(true);
+        QPushButton *btnFolderOpen = progressWidget->findChild<QPushButton *>("btnFolderOpen");
+        btnFolderOpen->setVisible(true);
     }
 }
 
