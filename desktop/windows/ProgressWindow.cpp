@@ -39,6 +39,7 @@ void ProgressWindow::createProgressWidget(const QString &filename, qint64 totalF
     QPushButton *btnClose = new QPushButton(progressWidget);
     btnClose->setObjectName("btnClose");
     btnClose->setFixedSize(12, 16);
+    btnClose->setVisible(false);
     // row 2
     ConvertedNumber fileTotalSize = BytesConvert(totalFileBytes);
     QLabel *fileCurrentSizeLabel = new QLabel("0GB");
@@ -111,6 +112,8 @@ void ProgressWindow::updateProgress(const QString &filename, qint64 receivedByte
     {
         QLabel *finishSign = progressWidget->findChild<QLabel *>("finishSign");
         finishSign->setVisible(true);
+        QPushButton *btnClose = progressWidget->findChild<QPushButton *>("btnClose");
+        btnClose->setVisible(true);
         QPushButton *btnFolderOpen = progressWidget->findChild<QPushButton *>("btnFolderOpen");
         btnFolderOpen->setVisible(true);
     }
