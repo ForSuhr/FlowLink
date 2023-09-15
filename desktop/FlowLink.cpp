@@ -241,6 +241,8 @@ void FlowLink::onConnectActionClicked()
 
 void FlowLink::onDisconnectActionClicked()
 {
+  m_scanLocalNetworkTimer->stop();
+
   /* close tcp connection */
   for (const auto &pair : (*m_chatWindowMap))
   {
