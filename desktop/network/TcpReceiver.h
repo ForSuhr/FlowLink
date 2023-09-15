@@ -9,7 +9,7 @@ class TcpReceiver : public QObject
     Q_OBJECT
 
 public:
-    explicit TcpReceiver(QObject *parent = nullptr);
+    explicit TcpReceiver(int port, QObject *parent = nullptr);
     ~TcpReceiver();
 
     void closeConnection();

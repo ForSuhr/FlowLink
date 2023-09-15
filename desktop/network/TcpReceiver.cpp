@@ -1,6 +1,6 @@
 #include "TcpReceiver.h"
 
-TcpReceiver::TcpReceiver(QObject *parent)
+TcpReceiver::TcpReceiver(int port, QObject *parent)
     : QObject(parent)
 {
     // add a new worker for handling messages
@@ -13,7 +13,7 @@ TcpReceiver::TcpReceiver(QObject *parent)
     QThread *threadForMsg = new QThread(this);
     workerForMsg->moveToThread(threadForMsg);
     threadForMsg->start();
-    emit threadForMsgStartedSignal(8080);
+    emit threadForMsgStartedSignal(port);
 
     // then do the same for handling binary files
     workerForBin = new WorkerThread();
@@ -25,7 +25,7 @@ TcpReceiver::TcpReceiver(QObject *parent)
     QThread *threadForBin = new QThread(this);
     workerForBin->moveToThread(threadForMsg);
     threadForBin->start();
-    emit threadForBinStartedSignal(8081);
+    emit threadForBinStartedSignal(port + 1);
 }
 
 TcpReceiver::~TcpReceiver()

@@ -1,11 +1,11 @@
 #include "TcpSender.h"
 
-TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
+TcpSender::TcpSender(const QString &ipv4Address, int port, QObject *parent)
     : QObject(parent),
       tcpSocketIPv4ForMsg(new QTcpSocket),
       tcpSocketIPv4ForBin(new QTcpSocket)
 {
-    tcpSocketIPv4ForMsg->connectToHost(ipv4Address, 8080);
+    tcpSocketIPv4ForMsg->connectToHost(ipv4Address, port);
 
     if (!tcpSocketIPv4ForMsg->waitForConnected(5000))
     {
@@ -16,7 +16,7 @@ TcpSender::TcpSender(const QString &ipv4Address, QObject *parent)
         PLOG_DEBUG << "Msg socket: Connected to host successfully";
     }
 
-    tcpSocketIPv4ForBin->connectToHost(ipv4Address, 8081);
+    tcpSocketIPv4ForBin->connectToHost(ipv4Address, port);
 
     if (!tcpSocketIPv4ForBin->waitForConnected(5000))
     {

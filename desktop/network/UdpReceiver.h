@@ -21,13 +21,13 @@ public:
     void closeConnection();
 
 signals:
-    void sendDeviceInfo(Device device, DeviceAction deviceAction);
+    void receivedDeviceInfo(Device device, DeviceAction deviceAction);
 
 private:
-    Device device;
-    QHostInfo hostInfo;
-    QUdpSocket udpSocketIPv4;
-    QHostAddress groupAddressIPv4;
+    Device m_device;
+    QHostInfo m_hostInfo;
+    QUdpSocket m_udpSocketIPv4;
+    QHostAddress m_groupAddressIPv4;
 
 private slots:
     void processPendingDatagrams();

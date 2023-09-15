@@ -101,15 +101,15 @@ void FlowLink::createConnectionUi()
   // connect
   ui->toolBar->addAction(m_connectAction);
   connect(m_connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
-  connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
-  connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(m_disconnectAction);
   connect(m_disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
-  connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
           {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
 
   // show local host
@@ -313,7 +313,7 @@ void FlowLink::addDevice(Device device)
   if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
   {
     // create a new chat window and store its pointer by address string in the map
-    ChatWindow *chatWindow = new ChatWindow(device.address);
+    ChatWindow *chatWindow = new ChatWindow(device.address, device.port);
     (*m_chatWindowMap)[device.address] = chatWindow;
 
     // create a connection to notify the progress window that there is a new download task

@@ -10,7 +10,7 @@ class TcpSender : public QObject
     Q_OBJECT
 
 public:
-    explicit TcpSender(const QString &ipv4Address, QObject *parent = nullptr);
+    explicit TcpSender(const QString &ipv4Address, int port, QObject *parent = nullptr);
     ~TcpSender();
 
     void sendMsg(const QString &msg);

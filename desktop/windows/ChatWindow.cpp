@@ -1,13 +1,19 @@
 #include "./ui_ChatWindow.h"
 #include "ChatWindow.h"
 
-ChatWindow::ChatWindow(QString address, QWidget *parent)
+ChatWindow::ChatWindow(QString address, int port, QWidget *parent)
     : QWidget(parent),
-      ui(new Ui::ChatWindow),
-      m_tcpReceiver(new TcpReceiver)
+      ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
     ui->lineEditMsg->setAlignment(Qt::AlignCenter);
+
+    // get port
+    m_port = port;
+    PLOG_DEBUG << "port for current chat window: " << m_port << " for msg and " << m_port + 1 << " for bin";
+
+    // initialize tcp receiver, i.e. set up a tcp server to listen to the given port
+    m_tcpReceiver = new TcpReceiver(m_port);
 
     // receive message connection
     connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](const QString &msg)
@@ -17,7 +23,7 @@ ChatWindow::ChatWindow(QString address, QWidget *parent)
     connect(ui->lineEditMsg, &QLineEdit::returnPressed, this, &ChatWindow::on_btnSendMsg_clicked);
 
     // connect to the device
-    m_tcpSender = new TcpSender(address);
+    m_tcpSender = new TcpSender(address, m_port);
     centerAlignedAppend(this, address + " connected");
 }
 

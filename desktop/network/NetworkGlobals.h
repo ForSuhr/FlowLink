@@ -30,10 +30,11 @@ struct Device
 {
     QString name = "NA";
     QString address = "NA";
+    int port = 8079;
 
-    bool operator==(const Device &other) const
+    bool operator==(const Device &device) const
     {
-        return name == other.name && address == other.address;
+        return name == device.name && address == device.address && port == device.port;
     }
 };
 
@@ -45,12 +46,12 @@ enum ContentType
 
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
 {
-    return stream << device.name << device.address;
+    return stream << device.name << device.address << device.port;
 }
 
 inline QDataStream &operator>>(QDataStream &stream, Device &device)
 {
-    return stream >> device.name >> device.address;
+    return stream >> device.name >> device.address << device.port;
 }
 
 /**

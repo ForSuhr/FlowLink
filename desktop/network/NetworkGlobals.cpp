@@ -1,11 +1,13 @@
 #include "NetworkGlobals.h"
 
+static int port = 8079;
+
 Device localHostName()
 {
     Device device;
     QHostInfo hostInfo;
     device.name = hostInfo.localHostName();
-
+    device.port = port + 2;
     return device;
 }
 
