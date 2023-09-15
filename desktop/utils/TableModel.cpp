@@ -7,13 +7,13 @@ TableModel::TableModel(QObject *parent)
 
 TableModel::TableModel(const QVector<Device> &devices, QObject *parent)
     : QAbstractTableModel(parent),
-      devices(devices)
+      m_devices(devices)
 {
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : devices.size();
+    return parent.isValid() ? 0 : m_devices.size();
 }
 
 int TableModel::columnCount(const QModelIndex &parent) const
@@ -26,12 +26,12 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (index.row() >= devices.size() || index.row() < 0)
+    if (index.row() >= m_devices.size() || index.row() < 0)
         return QVariant();
 
     if (role == Qt::DisplayRole)
     {
-        const Device &device = devices.at(index.row());
+        const Device &device = m_devices.at(index.row());
 
         switch (index.column())
         {
@@ -86,7 +86,7 @@ bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; ++row)
-        devices.insert(position, {QString(), QString()});
+        m_devices.insert(position, {QString(), QString()});
 
     endInsertRows();
     return true;
@@ -98,7 +98,7 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; ++row)
-        devices.removeAt(position);
+        m_devices.removeAt(position);
 
     endRemoveRows();
     return true;
@@ -116,7 +116,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
     if (index.isValid())
     {
         const int row = index.row();
-        Device device = devices.value(row);
+        Device device = m_devices.value(row);
 
         switch (index.column())
         {
@@ -130,7 +130,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
             return false;
         }
 
-        devices.replace(row, device);
+        m_devices.replace(row, device);
         emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
 
         return true;
@@ -141,7 +141,7 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
 
 void TableModel::addRow(const QString &name, const QString &address)
 {
-    if (!devices.contains({name, address}))
+    if (!m_devices.contains({name, address}))
     {
         insertRows(0, 1, QModelIndex());
         QModelIndex modelIndex = index(0, 0, QModelIndex());
@@ -153,13 +153,11 @@ void TableModel::addRow(const QString &name, const QString &address)
 
 void TableModel::removeRow(const QString &name, const QString &address)
 {
-    if (devices.contains({name, address}))
-    {
+    if (m_devices.contains({name, address}))
         removeRows(0, 1, QModelIndex());
-    }
 }
 
 const QVector<Device> &TableModel::getDevices() const
 {
-    return devices;
+    return m_devices;
 }

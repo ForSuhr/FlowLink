@@ -11,5 +11,7 @@
         <file>asset/style/lumos/btnCloseHover.svg</file>
         <file>asset/style/lumos/btnFolderOpen.svg</file>
         <file>asset/style/lumos/btnFolderOpenHover.svg</file>
+        <file>asset/style/lumos/hideLocalHost.svg</file>
+        <file>asset/style/lumos/showLocalHost.svg</file>
     </qresource>
 </RCC>

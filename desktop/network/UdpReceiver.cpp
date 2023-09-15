@@ -48,6 +48,6 @@ void UdpReceiver::processPendingDatagrams()
     }
     else // delete the whole "else" section, if you want to filter the local host
     {
-        emit sendDeviceInfo(device, DeviceAction::Connection);
+        emit sendDeviceInfo(device, DeviceAction::LocalHostConnection);
     }
 }

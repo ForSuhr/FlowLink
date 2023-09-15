@@ -35,7 +35,7 @@ public:
     const QVector<Device> &getDevices() const;
 
 private:
-    QVector<Device> devices;
+    QVector<Device> m_devices;
 };
 
 #endif

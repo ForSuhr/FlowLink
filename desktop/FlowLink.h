@@ -57,9 +57,9 @@ protected:
   virtual void closeEvent(QCloseEvent *event) override;
 
 private slots:
-  void
-  onConnectActionClicked();
+  void onConnectActionClicked();
   void onDisconnectActionClicked();
+  void onToggleShowLocalHostActionClicked();
   void openChatWindow();
   void NewPerspective();
   void SaveAsCurrentPerspective();
@@ -77,6 +77,8 @@ private:
   void loadPreferences();
 
   void addDevice(Device device);
+  void addLocalHostDevice(Device device);
+  void removeDevice(Device device);
   void removeDevices();
   void createProgressWindow();
 
@@ -98,7 +100,7 @@ private:
   // toolbar
   QAction *m_connectAction = nullptr;
   QAction *m_disconnectAction = nullptr;
-  QAction *m_chatAction = nullptr;
+  QAction *m_toggleShowLocalHostAction = nullptr;
 
   // perspective
   QMenu *m_perspectivesMenu = nullptr;
@@ -110,15 +112,19 @@ private:
   QAction *m_setDefaultPerspective = nullptr;
   QComboBox *m_perspectiveComboBox = nullptr;
 
-  // dockwidget
+  /* dockwidget */
   QLabel *centralDockLabel = nullptr;
   TableModel *m_deviceTableModel = nullptr;
   QSortFilterProxyModel *m_deviceProxyModel = nullptr;
   QTableView *m_deviceTableView = nullptr;
   ProgressWindow *m_progressWindow = nullptr;
 
-  // field for customized widgets
+  /* fields*/
   std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap = nullptr; // a map used to store chat window pointers
   QString m_currentChatWindowAddress;
+  Device m_localHostDevice;
+
+  /* flags */
+  bool m_isShowLocalHost;
 };
 #endif // FLOWLINK_H

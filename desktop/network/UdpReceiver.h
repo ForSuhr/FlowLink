@@ -6,6 +6,7 @@
 enum DeviceAction
 {
     Connection,
+    LocalHostConnection,
     Disconnection,
 };
 

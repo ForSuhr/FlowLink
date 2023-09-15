@@ -82,32 +82,35 @@ void FlowLink::setupMenuBar()
 
 void FlowLink::createConnectionUi()
 {
-  m_connectAction = new QAction(tr("Connect"), this);
-  m_disconnectAction = new QAction(tr("Disconnect"), this);
+  m_connectAction = new QAction(this);
   m_connectAction->setIcon(QIcon(R"(:/asset/style/lumos/connectAction.svg)"));
-  m_disconnectAction->setIcon(QIcon(R"(:/asset/style/lumos/disconnectAction.svg)"));
+  m_connectAction->setToolTip(tr("Connect to local network"));
   m_connectAction->setEnabled(true);
+  m_disconnectAction = new QAction(this);
+  m_disconnectAction->setIcon(QIcon(R"(:/asset/style/lumos/disconnectAction.svg)"));
+  m_disconnectAction->setToolTip(tr("Disonnect from local network"));
   m_disconnectAction->setEnabled(false);
+  m_toggleShowLocalHostAction = new QAction(this);
+  m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
+  m_toggleShowLocalHostAction->setToolTip(tr("Show/Hide local host"));
 
   // connect
   ui->toolBar->addAction(m_connectAction);
   connect(m_connectAction, &QAction::triggered, this, &FlowLink::onConnectActionClicked);
   connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {
-    if (deviceAction == DeviceAction::Connection)
-    {
-      addDevice(device);
-    } });
+          {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
+  connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
 
   // disconnect
   ui->toolBar->addAction(m_disconnectAction);
   connect(m_disconnectAction, &QAction::triggered, this, &FlowLink::onDisconnectActionClicked);
   connect(m_udpReceiver, &UdpReceiver::sendDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {
-    if (deviceAction == DeviceAction::Disconnection)
-    {
-      removeDevices();
-    } });
+          {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
+
+  // show local host
+  ui->toolBar->addAction(m_toggleShowLocalHostAction);
+  connect(m_toggleShowLocalHostAction, &QAction::triggered, this, &FlowLink::onToggleShowLocalHostActionClicked);
 }
 
 void FlowLink::createPerspectiveUi()
@@ -209,6 +212,13 @@ void FlowLink::loadPreferences()
   m_perspectiveComboBox->addItems(m_dockManager->perspectiveNames());
   m_perspectiveComboBox->setCurrentText(config.value("Perspective").toString());
 
+  /* show local host */
+  m_isShowLocalHost = config.value("common/showLocalHost").toBool();
+  if (m_isShowLocalHost)
+    m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/showLocalHost.svg)"));
+  else
+    m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
+
   /* load stylesheet */
   QMap<QString, QString> stylesheetMap;
   setUpStylesheetMap(stylesheetMap);
@@ -238,6 +248,24 @@ void FlowLink::onDisconnectActionClicked()
   /* ui */
   m_connectAction->setEnabled(true);
   m_disconnectAction->setEnabled(false);
+}
+
+void FlowLink::onToggleShowLocalHostActionClicked()
+{
+  m_isShowLocalHost = !m_isShowLocalHost;
+  if (m_isShowLocalHost)
+  {
+    m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/showLocalHost.svg)"));
+    config.setValue("common/showLocalHost", true);
+    if (m_chatWindowMap->find(m_localHostDevice.address) != m_chatWindowMap->end())
+      addDevice(m_localHostDevice);
+  }
+  else
+  {
+    m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
+    config.setValue("common/showLocalHost", false);
+    removeDevice(m_localHostDevice);
+  }
 }
 
 /// @brief open a chat window of the selected device
@@ -281,6 +309,20 @@ void FlowLink::addDevice(Device device)
     // create a connection to bind progress-update signal to progress widgets
     connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
   }
+}
+
+void FlowLink::addLocalHostDevice(Device device)
+{
+  m_localHostDevice = device;
+  addDevice(device);
+  if (!m_isShowLocalHost)
+    removeDevice(device);
+}
+
+void FlowLink::removeDevice(Device device)
+{
+  // remove the given device from table
+  m_deviceTableModel->removeRow(device.name, device.address);
 }
 
 /// @brief remove all devices from the table view and delete all chat windows

@@ -15,6 +15,7 @@ void PrefWindow::setupDefaultPreferences()
     {
         // group "Common"
         config.beginGroup("common");
+        config.setValue("showLocalHost", false);
         config.setValue("downloadDirectory", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
         config.endGroup();
 
