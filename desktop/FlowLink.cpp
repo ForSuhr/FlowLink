@@ -82,6 +82,7 @@ void FlowLink::setupMenuBar()
 
 void FlowLink::createConnectionUi()
 {
+  m_scanLocalNetworkTimer = new QTimer(this);
   m_connectAction = new QAction(this);
   m_connectAction->setIcon(QIcon(R"(:/asset/style/lumos/connectAction.svg)"));
   m_connectAction->setToolTip(tr("Connect to local network"));
@@ -93,6 +94,9 @@ void FlowLink::createConnectionUi()
   m_toggleShowLocalHostAction = new QAction(this);
   m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
   m_toggleShowLocalHostAction->setToolTip(tr("Show/Hide local host"));
+
+  // a timer for scanning devices in local network
+  connect(m_scanLocalNetworkTimer, &QTimer::timeout, this, &FlowLink::scanLocalNetwork);
 
   // connect
   ui->toolBar->addAction(m_connectAction);
@@ -228,7 +232,8 @@ void FlowLink::loadPreferences()
 void FlowLink::onConnectActionClicked()
 {
   m_udpReceiver->createConnection();
-  m_udpSender->sendDeviceInfo();
+  scanLocalNetwork();
+  m_scanLocalNetworkTimer->start(2000);
 
   m_connectAction->setEnabled(false);
   m_disconnectAction->setEnabled(true);
@@ -289,6 +294,11 @@ void FlowLink::openChatWindow()
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
   }
+}
+
+void FlowLink::scanLocalNetwork()
+{
+  m_udpSender->sendDeviceInfo();
 }
 
 /// @brief add device to the table view and create a chat window for it

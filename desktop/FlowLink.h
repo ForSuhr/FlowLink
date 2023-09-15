@@ -17,6 +17,7 @@
 #include <QWidgetAction>
 #include <QToolButton>
 #include <QMessageBox>
+#include <QTimer>
 
 #include <memory>
 #include <unordered_map>
@@ -76,6 +77,7 @@ private:
   void createProgressWindowUi();
   void loadPreferences();
 
+  void scanLocalNetwork();
   void addDevice(Device device);
   void addLocalHostDevice(Device device);
   void removeDevice(Device device);
@@ -85,6 +87,7 @@ private:
   Ui::FlowLink *ui;
 
   /* network */
+  QTimer *m_scanLocalNetworkTimer = nullptr;
   UdpReceiver *m_udpReceiver = nullptr;
   UdpSender *m_udpSender = nullptr;
   int m_port = 8000;
