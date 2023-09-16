@@ -22,7 +22,7 @@ void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, i
     }
     else
     {
-        PLOG_DEBUG << "Msg socket: Connected to host successfully " << tcpSocketIPv4ForMsg->peerName() << ipv4Address << " " << port;
+        PLOG_DEBUG << "Msg socket: Connected to host successfully " << ipv4Address << " " << port;
     }
 
     tcpSocketIPv4ForBin->connectToHost(ipv4Address, port + 1);
@@ -34,7 +34,7 @@ void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, i
     }
     else
     {
-        PLOG_DEBUG << "Bin socket: Connected to host successfully " << tcpSocketIPv4ForBin->peerName() << ipv4Address << " " << port + 1;
+        PLOG_DEBUG << "Bin socket: Connected to host successfully " << ipv4Address << " " << port + 1;
     }
 
     if (canConnectMsg & canConnectBin)

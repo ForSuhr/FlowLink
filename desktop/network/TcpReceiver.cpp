@@ -16,6 +16,7 @@ void TcpReceiver::listenToPort(int port)
     connect(this, &TcpReceiver::threadForMsgStartedSignal, m_workerForMsg, &WorkerThread::listenToPort);
     connect(this, &TcpReceiver::connectionForMsgClosedSignal, m_workerForMsg, &WorkerThread::closeConnection);
     connect(m_workerForMsg, &WorkerThread::msgSignal, this, &TcpReceiver::msgSignal);
+    connect(m_workerForMsg, &WorkerThread::receivedDeviceInfoViaTcp, this, &TcpReceiver::receivedDeviceInfoViaTcp);
 
     // leave the new thread to work on establishing new connection and handling pending datagrams
     QThread *threadForMsg = new QThread(this);
@@ -29,7 +30,6 @@ void TcpReceiver::listenToPort(int port)
     connect(this, &TcpReceiver::connectionForBinClosedSignal, m_workerForBin, &WorkerThread::closeConnection);
     connect(m_workerForBin, &WorkerThread::startNewTaskSignal, this, &TcpReceiver::startNewTaskSignal);
     connect(m_workerForBin, &WorkerThread::updateProgressSignal, this, &TcpReceiver::updateProgressSignal);
-    connect(m_workerForBin, &WorkerThread::receivedDeviceInfoViaTcp, this, &TcpReceiver::establishedNewConnection);
 
     QThread *threadForBin = new QThread(this);
     m_workerForBin->moveToThread(threadForMsg);

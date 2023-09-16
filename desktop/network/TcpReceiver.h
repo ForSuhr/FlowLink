@@ -23,7 +23,7 @@ signals:
     void threadForBinStartedSignal(int port);
     void connectionForMsgClosedSignal();
     void connectionForBinClosedSignal();
-    void establishedNewConnection(QString name, QString address, int port);
+    void receivedDeviceInfoViaTcp(QString name, QString address, int port);
     void msgSignal(const QString &msg);
     void startNewTaskSignal(const QString &filename, qint64 totalFileBytes);
     void updateProgressSignal(const QString &filename, qint64 receivedBytes, qint64 totalBytes);

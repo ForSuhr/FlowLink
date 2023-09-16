@@ -234,21 +234,21 @@ void FlowLink::createChatWindow(NetworkManager *network)
   Device device = network->m_device;
 
   // if the chat window map does not contain a chat window of this device,
-  if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
-  {
-    // create a new chatwindow and store it's pointer by address string in the map
-    ChatWindow *chatWindow = new ChatWindow(device, this);
-    (*m_chatWindowMap)[device.address] = chatWindow;
+  // if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
+  // {
+  // create a new chatwindow and store it's pointer by address string in the map
+  ChatWindow *chatWindow = new ChatWindow(device, this);
+  (*m_chatWindowMap)[device.address] = chatWindow;
 
-    // shift pointers
-    chatWindow->m_tcpReceiver = network->m_tcpReceiver;
-    chatWindow->m_tcpSender = network->m_tcpSender;
+  // shift pointers
+  chatWindow->m_tcpReceiver = network->m_tcpReceiver;
+  chatWindow->m_tcpSender = network->m_tcpSender;
 
-    // create a connection to notify the progress window that there is a new download task
-    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
-    // create a connection to bind progress-update signal to progress widgets
-    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
-  }
+  // create a connection to notify the progress window that there is a new download task
+  connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
+  // create a connection to bind progress-update signal to progress widgets
+  connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
+  // }
 
   addDevice(device);
 }
@@ -302,9 +302,9 @@ void FlowLink::onConnectActionClicked()
               PLOG_DEBUG << "Disconnection from: " << device.address << " --- " << device.port;
             } });
 
-  // server: once the tcp socket is established by client, server will connect to client to establish a tcp socket on port+2
-  connect(m_networkAsServer->m_tcpReceiver, &TcpReceiver::establishedNewConnection, [&](QString name, QString address, int port)
-          { m_networkAsServer->connectToHost(name, address, port + 1); });
+  // server: once the tcp socket is established by client, server will connect to client to establish a tcp socket on port+1
+  connect(m_networkAsServer->m_tcpReceiver, &TcpReceiver::receivedDeviceInfoViaTcp, [&](QString name, QString address, int port)
+          { m_networkAsServer->connectToHost(name, address, port + 2); });
 
   // server/clicent: if connect to peer successfully, create a chat window and add the peer to device table
   connect(m_networkAsServer->m_tcpSender, &TcpSender::canConnectSignal, [&]()
