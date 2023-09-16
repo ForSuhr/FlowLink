@@ -322,7 +322,7 @@ void FlowLink::onDisconnectActionClicked()
   }
 
   // clear fields
-  removeDevices();
+  removeDevices(); // clear chat window map inside the function
   m_deviceList.clear();
 
   // notify your peer to delete your device
@@ -404,6 +404,10 @@ void FlowLink::removeDevice(Device device)
       pair.second->deleteLater();
     }
   }
+
+  // clear the chat window of the given device
+  m_chatWindowMap->erase(device.address);
+  m_centralDockWidget->setWidget(centralDockLabel);
 }
 
 /// @brief remove all devices from the table view and delete all chat windows
@@ -414,10 +418,6 @@ void FlowLink::removeDevices()
   m_deviceTableModel->removeRows(0, rowNum, QModelIndex());
 
   // clear the chat window map
-  for (auto &i : (*m_chatWindowMap))
-  {
-    i.second->deleteLater();
-  }
   m_chatWindowMap->clear();
   m_centralDockWidget->setWidget(centralDockLabel);
 }
