@@ -385,7 +385,7 @@ void FlowLink::addLocalHostDevice(Device device)
   m_localHostDevice = device;
   addDevice(device);
   if (!m_isShowLocalHost)
-    removeDevice(device);
+    m_deviceTableModel->removeRow(device.name, device.address);
 }
 
 void FlowLink::removeDevice(Device device)
@@ -394,12 +394,15 @@ void FlowLink::removeDevice(Device device)
   m_deviceList.removeAll(device);
   m_deviceTableModel->removeRow(device.name, device.address);
 
-  // close tcp connection
+  // close tcp connection and delete the chatwindow
   for (const auto &pair : (*m_chatWindowMap))
   {
-    pair.second->m_tcpReceiver->closeConnection();
-    pair.second->m_tcpSender->disconnectFromHost();
-    pair.second->deleteLater(); // delete the chatwindow
+    if (pair.second->m_device == device)
+    {
+      pair.second->m_tcpReceiver->closeConnection();
+      pair.second->m_tcpSender->disconnectFromHost();
+      pair.second->deleteLater();
+    }
   }
 }
 

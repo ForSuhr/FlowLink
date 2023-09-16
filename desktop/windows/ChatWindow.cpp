@@ -9,9 +9,7 @@ ChatWindow::ChatWindow(Device device, QWidget *parent)
     ui->lineEditMsg->setAlignment(Qt::AlignCenter);
     connect(ui->lineEditMsg, &QLineEdit::returnPressed, this, &ChatWindow::on_btnSendMsg_clicked); // hotkey binding
 
-    int port = device.port;
-
-    PLOG_DEBUG << "port for current chat window: " << port << " for msg and " << port + 1 << " for bin";
+    m_device = device;
 }
 
 ChatWindow::~ChatWindow()

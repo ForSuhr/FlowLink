@@ -36,6 +36,7 @@ public:
     /* network */
     TcpReceiver *m_tcpReceiver = nullptr;
     TcpSender *m_tcpSender = nullptr;
+    Device m_device;
 
     /*private slots */
 private slots:
