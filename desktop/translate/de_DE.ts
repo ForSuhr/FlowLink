@@ -22,19 +22,19 @@
         <location filename="../FlowLink.ui" line="28"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="80"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="33"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="38"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussicht</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="48"/>
@@ -45,72 +45,72 @@
     <message>
         <location filename="../FlowLink.ui" line="59"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="78"/>
-        <location filename="../FlowLink.cpp" line="68"/>
+        <location filename="../FlowLink.cpp" line="71"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="64"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
-        <location filename="../FlowLink.cpp" line="74"/>
+        <location filename="../FlowLink.cpp" line="77"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="118"/>
-        <location filename="../FlowLink.cpp" line="346"/>
-        <source>New Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="120"/>
-        <source>Save As Current Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="122"/>
-        <source>Delete Current Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="197"/>
-        <source>Progress</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="382"/>
-        <source>Can not delete last perspective!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="137"/>
-        <source>Set Default Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="87"/>
-        <source>Connect to local network</source>
-        <translation type="unfinished"></translation>
+        <translation>Präferenzen</translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="91"/>
-        <source>Disonnect from local network</source>
-        <translation type="unfinished"></translation>
+        <source>Connect to local network</source>
+        <translation>Verbinden mit lokalem Netzwerk</translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="95"/>
+        <source>Disconnect from local network</source>
+        <translation>Vom lokalen Netzwerk abtrennen</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="99"/>
         <source>Show/Hide local host</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalen Host anzeigen/verbergen</translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="182"/>
+        <location filename="../FlowLink.cpp" line="119"/>
+        <location filename="../FlowLink.cpp" line="440"/>
+        <source>New Perspective</source>
+        <translation>Neue Perspektive</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="121"/>
+        <source>Save As Current Perspective</source>
+        <translation>Als aktuelle Perspektive speichern</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="123"/>
+        <source>Delete Current Perspective</source>
+        <translation>Aktuelle Perspektive löschen</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="138"/>
+        <source>Set Default Perspective</source>
+        <translation>Standardperspektive einstellen</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="183"/>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte</translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="346"/>
+        <location filename="../FlowLink.cpp" line="198"/>
+        <source>Progress</source>
+        <translation>Fortschritt</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="440"/>
         <source>Perspective Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Perspektive:</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="476"/>
+        <source>Can not delete last perspective!</source>
+        <translation>Die letzte Perspektive lässt sich nicht löschen!</translation>
     </message>
 </context>
 <context>
@@ -118,42 +118,42 @@
     <message>
         <location filename="../windows/PrefWindow.cpp" line="34"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="40"/>
         <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Herunterladen-Directory&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="62"/>
         <source>Select Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Directory auswählen</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="74"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussehen</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="80"/>
         <source>&lt;b&gt;Language&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Sprache&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="86"/>
         <source>* The language will be changed after restarting the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>* Die Sprache wird nach einem Neustart der Applikation geändert.</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="90"/>
         <source>&lt;b&gt;Style&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Stil&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="119"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Präferenzen</translation>
     </message>
 </context>
 <context>

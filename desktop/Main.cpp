@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     }
 
     FlowLink w;
+    w.setWindowIcon(QIcon(":/asset/icon/FlowLink.png"));
     w.show();
     return a.exec();
 }

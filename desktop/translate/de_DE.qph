@@ -1,5 +1,5 @@
 <!DOCTYPE QPH>
-<QPH sourcelanguage="en_US" language="zh_CN">
+<QPH sourcelanguage="en_US" language="de_DE">
 <phrase>
     <source>File</source>
     <target>Datei</target>
@@ -29,11 +29,71 @@
     <target>Geräte</target>
 </phrase>
 <phrase>
-    <source>Save Perspective</source>
-    <target>Perspektive speichern</target>
+    <source>Save As Current Perspective</source>
+    <target>Als aktuelle Perspektive speichern</target>
 </phrase>
 <phrase>
     <source>Perspective Name:</source>
     <target>Name der Perspektive:</target>
+</phrase>
+<phrase>
+    <source>New Perspective</source>
+    <target>Neue Perspektive</target>
+</phrase>
+<phrase>
+    <source>Progress</source>
+    <target>Fortschritt</target>
+</phrase>
+<phrase>
+    <source>Delete Current Perspective</source>
+    <target>Aktuelle Perspektive löschen</target>
+</phrase>
+<phrase>
+    <source>Can not delete last perspective!</source>
+    <target>Die letzte Perspektive lässt sich nicht löschen!</target>
+</phrase>
+<phrase>
+    <source>Connect to local network</source>
+    <target>Verbinden mit lokalem Netzwerk</target>
+</phrase>
+<phrase>
+    <source>Disconnect from local network</source>
+    <target>Vom lokalen Netzwerk abtrennen</target>
+</phrase>
+<phrase>
+    <source>Show/Hide local host</source>
+    <target>Lokalen Host anzeigen/verbergen</target>
+</phrase>
+<phrase>
+    <source>Common</source>
+    <target>Allgemein</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
+    <target>&lt;b&gt;Herunterladen-Directory&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>Select Directory</source>
+    <target>Directory auswählen</target>
+</phrase>
+<phrase>
+    <source>Appearance</source>
+    <target>Aussehen</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Language&lt;/b&gt;</source>
+    <target>&lt;b&gt;Sprache&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Style&lt;/b&gt;</source>
+    <target>&lt;b&gt;Stil&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>* The language will be changed after restarting the application.</source>
+    <target>* Die Sprache wird nach einem Neustart der Applikation geändert.</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>Beenden</target>
 </phrase>
 </QPH>

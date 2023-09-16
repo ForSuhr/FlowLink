@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="zh_CN" sourcelanguage="en_US">
 <context>
     <name>ChatWindow</name>
     <message>
@@ -22,19 +22,19 @@
         <location filename="../FlowLink.ui" line="28"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="80"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>文件</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="33"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="38"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>视图</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="48"/>
@@ -45,72 +45,72 @@
     <message>
         <location filename="../FlowLink.ui" line="59"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="78"/>
-        <location filename="../FlowLink.cpp" line="68"/>
+        <location filename="../FlowLink.cpp" line="71"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>离开</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="64"/>
         <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
-        <location filename="../FlowLink.cpp" line="74"/>
+        <location filename="../FlowLink.cpp" line="77"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="118"/>
-        <location filename="../FlowLink.cpp" line="346"/>
-        <source>New Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="120"/>
-        <source>Save As Current Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="122"/>
-        <source>Delete Current Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="197"/>
-        <source>Progress</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="382"/>
-        <source>Can not delete last perspective!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="137"/>
-        <source>Set Default Perspective</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../FlowLink.cpp" line="87"/>
-        <source>Connect to local network</source>
-        <translation type="unfinished"></translation>
+        <translation>偏好设置</translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="91"/>
-        <source>Disonnect from local network</source>
-        <translation type="unfinished"></translation>
+        <source>Connect to local network</source>
+        <translation>连接到本地网络</translation>
     </message>
     <message>
         <location filename="../FlowLink.cpp" line="95"/>
+        <source>Disconnect from local network</source>
+        <translation>从本地网络断开连接</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="99"/>
         <source>Show/Hide local host</source>
-        <translation type="unfinished"></translation>
+        <translation>显示/隐藏本地主机</translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="182"/>
+        <location filename="../FlowLink.cpp" line="119"/>
+        <location filename="../FlowLink.cpp" line="440"/>
+        <source>New Perspective</source>
+        <translation>新建视图布局</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="121"/>
+        <source>Save As Current Perspective</source>
+        <translation>覆盖保存当前视图布局</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="123"/>
+        <source>Delete Current Perspective</source>
+        <translation>删除当前视图</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="138"/>
+        <source>Set Default Perspective</source>
+        <translation>设为默认视图布局</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="183"/>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>设备</translation>
     </message>
     <message>
-        <location filename="../FlowLink.cpp" line="346"/>
+        <location filename="../FlowLink.cpp" line="198"/>
+        <source>Progress</source>
+        <translation>下载进度</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="440"/>
         <source>Perspective Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>视图布局名称：</translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.cpp" line="476"/>
+        <source>Can not delete last perspective!</source>
+        <translation>无法删除最后一个视图布局</translation>
     </message>
 </context>
 <context>
@@ -118,42 +118,42 @@
     <message>
         <location filename="../windows/PrefWindow.cpp" line="34"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>常用</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="40"/>
         <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;下载目录&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="62"/>
         <source>Select Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>选择目录</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="74"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>外观</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="80"/>
         <source>&lt;b&gt;Language&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;语言&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="86"/>
         <source>* The language will be changed after restarting the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>* 语言选项将在重启后生效</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="90"/>
         <source>&lt;b&gt;Style&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;风格&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../windows/PrefWindow.cpp" line="119"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>偏好设置</translation>
     </message>
 </context>
 <context>

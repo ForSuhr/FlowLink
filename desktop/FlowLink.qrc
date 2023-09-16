@@ -14,5 +14,6 @@
         <file>asset/style/lumos/btnFolderOpenHover.svg</file>
         <file>asset/style/lumos/hideLocalHost.svg</file>
         <file>asset/style/lumos/showLocalHost.svg</file>
+        <file>asset/icon/FlowLink.png</file>
     </qresource>
 </RCC>

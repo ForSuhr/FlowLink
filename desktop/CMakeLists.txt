@@ -49,6 +49,7 @@ set(PROJECT_SOURCES
         utils/TabBar.h
         utils/TabBar.cpp
         FlowLink.qrc
+        asset/icon/FlowLink.rc
 )
 
 set(PROJECT_TRANSLATE
@@ -63,16 +64,36 @@ set(TS_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/translate/de_DE.ts
     )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(FlowLink
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        ${PROJECT_TRANSLATE}
-    )
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+if (WIN32)
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        qt_add_executable(FlowLink WIN32
+            MANUAL_FINALIZATION
+            ${PROJECT_SOURCES}
+            ${PROJECT_TRANSLATE}
+        )
+        qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    else()
+        add_executable(FlowLink WIN32
+            ${PROJECT_SOURCES}
+            ${PROJECT_TRANSLATE}
+        )
+        qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    endif()
 else()
-    add_executable(FlowLink ${PROJECT_SOURCES} ${PROJECT_TRANSLATE})
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        qt_add_executable(FlowLink
+            MANUAL_FINALIZATION
+            ${PROJECT_SOURCES}
+            ${PROJECT_TRANSLATE}
+        )
+        qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    else()
+        add_executable(FlowLink
+            ${PROJECT_SOURCES}
+            ${PROJECT_TRANSLATE}
+        )
+        qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    endif()
 endif()
 
 target_include_directories(FlowLink PRIVATE "${CMAKE_SOURCE_DIR}/3rdparty/ads")

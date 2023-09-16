@@ -36,4 +36,68 @@
     <source>Perspective Name:</source>
     <target>视图布局名称：</target>
 </phrase>
+<phrase>
+    <source>New Perspective</source>
+    <target>新建视图布局</target>
+</phrase>
+<phrase>
+    <source>Save As Current Perspective</source>
+    <target>覆盖保存当前视图布局</target>
+</phrase>
+<phrase>
+    <source>Delete Current Perspective</source>
+    <target>删除当前视图</target>
+</phrase>
+<phrase>
+    <source>Progress</source>
+    <target>下载进度</target>
+</phrase>
+<phrase>
+    <source>Can not delete last perspective!</source>
+    <target>无法删除最后一个视图布局</target>
+</phrase>
+<phrase>
+    <source>Connect to local network</source>
+    <target>连接到本地网络</target>
+</phrase>
+<phrase>
+    <source>Disconnect from local network</source>
+    <target>从本地网络断开连接</target>
+</phrase>
+<phrase>
+    <source>Show/Hide local host</source>
+    <target>显示/隐藏本地主机</target>
+</phrase>
+<phrase>
+    <source>Common</source>
+    <target>常用</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Download Directory&lt;/b&gt;</source>
+    <target>&lt;b&gt;下载目录&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>Select Directory</source>
+    <target>选择目录</target>
+</phrase>
+<phrase>
+    <source>Appearance</source>
+    <target>外观</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Language&lt;/b&gt;</source>
+    <target>&lt;b&gt;语言&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>* The language will be changed after restarting the application.</source>
+    <target>* 语言选项将在重启后生效</target>
+</phrase>
+<phrase>
+    <source>&lt;b&gt;Style&lt;/b&gt;</source>
+    <target>&lt;b&gt;风格&lt;/b&gt;</target>
+</phrase>
+<phrase>
+    <source>Exit</source>
+    <target>离开</target>
+</phrase>
 </QPH>

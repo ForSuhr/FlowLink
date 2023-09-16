@@ -92,7 +92,7 @@ void FlowLink::createConnectionUi()
   m_connectAction->setEnabled(true);
   m_disconnectAction = new QAction(this);
   m_disconnectAction->setIcon(QIcon(R"(:/asset/style/lumos/disconnectAction.svg)"));
-  m_disconnectAction->setToolTip(tr("Disonnect from local network"));
+  m_disconnectAction->setToolTip(tr("Disconnect from local network"));
   m_disconnectAction->setEnabled(false);
   m_toggleShowLocalHostAction = new QAction(this);
   m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
