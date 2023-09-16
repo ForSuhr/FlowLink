@@ -22,10 +22,11 @@ public:
     void processPendingDatagrams();
 
 public slots:
-    void createConnection(int port);
+    void listenToPort(int port);
     void closeConnection();
 
 signals:
+    void receivedDeviceInfoViaTcp(QString name, QString address, int port);
     void msgSignal(const QString &msg);
     void startNewTaskSignal(const QString &filename, qint64 totalFileBytes);
     void updateProgressSignal(const QString &filename, qint64 receivedBytes, qint64 totalBytes);

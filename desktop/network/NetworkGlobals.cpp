@@ -1,6 +1,6 @@
 #include "NetworkGlobals.h"
 
-int g_port = 8083;
+int g_port = 8090;
 
 Device localHostName()
 {

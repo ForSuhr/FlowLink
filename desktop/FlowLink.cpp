@@ -225,7 +225,32 @@ void FlowLink::loadPreferences()
 
 void FlowLink::castToLocalNetwork()
 {
-  m_udpSender->sendDeviceInfo();
+  int port = g_port;
+  m_udpSender->sendDeviceInfo(port);
+}
+
+void FlowLink::createChatWindow(NetworkManager *network)
+{
+  Device device = network->m_device;
+
+  // if the chat window map does not contain a chat window of this device,
+  if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
+  {
+    // create a new chatwindow and store it's pointer by address string in the map
+    ChatWindow *chatWindow = new ChatWindow(device, this);
+    (*m_chatWindowMap)[device.address] = chatWindow;
+
+    // shift pointers
+    chatWindow->m_tcpReceiver = network->m_tcpReceiver;
+    chatWindow->m_tcpSender = network->m_tcpSender;
+
+    // create a connection to notify the progress window that there is a new download task
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
+    // create a connection to bind progress-update signal to progress widgets
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
+  }
+
+  addDevice(device);
 }
 
 void FlowLink::onConnectActionClicked()
@@ -234,16 +259,58 @@ void FlowLink::onConnectActionClicked()
   m_udpReceiver->connectToLocalNetwork();
 
   // ready for receiving udp signal
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-          {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
+  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  //         {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
+  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  //         {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
+  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  //         {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
 
-  // sending udp signal
+  // set up two networks for acting as server and client respectively
+  m_networkAsServer = new NetworkManager();
+  m_networkAsClient = new NetworkManager();
+
+  // server: listen to port
+  int port = g_port;
+  m_networkAsServer->listenToPort(port);
+
+  // server: sending udp signal
   castToLocalNetwork();
   m_castToLocalNetworkTimer->start(2000);
+
+  QThread::sleep(2);
+
+  // client: get port from udp signal, listen to port+1, and connect to server
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+          {
+            if ((deviceAction == DeviceAction::Connection) & (!m_deviceList.contains(device)))
+            {
+              PLOG_DEBUG << "Connection from: " << device.address << " --- " << device.port;
+              m_deviceList.push_back(device);
+              m_networkAsClient->listenToPort(device.port + 2);
+              m_networkAsClient->connectToHost(device.name,device.address, device.port);
+            }
+            else if ((deviceAction == DeviceAction::LocalHostConnection) &( !m_deviceList.contains(device)))
+            {
+              PLOG_DEBUG << "LocalHostConnection from: " << device.address << " --- " << device.port;
+              m_deviceList.push_back(device);
+              m_networkAsClient->listenToPort(device.port + 2);
+              m_networkAsClient->connectToHost(device.name,device.address, device.port);
+            }
+            else if ((deviceAction == DeviceAction::Disconnection) & m_deviceList.contains(device))
+            {
+              PLOG_DEBUG << "Disconnection from: " << device.address << " --- " << device.port;
+            } });
+
+  // server: once the tcp socket is established by client, server will connect to client to establish a tcp socket on port+2
+  connect(m_networkAsServer->m_tcpReceiver, &TcpReceiver::establishedNewConnection, [&](QString name, QString address, int port)
+          { m_networkAsServer->connectToHost(name, address, port + 1); });
+
+  // server/clicent: if connect to peer successfully, create a chat window and add the peer to device table
+  connect(m_networkAsServer->m_tcpSender, &TcpSender::canConnectSignal, [&]()
+          { FlowLink::createChatWindow(m_networkAsServer); });
+  connect(m_networkAsClient->m_tcpSender, &TcpSender::canConnectSignal, [&]()
+          { FlowLink::createChatWindow(m_networkAsClient); });
 
   m_connectAction->setEnabled(false);
   m_disconnectAction->setEnabled(true);
@@ -304,31 +371,17 @@ void FlowLink::openChatWindow()
 
     // get chat window by address<QString>
     ChatWindow *chatWindow = (*m_chatWindowMap)[address];
-    m_currentChatWindowAddress = address;
 
     // set it as central widget
     m_centralDockWidget->setWidget(chatWindow);
   }
 }
 
-/// @brief add device to the table view and create a chat window for it
+/// @brief add device to the table view and listen to port
 /// @param the to be added device
 void FlowLink::addDevice(Device device)
 {
   m_deviceTableModel->addRow(device.name, device.address);
-
-  // if the chat window map does not contain a chat window of this device,
-  if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
-  {
-    // create a new chat window and store its pointer by address string in the map
-    ChatWindow *chatWindow = new ChatWindow(device.address, device.port);
-    (*m_chatWindowMap)[device.address] = chatWindow;
-
-    // create a connection to notify the progress window that there is a new download task
-    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
-    // create a connection to bind progress-update signal to progress widgets
-    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
-  }
 }
 
 void FlowLink::addLocalHostDevice(Device device)

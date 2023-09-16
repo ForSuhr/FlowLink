@@ -8,7 +8,7 @@ WorkerThread::~WorkerThread()
 {
 }
 
-void WorkerThread::createConnection(int port)
+void WorkerThread::listenToPort(int port)
 {
     m_server = new QTcpServer();
 
@@ -20,7 +20,7 @@ void WorkerThread::createConnection(int port)
     }
     else
     {
-        PLOG_DEBUG << "Start TCP server successfully";
+        PLOG_DEBUG << "Start TCP server successfully, listening on port: " << port;
     }
 
     connect(m_server, &QTcpServer::newConnection, this, &WorkerThread::handleNewConnection);
@@ -144,6 +144,18 @@ void WorkerThread::parserMap(const QVariantMap &vMap, const QString &fileName = 
                 f.write(ba);
                 f.close();
             }
+            break;
+        }
+        case ContentType::DeviceInfo:
+        {
+            PLOG_DEBUG << "Info: received device info.";
+            // send a signal back, indicating that there is a new connection being established by your peer and now you received the device info of your peer via tcp socket
+            QByteArray baDeviceInfo = vMap.value(key).toByteArray();
+            QDataStream stream(&baDeviceInfo, QIODevice::ReadOnly);
+            Device device;
+            stream >> device;
+            emit receivedDeviceInfoViaTcp(device.name, device.address, device.port);
+            PLOG_DEBUG << "name: " << device.name << " addr: " << device.address << " port: " << device.port;
             break;
         }
         default:

@@ -20,9 +20,11 @@ class ChatWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QString address, int port, QWidget *parent = nullptr);
+    explicit ChatWindow(Device device, QWidget *parent = nullptr);
     ~ChatWindow();
 
+    void setUpTcpReceiver(int port);
+    void setUpTcpSender(QString address, int port);
     QString msgText();
 
     /* friend functions */
@@ -42,8 +44,6 @@ private slots:
     /*private field*/
 private:
     Ui::ChatWindow *ui;
-
-    int m_port;
 };
 
 #endif

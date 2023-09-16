@@ -12,9 +12,10 @@ UdpSender::UdpSender(QObject *parent)
     udpSocketIPv4.setSocketOption(QAbstractSocket::MulticastTtlOption, 1);
 }
 
-void UdpSender::sendDeviceInfo()
+void UdpSender::sendDeviceInfo(int port)
 {
     Device device = localHostName();
+    device.port = port;
     QByteArray datagram;
     QDataStream stream(&datagram, QIODevice::ReadWrite);
     stream << device;

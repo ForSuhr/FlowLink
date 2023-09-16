@@ -25,7 +25,9 @@ set(PROJECT_SOURCES
         windows/ProgressWindow.h
         windows/ProgressWindow.cpp
         network/NetworkGlobals.h
-        network/NetworkGlobals.cpp
+        network/NetworkGlobals.cpp        
+        network/NetworkManager.h
+        network/NetworkManager.cpp
         network/UdpSender.h
         network/UdpSender.cpp
         network/UdpReceiver.h

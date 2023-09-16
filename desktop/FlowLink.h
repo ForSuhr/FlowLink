@@ -36,6 +36,7 @@
 #include "windows/ChatWindow.h"
 #include "windows/ProgressWindow.h"
 
+#include "network/NetworkManager.h"
 #include "network/UdpSender.h"
 #include "network/UdpReceiver.h"
 
@@ -78,6 +79,7 @@ private:
   void loadPreferences();
 
   void castToLocalNetwork();
+  void createChatWindow(NetworkManager *network);
   void addDevice(Device device);
   void addLocalHostDevice(Device device);
   void removeDevice(Device device);
@@ -87,6 +89,8 @@ private:
   Ui::FlowLink *ui;
 
   /* network */
+  NetworkManager *m_networkAsServer = nullptr;
+  NetworkManager *m_networkAsClient = nullptr;
   QTimer *m_castToLocalNetworkTimer = nullptr;
   UdpReceiver *m_udpReceiver = nullptr;
   UdpSender *m_udpSender = nullptr;
@@ -125,7 +129,7 @@ private:
 
   /* fields*/
   std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap = nullptr; // a map used to store chat window pointers
-  QString m_currentChatWindowAddress;
+  QVector<Device> m_deviceList;
   Device m_localHostDevice;
 
   /* flags */

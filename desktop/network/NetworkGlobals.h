@@ -32,7 +32,7 @@ struct Device
 {
     QString name = "NA";
     QString address = "NA";
-    int port = 8083;
+    int port = 0;
 
     bool operator==(const Device &device) const
     {
@@ -44,6 +44,7 @@ enum ContentType
 {
     PlainText,
     Binary,
+    DeviceInfo
 };
 
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
