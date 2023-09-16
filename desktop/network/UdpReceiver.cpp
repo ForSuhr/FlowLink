@@ -23,8 +23,6 @@ void UdpReceiver::connectToLocalNetwork()
 void UdpReceiver::closeConnection()
 {
     m_udpSocketIPv4.leaveMulticastGroup(m_groupAddressIPv4);
-
-    emit receivedDeviceInfoViaUdp(m_device, DeviceAction::Disconnection);
 }
 
 void UdpReceiver::processPendingDatagrams()
@@ -42,11 +40,11 @@ void UdpReceiver::processPendingDatagrams()
     stream >> m_device;
     m_device.address = senderIp.toString();
 
+    if (m_device.leaveTheGroup == true)
+        emit receivedDeviceInfoViaUdp(m_device, DeviceAction::Disconnection);
+
     if (m_device.name != localHostName().name)
         emit receivedDeviceInfoViaUdp(m_device, DeviceAction::Connection);
     else // delete the whole "else" section, if you want to filter the local host
-    {
-        // m_device.port = 8081; // use the reserved port 8081 for local host
         emit receivedDeviceInfoViaUdp(m_device, DeviceAction::LocalHostConnection);
-    }
 }

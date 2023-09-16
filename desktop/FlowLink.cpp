@@ -240,24 +240,16 @@ void FlowLink::setupNetwork()
           {
             if ((deviceAction == DeviceAction::Connection) & (!m_deviceList.contains(device)))
             {
-              PLOG_DEBUG << "Connection from: " << device.address << " --- " << device.port;
               m_deviceList.push_back(device);
               m_networkAsClient->listenToPort(device.port + 2);
               m_networkAsClient->connectToHost(device.name,device.address, device.port);
             }
             else if ((deviceAction == DeviceAction::LocalHostConnection) &( !m_deviceList.contains(device)))
-            {     
-              if (m_isShowLocalHost)
-              {              
-              PLOG_DEBUG << "LocalHostConnection from: " << device.address << " --- " << device.port;
-              m_deviceList.push_back(device);
-              m_networkAsClient->listenToPort(device.port + 2);
-              m_networkAsClient->connectToHost(device.name,device.address, device.port);
-              }
+            {
+              addLocalHostDevice(device);
             }
             else if ((deviceAction == DeviceAction::Disconnection) & m_deviceList.contains(device))
             {
-              PLOG_DEBUG << "Disconnection from: " << device.address << " --- " << device.port;
               removeDevice(device);
             } });
 
@@ -325,6 +317,7 @@ void FlowLink::onDisconnectActionClicked()
   for (const auto &pair : (*m_chatWindowMap))
   {
     pair.second->m_tcpReceiver->closeConnection();
+    pair.second->m_tcpSender->disconnectFromHost();
   }
 
   // clear fields
@@ -332,10 +325,10 @@ void FlowLink::onDisconnectActionClicked()
   m_deviceList.clear();
 
   // close udp connection and clear chatwindow
-  m_udpReceiver->closeConnection();
-
-  // disconnect signal slots
-  disconnect(m_udpReceiver);
+  for (const auto &device : m_deviceList)
+  {
+    m_udpSender->sendDeviceInfoToLeave(device.port);
+  }
 
   // ui
   m_connectAction->setEnabled(true);

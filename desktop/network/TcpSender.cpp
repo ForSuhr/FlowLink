@@ -2,8 +2,8 @@
 
 TcpSender::TcpSender(QObject *parent)
     : QObject(parent),
-      tcpSocketIPv4ForMsg(new QTcpSocket),
-      tcpSocketIPv4ForBin(new QTcpSocket)
+      m_tcpSocketIPv4ForMsg(new QTcpSocket),
+      m_tcpSocketIPv4ForBin(new QTcpSocket)
 {
 }
 
@@ -13,8 +13,8 @@ TcpSender::~TcpSender()
 
 void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, int port)
 {
-    tcpSocketIPv4ForMsg->connectToHost(ipv4Address, port);
-    bool canConnectMsg = tcpSocketIPv4ForMsg->waitForConnected(5000);
+    m_tcpSocketIPv4ForMsg->connectToHost(ipv4Address, port);
+    bool canConnectMsg = m_tcpSocketIPv4ForMsg->waitForConnected(5000);
 
     if (!canConnectMsg)
     {
@@ -25,8 +25,8 @@ void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, i
         PLOG_DEBUG << "Msg socket: Connected to host successfully " << ipv4Address << " " << port;
     }
 
-    tcpSocketIPv4ForBin->connectToHost(ipv4Address, port + 1);
-    bool canConnectBin = tcpSocketIPv4ForBin->waitForConnected(5000);
+    m_tcpSocketIPv4ForBin->connectToHost(ipv4Address, port + 1);
+    bool canConnectBin = m_tcpSocketIPv4ForBin->waitForConnected(5000);
 
     if (!canConnectBin)
     {
@@ -42,6 +42,12 @@ void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, i
 
     // client: send tcp signal to notify the server of the client device info
     sendDeviceInfo(port);
+}
+
+void TcpSender::disconnectFromHost()
+{
+    m_tcpSocketIPv4ForMsg->disconnectFromHost();
+    m_tcpSocketIPv4ForBin->disconnectFromHost();
 }
 
 void TcpSender::sendDeviceInfo(int port)
@@ -73,7 +79,7 @@ void TcpSender::sendDeviceInfo(int port)
     QDataStream stream3(&baHeaderSize, QIODevice::WriteOnly);
     stream3 << headerSize;
 
-    tcpSocketIPv4ForMsg->write(baHeaderSize + baHeader + baBody);
+    m_tcpSocketIPv4ForMsg->write(baHeaderSize + baHeader + baBody);
 }
 
 void TcpSender::sendMsg(const QString &msg)
@@ -98,7 +104,7 @@ void TcpSender::sendMsg(const QString &msg)
     QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
     dataStream2 << headerSize;
 
-    tcpSocketIPv4ForMsg->write(baHeaderSize + baHeader + baBody);
+    m_tcpSocketIPv4ForMsg->write(baHeaderSize + baHeader + baBody);
 }
 
 void TcpSender::sendBin(const QString &filePath)
@@ -129,6 +135,6 @@ void TcpSender::sendBin(const QString &filePath)
     QDataStream dataStream2(&baHeaderSize, QIODevice::WriteOnly);
     dataStream2 << headerSize;
 
-    tcpSocketIPv4ForBin->write(baHeaderSize + baHeader + baBody);
-    tcpSocketIPv4ForBin->waitForBytesWritten(-1);
+    m_tcpSocketIPv4ForBin->write(baHeaderSize + baHeader + baBody);
+    m_tcpSocketIPv4ForBin->waitForBytesWritten(-1);
 }

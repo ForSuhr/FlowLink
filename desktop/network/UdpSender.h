@@ -10,6 +10,7 @@ class UdpSender : public QObject
 public:
     explicit UdpSender(QObject *parent = nullptr);
     void sendDeviceInfo(int port);
+    void sendDeviceInfoToLeave(int port);
     void closeConnection();
 
 private:

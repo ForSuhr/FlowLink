@@ -33,6 +33,7 @@ struct Device
     QString name = "NA";
     QString address = "NA";
     int port = 0;
+    bool leaveTheGroup = false;
 
     bool operator==(const Device &device) const
     {

@@ -14,6 +14,7 @@ public:
     ~TcpSender();
 
     void connectToHost(const QString &name, const QString &ipv4Address, int port);
+    void disconnectFromHost();
     void sendDeviceInfo(int port);
     void sendMsg(const QString &msg);
     void sendBin(const QString &filePath);
@@ -22,8 +23,8 @@ signals:
     void canConnectSignal();
 
 private:
-    QTcpSocket *tcpSocketIPv4ForMsg = nullptr;
-    QTcpSocket *tcpSocketIPv4ForBin = nullptr;
+    QTcpSocket *m_tcpSocketIPv4ForMsg = nullptr;
+    QTcpSocket *m_tcpSocketIPv4ForBin = nullptr;
 };
 
 #endif

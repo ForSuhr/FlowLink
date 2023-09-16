@@ -22,6 +22,17 @@ void UdpSender::sendDeviceInfo(int port)
     udpSocketIPv4.writeDatagram(datagram, groupAddressIPv4, 8080);
 }
 
+void UdpSender::sendDeviceInfoToLeave(int port)
+{
+    Device device = localHostName();
+    device.port = port;
+    device.leaveTheGroup = true;
+    QByteArray datagram;
+    QDataStream stream(&datagram, QIODevice::ReadWrite);
+    stream << device;
+    udpSocketIPv4.writeDatagram(datagram, groupAddressIPv4, 8080);
+}
+
 void UdpSender::closeConnection()
 {
     udpSocketIPv4.close();
