@@ -318,14 +318,14 @@ void FlowLink::onDisconnectActionClicked()
   {
     pair.second->m_tcpReceiver->closeConnection();
     pair.second->m_tcpSender->disconnectFromHost();
-    pair.second->deleteLater();
+    pair.second->deleteLater(); // delete the chatwindow
   }
 
   // clear fields
   removeDevices();
   m_deviceList.clear();
 
-  // close udp connection and clear chatwindow
+  // notify your peer to delete your device
   m_udpSender->sendDeviceInfoToLeave(g_port);
 
   // ui
@@ -390,8 +390,17 @@ void FlowLink::addLocalHostDevice(Device device)
 
 void FlowLink::removeDevice(Device device)
 {
-  // remove the given device from table
+  // remove the given device from list and table
+  m_deviceList.removeAll(device);
   m_deviceTableModel->removeRow(device.name, device.address);
+
+  // close tcp connection
+  for (const auto &pair : (*m_chatWindowMap))
+  {
+    pair.second->m_tcpReceiver->closeConnection();
+    pair.second->m_tcpSender->disconnectFromHost();
+    pair.second->deleteLater(); // delete the chatwindow
+  }
 }
 
 /// @brief remove all devices from the table view and delete all chat windows
