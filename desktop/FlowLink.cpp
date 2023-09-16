@@ -340,14 +340,15 @@ void FlowLink::onToggleShowLocalHostActionClicked()
   {
     m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/showLocalHost.svg)"));
     config.setValue("common/showLocalHost", true);
-    if (m_chatWindowMap->find(m_localHostDevice.address) != m_chatWindowMap->end())
-      addDevice(m_localHostDevice);
+    if (m_localHostDevice != nullptr)
+      m_deviceTableModel->addRow(m_localHostDevice->name, m_localHostDevice->address);
   }
   else
   {
     m_toggleShowLocalHostAction->setIcon(QIcon(R"(:/asset/style/lumos/hideLocalHost.svg)"));
     config.setValue("common/showLocalHost", false);
-    removeDevice(m_localHostDevice);
+    if (m_localHostDevice != nullptr)
+      m_deviceTableModel->removeRow(m_localHostDevice->name, m_localHostDevice->address);
   }
 }
 
@@ -364,6 +365,10 @@ void FlowLink::openChatWindow()
     // get the address of the to be connected device
     QModelIndex index = indexes.first();
     QString address = index.data().toString();
+
+    // if the local host device is selected, return
+    if (m_localHostDevice->address == address)
+      return;
 
     // get chat window by address<QString>
     ChatWindow *chatWindow = (*m_chatWindowMap)[address];
@@ -382,7 +387,8 @@ void FlowLink::addDevice(Device device)
 
 void FlowLink::addLocalHostDevice(Device device)
 {
-  m_localHostDevice = device;
+  m_localHostDevice = new Device();
+  *m_localHostDevice = device;
   addDevice(device);
   if (!m_isShowLocalHost)
     m_deviceTableModel->removeRow(device.name, device.address);
@@ -479,6 +485,7 @@ void FlowLink::closeEvent(QCloseEvent *event)
   // To delete all floating widgets, remove the dock manager.
   // This will ensure that all top-level windows associated with the dock
   // manager are closed correctly.
+  onDisconnectActionClicked();
   m_dockManager->deleteLater();
   QMainWindow::closeEvent(event);
 }

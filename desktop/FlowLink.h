@@ -131,7 +131,7 @@ private:
   /* fields*/
   std::unique_ptr<std::unordered_map<QString, ChatWindow *>> m_chatWindowMap = nullptr; // a map used to store chat window pointers
   QVector<Device> m_deviceList;
-  Device m_localHostDevice;
+  Device *m_localHostDevice = nullptr;
 
   /* flags */
   bool m_isShowLocalHost;
