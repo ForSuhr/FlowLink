@@ -35,6 +35,9 @@ FlowLink::FlowLink(QWidget *parent)
   /* load preferences */
   loadPreferences();
 
+  /* setup network */
+  setupNetwork();
+
   PLOG_DEBUG << "running on main thread: " << QThread::currentThread();
 }
 

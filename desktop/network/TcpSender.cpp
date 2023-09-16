@@ -47,7 +47,7 @@ void TcpSender::connectToHost(const QString &name, const QString &ipv4Address, i
 void TcpSender::sendDeviceInfo(int port)
 {
     Device device = localHostName();
-    device.address = tcpSocketIPv4ForBin->peerAddress().toString();
+    device.address = "NA";
     device.port = port;
     QByteArray baDeviceInfo;
     QDataStream stream1(&baDeviceInfo, QIODevice::ReadWrite);

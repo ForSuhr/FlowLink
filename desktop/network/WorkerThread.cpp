@@ -154,6 +154,7 @@ void WorkerThread::parserMap(const QVariantMap &vMap, const QString &fileName = 
             QDataStream stream(&baDeviceInfo, QIODevice::ReadOnly);
             Device device;
             stream >> device;
+            device.address = m_tcpSocketIPv4->peerAddress().toString();
             emit receivedDeviceInfoViaTcp(device.name, device.address, device.port);
             PLOG_DEBUG << "name: " << device.name << " addr: " << device.address << " port: " << device.port;
             break;
