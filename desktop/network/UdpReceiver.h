@@ -21,7 +21,7 @@ public:
     void closeConnection();
 
 signals:
-    void receivedDeviceInfo(Device device, DeviceAction deviceAction);
+    void receivedDeviceInfoViaUdp(Device device, DeviceAction deviceAction);
 
 private:
     Device m_device;

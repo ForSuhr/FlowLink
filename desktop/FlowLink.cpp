@@ -234,23 +234,23 @@ void FlowLink::createChatWindow(NetworkManager *network)
   Device device = network->m_device;
 
   // if the chat window map does not contain a chat window of this device,
-  // if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
-  // {
-  // create a new chatwindow and store it's pointer by address string in the map
-  ChatWindow *chatWindow = new ChatWindow(device, this);
-  (*m_chatWindowMap)[device.address] = chatWindow;
+  if (m_chatWindowMap->find(device.address) == m_chatWindowMap->end())
+  {
+    // create a new chatwindow and store it's pointer by address string in the map
+    ChatWindow *chatWindow = new ChatWindow(device, this);
+    (*m_chatWindowMap)[device.address] = chatWindow;
 
-  // shift pointers
-  chatWindow->m_tcpReceiver = network->m_tcpReceiver;
-  chatWindow->m_tcpSender = network->m_tcpSender;
+    // shift pointers
+    chatWindow->m_tcpReceiver = network->m_tcpReceiver;
+    chatWindow->m_tcpSender = network->m_tcpSender;
 
-  // create a connection to notify the progress window that there is a new download task
-  connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
-  // create a connection to bind progress-update signal to progress widgets
-  connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
-  // }
+    // create a connection to notify the progress window that there is a new download task
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
+    // create a connection to bind progress-update signal to progress widgets
+    connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::updateProgressSignal, m_progressWindow, &ProgressWindow::updateProgress);
 
-  addDevice(device);
+    addDevice(device);
+  }
 }
 
 void FlowLink::onConnectActionClicked()
@@ -281,21 +281,43 @@ void FlowLink::onConnectActionClicked()
   QThread::sleep(2);
 
   // client: get port from udp signal, listen to port+1, and connect to server
-  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
+  connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfoViaUdp, [&](Device device, DeviceAction deviceAction)
           {
             if ((deviceAction == DeviceAction::Connection) & (!m_deviceList.contains(device)))
             {
+              bool isNameDuplicate = false;
+              for (auto& it : m_deviceList)
+              {
+                if(it.name == device.name)
+                  isNameDuplicate = true;
+                break;
+              }
+
+              if (!isNameDuplicate)
+              {              
               PLOG_DEBUG << "Connection from: " << device.address << " --- " << device.port;
               m_deviceList.push_back(device);
               m_networkAsClient->listenToPort(device.port + 2);
               m_networkAsClient->connectToHost(device.name,device.address, device.port);
+              }
             }
             else if ((deviceAction == DeviceAction::LocalHostConnection) &( !m_deviceList.contains(device)))
             {
+              bool isNameDuplicate = false;
+              for (auto& it : m_deviceList)
+              {
+                if(it.name == device.name)
+                  isNameDuplicate = true;
+                break;
+              }
+
+              if (!isNameDuplicate)
+              {              
               PLOG_DEBUG << "LocalHostConnection from: " << device.address << " --- " << device.port;
               m_deviceList.push_back(device);
               m_networkAsClient->listenToPort(device.port + 2);
               m_networkAsClient->connectToHost(device.name,device.address, device.port);
+              }
             }
             else if ((deviceAction == DeviceAction::Disconnection) & m_deviceList.contains(device))
             {
@@ -304,7 +326,8 @@ void FlowLink::onConnectActionClicked()
 
   // server: once the tcp socket is established by client, server will connect to client to establish a tcp socket on port+1
   connect(m_networkAsServer->m_tcpReceiver, &TcpReceiver::receivedDeviceInfoViaTcp, [&](QString name, QString address, int port)
-          { m_networkAsServer->connectToHost(name, address, port + 2); });
+          { m_networkAsServer->connectToHost(name, address, port + 2);
+              g_port += 4; });
 
   // server/clicent: if connect to peer successfully, create a chat window and add the peer to device table
   connect(m_networkAsServer->m_tcpSender, &TcpSender::canConnectSignal, [&]()
