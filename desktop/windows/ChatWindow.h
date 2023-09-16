@@ -26,6 +26,7 @@ public:
     void setUpTcpReceiver(int port);
     void setUpTcpSender(QString address, int port);
     void setupMsgReceiveConnection();
+    void destroyMsgReceiveConnection();
     QString msgText();
 
     /* friend functions */

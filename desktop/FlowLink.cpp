@@ -282,9 +282,11 @@ void FlowLink::createChatWindow(NetworkManager *network)
     (*m_chatWindowMap)[device.address] = chatWindow;
 
     // shift pointers
-    chatWindow->m_tcpReceiver = network->m_tcpReceiver;
-    chatWindow->m_tcpSender = network->m_tcpSender;
-    chatWindow->setupMsgReceiveConnection();
+    (*m_chatWindowMap)[device.address]->m_tcpReceiver = network->m_tcpReceiver;
+    (*m_chatWindowMap)[device.address]->m_tcpSender = network->m_tcpSender;
+
+    // setup connection to receive msg
+    (*m_chatWindowMap)[device.address]->setupMsgReceiveConnection();
 
     // create a connection to notify the progress window that there is a new download task
     connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
@@ -318,6 +320,7 @@ void FlowLink::onDisconnectActionClicked()
   {
     pair.second->m_tcpReceiver->closeConnection();
     pair.second->m_tcpSender->disconnectFromHost();
+    pair.second->destroyMsgReceiveConnection();
     pair.second->deleteLater(); // delete the chatwindow
   }
 
@@ -408,6 +411,7 @@ void FlowLink::removeDevice(Device device)
     {
       pair.second->m_tcpReceiver->closeConnection();
       pair.second->m_tcpSender->disconnectFromHost();
+      pair.second->destroyMsgReceiveConnection();
       pair.second->deleteLater();
     }
   }
@@ -420,9 +424,11 @@ void FlowLink::removeDevice(Device device)
 /// @brief remove all devices from the table view and delete all chat windows
 void FlowLink::removeDevices()
 {
-  // remove all devices from the table
+  // remove all devices from the table, except for local host device
   int rowNum = m_deviceTableModel->rowCount(QModelIndex());
   m_deviceTableModel->removeRows(0, rowNum, QModelIndex());
+  if (m_isShowLocalHost && m_localHostDevice != nullptr)
+    m_deviceTableModel->addRow(m_localHostDevice->name, m_localHostDevice->address);
 
   // clear the chat window map
   m_chatWindowMap->clear();

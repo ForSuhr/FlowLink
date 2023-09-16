@@ -23,6 +23,11 @@ void ChatWindow::setupMsgReceiveConnection()
             { leftAlignedAppend(this, msg); });
 }
 
+void ChatWindow::destroyMsgReceiveConnection()
+{
+    disconnect(m_tcpReceiver, &TcpReceiver::msgSignal, nullptr, nullptr);
+}
+
 QString ChatWindow::msgText()
 {
     return ui->lineEditMsg->text();
