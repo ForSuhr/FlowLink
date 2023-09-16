@@ -367,8 +367,9 @@ void FlowLink::openChatWindow()
     QString address = index.data().toString();
 
     // if the local host device is selected, return
-    if (m_localHostDevice->address == address)
-      return;
+    if (m_localHostDevice != nullptr)
+      if (m_localHostDevice->address == address)
+        return;
 
     // get chat window by address<QString>
     ChatWindow *chatWindow = (*m_chatWindowMap)[address];
