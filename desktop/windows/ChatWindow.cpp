@@ -19,6 +19,12 @@ ChatWindow::~ChatWindow()
     delete ui;
 }
 
+void ChatWindow::setupMsgReceiveConnection()
+{
+    connect(m_tcpReceiver, &TcpReceiver::msgSignal, [&](QString msg)
+            { leftAlignedAppend(this, msg); });
+}
+
 QString ChatWindow::msgText()
 {
     return ui->lineEditMsg->text();

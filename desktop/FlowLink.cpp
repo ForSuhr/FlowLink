@@ -275,7 +275,6 @@ void FlowLink::setupNetwork()
 void FlowLink::castToLocalNetwork()
 {
   int port = g_port;
-  PLOG_DEBUG << "casting on port: " << port;
   m_udpSender->sendDeviceInfo(port);
 }
 
@@ -293,6 +292,7 @@ void FlowLink::createChatWindow(NetworkManager *network)
     // shift pointers
     chatWindow->m_tcpReceiver = network->m_tcpReceiver;
     chatWindow->m_tcpSender = network->m_tcpSender;
+    chatWindow->setupMsgReceiveConnection();
 
     // create a connection to notify the progress window that there is a new download task
     connect((*m_chatWindowMap)[device.address]->m_tcpReceiver, &TcpReceiver::startNewTaskSignal, m_progressWindow, &ProgressWindow::createProgressWidget);
