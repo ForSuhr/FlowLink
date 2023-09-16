@@ -141,14 +141,14 @@ bool TableModel::setData(const QModelIndex &index, const QVariant &value, int ro
 
 void TableModel::addRow(const QString &name, const QString &address)
 {
-    // if (!m_devices.contains({name, address}))
-    // {
-    insertRows(0, 1, QModelIndex());
-    QModelIndex modelIndex = index(0, 0, QModelIndex());
-    setData(modelIndex, name, Qt::DisplayRole);
-    modelIndex = index(0, 1, QModelIndex());
-    setData(modelIndex, address, Qt::DisplayRole);
-    // }
+    if (!m_devices.contains({name, address}))
+    {
+        insertRows(0, 1, QModelIndex());
+        QModelIndex modelIndex = index(0, 0, QModelIndex());
+        setData(modelIndex, name, Qt::DisplayRole);
+        modelIndex = index(0, 1, QModelIndex());
+        setData(modelIndex, address, Qt::DisplayRole);
+    }
 }
 
 void TableModel::removeRow(const QString &name, const QString &address)

@@ -226,6 +226,7 @@ void FlowLink::loadPreferences()
 void FlowLink::castToLocalNetwork()
 {
   int port = g_port;
+  PLOG_DEBUG << "casting on port: " << port;
   m_udpSender->sendDeviceInfo(port);
 }
 
@@ -258,14 +259,6 @@ void FlowLink::onConnectActionClicked()
   // join group
   m_udpReceiver->connectToLocalNetwork();
 
-  // ready for receiving udp signal
-  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-  //         {if (deviceAction == DeviceAction::Connection) {addDevice(device);} });
-  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-  //         {if (deviceAction == DeviceAction::LocalHostConnection){addLocalHostDevice(device);} });
-  // connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfo, [&](Device device, DeviceAction deviceAction)
-  //         {if (deviceAction == DeviceAction::Disconnection){removeDevices();} });
-
   // set up two networks for acting as server and client respectively
   m_networkAsServer = new NetworkManager();
   m_networkAsClient = new NetworkManager();
@@ -278,40 +271,21 @@ void FlowLink::onConnectActionClicked()
   castToLocalNetwork();
   m_castToLocalNetworkTimer->start(2000);
 
-  QThread::sleep(2);
+  QThread::sleep(1);
 
   // client: get port from udp signal, listen to port+1, and connect to server
   connect(m_udpReceiver, &UdpReceiver::receivedDeviceInfoViaUdp, [&](Device device, DeviceAction deviceAction)
           {
             if ((deviceAction == DeviceAction::Connection) & (!m_deviceList.contains(device)))
             {
-              bool isNameDuplicate = false;
-              for (auto& it : m_deviceList)
-              {
-                if(it.name == device.name)
-                  isNameDuplicate = true;
-                break;
-              }
-
-              if (!isNameDuplicate)
-              {              
               PLOG_DEBUG << "Connection from: " << device.address << " --- " << device.port;
               m_deviceList.push_back(device);
               m_networkAsClient->listenToPort(device.port + 2);
               m_networkAsClient->connectToHost(device.name,device.address, device.port);
-              }
             }
             else if ((deviceAction == DeviceAction::LocalHostConnection) &( !m_deviceList.contains(device)))
-            {
-              bool isNameDuplicate = false;
-              for (auto& it : m_deviceList)
-              {
-                if(it.name == device.name)
-                  isNameDuplicate = true;
-                break;
-              }
-
-              if (!isNameDuplicate)
+            {     
+              if (m_isShowLocalHost)
               {              
               PLOG_DEBUG << "LocalHostConnection from: " << device.address << " --- " << device.port;
               m_deviceList.push_back(device);
@@ -322,12 +296,12 @@ void FlowLink::onConnectActionClicked()
             else if ((deviceAction == DeviceAction::Disconnection) & m_deviceList.contains(device))
             {
               PLOG_DEBUG << "Disconnection from: " << device.address << " --- " << device.port;
+              removeDevices();
             } });
 
   // server: once the tcp socket is established by client, server will connect to client to establish a tcp socket on port+1
   connect(m_networkAsServer->m_tcpReceiver, &TcpReceiver::receivedDeviceInfoViaTcp, [&](QString name, QString address, int port)
-          { m_networkAsServer->connectToHost(name, address, port + 2);
-              g_port += 4; });
+          { m_networkAsServer->connectToHost(name, address, port + 2); });
 
   // server/clicent: if connect to peer successfully, create a chat window and add the peer to device table
   connect(m_networkAsServer->m_tcpSender, &TcpSender::canConnectSignal, [&]()
