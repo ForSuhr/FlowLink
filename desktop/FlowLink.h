@@ -78,6 +78,7 @@ private:
   void createProgressWindowUi();
   void loadPreferences();
 
+  void setupNetwork();
   void castToLocalNetwork();
   void createChatWindow(NetworkManager *network);
   void addDevice(Device device);
