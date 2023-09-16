@@ -17,6 +17,8 @@ public:
 
     WorkerThread *m_workerForMsg = nullptr;
     WorkerThread *m_workerForBin = nullptr;
+    QThread *m_threadForMsg = nullptr;
+    QThread *m_threadForBin = nullptr;
 
 signals:
     void threadForMsgStartedSignal(int port);

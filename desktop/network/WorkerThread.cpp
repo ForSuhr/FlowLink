@@ -15,7 +15,7 @@ void WorkerThread::listenToPort(int port)
     // Listen for incoming connections on port
     if (!m_server->listen(QHostAddress::AnyIPv4, port))
     {
-        PLOG_DEBUG << "Failed to start TCP server";
+        PLOG_DEBUG << "Failed to start TCP server on port: " << port;
         return;
     }
     else
@@ -148,7 +148,6 @@ void WorkerThread::parserMap(const QVariantMap &vMap, const QString &fileName = 
         }
         case ContentType::DeviceInfo:
         {
-            PLOG_DEBUG << "Info: received device info.";
             // send a signal back, indicating that there is a new connection being established by your peer and now you received the device info of your peer via tcp socket
             QByteArray baDeviceInfo = vMap.value(key).toByteArray();
             QDataStream stream(&baDeviceInfo, QIODevice::ReadOnly);

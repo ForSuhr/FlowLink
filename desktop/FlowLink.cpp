@@ -318,6 +318,7 @@ void FlowLink::onDisconnectActionClicked()
   {
     pair.second->m_tcpReceiver->closeConnection();
     pair.second->m_tcpSender->disconnectFromHost();
+    pair.second->deleteLater();
   }
 
   // clear fields
@@ -325,10 +326,7 @@ void FlowLink::onDisconnectActionClicked()
   m_deviceList.clear();
 
   // close udp connection and clear chatwindow
-  for (const auto &device : m_deviceList)
-  {
-    m_udpSender->sendDeviceInfoToLeave(device.port);
-  }
+  m_udpSender->sendDeviceInfoToLeave(g_port);
 
   // ui
   m_connectAction->setEnabled(true);

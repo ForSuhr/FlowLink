@@ -50,12 +50,13 @@ enum ContentType
 
 inline QDataStream &operator<<(QDataStream &stream, const Device &device)
 {
-    return stream << device.name << device.address << device.port;
+    return stream << device.name << device.address << device.port << device.leaveTheGroup;
 }
 
 inline QDataStream &operator>>(QDataStream &stream, Device &device)
 {
-    return stream >> device.name >> device.address >> device.port;
+    return stream >> device.name >> device.address >> device.port >> device.leaveTheGroup;
+    ;
 }
 
 /**

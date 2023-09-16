@@ -41,7 +41,10 @@ void UdpReceiver::processPendingDatagrams()
     m_device.address = senderIp.toString();
 
     if (m_device.leaveTheGroup == true)
+    {
         emit receivedDeviceInfoViaUdp(m_device, DeviceAction::Disconnection);
+        return;
+    }
 
     if (m_device.name != localHostName().name)
         emit receivedDeviceInfoViaUdp(m_device, DeviceAction::Connection);
