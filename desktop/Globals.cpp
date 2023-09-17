@@ -11,3 +11,5 @@ void setUpStylesheetMap(QMap<QString, QString> &map)
 {
     map["Lumos"] = QString(":/asset/style/lumos/lumos.qss");
 }
+
+QString licensesText = "Qt - www.qt.io\nLicense : GNU LGPL version 3\n\nQt ADS - https : // github.com/githubuser0xFFFF/Qt-Advanced-Docking-System\nLicense : LGPL v2 .1\n\nplog - https : // github.com/SergiusTheBest/plog\nLicense: MIT License ";

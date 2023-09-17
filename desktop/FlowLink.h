@@ -18,6 +18,7 @@
 #include <QToolButton>
 #include <QMessageBox>
 #include <QTimer>
+#include <QTextBrowser>
 
 #include <memory>
 #include <unordered_map>

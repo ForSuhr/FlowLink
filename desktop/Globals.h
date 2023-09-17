@@ -13,6 +13,8 @@
 
 #include "utils/ConfigParser.h"
 
+extern QString licensesText;
+
 // translate files path
 void setUpLanguageMap(QMap<QString, QString> &map);
 

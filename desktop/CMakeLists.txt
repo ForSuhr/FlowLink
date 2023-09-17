@@ -52,13 +52,7 @@ set(PROJECT_SOURCES
         asset/icon/FlowLink.rc
 )
 
-set(PROJECT_TRANSLATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/zh_CN.ts
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/en_US.ts
-    ${CMAKE_CURRENT_SOURCE_DIR}/translate/de_DE.ts
-    )
-
-set(TS_FILES 
+set(TS_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/translate/zh_CN.ts  
     ${CMAKE_CURRENT_SOURCE_DIR}/translate/en_US.ts
     ${CMAKE_CURRENT_SOURCE_DIR}/translate/de_DE.ts
@@ -69,13 +63,13 @@ if (WIN32)
         qt_add_executable(FlowLink WIN32
             MANUAL_FINALIZATION
             ${PROJECT_SOURCES}
-            ${PROJECT_TRANSLATE}
+            ${TS_FILES}
         )
         qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
     else()
         add_executable(FlowLink WIN32
             ${PROJECT_SOURCES}
-            ${PROJECT_TRANSLATE}
+            ${TS_FILES}
         )
         qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
     endif()
@@ -84,13 +78,13 @@ else()
         qt_add_executable(FlowLink
             MANUAL_FINALIZATION
             ${PROJECT_SOURCES}
-            ${PROJECT_TRANSLATE}
+            ${TS_FILES}
         )
         qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
     else()
         add_executable(FlowLink
             ${PROJECT_SOURCES}
-            ${PROJECT_TRANSLATE}
+            ${TS_FILES}
         )
         qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
     endif()

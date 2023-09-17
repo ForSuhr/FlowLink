@@ -14,44 +14,50 @@
     <name>FlowLink</name>
     <message>
         <location filename="../FlowLink.ui" line="14"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="77"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
         <source>FlowLink</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="28"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="80"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="84"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="33"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="81"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="85"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../FlowLink.ui" line="38"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="86"/>
         <source>View</source>
         <translation>Aussicht</translation>
     </message>
     <message>
-        <location filename="../FlowLink.ui" line="48"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="83"/>
+        <location filename="../FlowLink.ui" line="43"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="87"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FlowLink.ui" line="54"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="88"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FlowLink.ui" line="59"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="78"/>
+        <location filename="../FlowLink.ui" line="65"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="82"/>
         <location filename="../FlowLink.cpp" line="71"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../FlowLink.ui" line="64"/>
-        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="79"/>
+        <location filename="../FlowLink.ui" line="70"/>
+        <location filename="../../build/desktop/FlowLink_autogen/include/ui_FlowLink.h" line="83"/>
         <location filename="../FlowLink.cpp" line="77"/>
         <source>Preferences</source>
         <translation>Präferenzen</translation>

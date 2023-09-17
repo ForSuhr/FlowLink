@@ -81,6 +81,23 @@ void FlowLink::setupMenuBar()
   prefWindow->setWindowModality(Qt::WindowModal);
   prefWindow->resize(prefWindow->width(), 300);
   connect(preferencesAction, &QAction::triggered, prefWindow, &PrefWindow::show);
+
+  /* about menu */
+  QAction *aboutAction = new QAction(tr("About Qt"), this);
+  ui->menuHelp->addAction(aboutAction);
+  connect(aboutAction, &QAction::triggered, [&]
+          { QApplication::aboutQt(); });
+  QAction *licensesAction = new QAction(tr("Licenses"), this);
+  ui->menuHelp->addAction(licensesAction);
+  connect(licensesAction, &QAction::triggered, [&]
+          { QTextBrowser* textBrowser = new QTextBrowser(this);
+            textBrowser->setWindowFlag(Qt::Window);
+            textBrowser->setWindowModality(Qt::WindowModal);
+            textBrowser->setPlainText(licensesText);
+            textBrowser->setWindowTitle("licenses");
+            textBrowser->setSizeAdjustPolicy(QTextBrowser::AdjustToContents);
+            textBrowser->resize(450, 150);
+            textBrowser->show(); });
 }
 
 void FlowLink::createConnectionUi()
