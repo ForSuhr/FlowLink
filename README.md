@@ -46,5 +46,4 @@ Ubuntu Jammy jellyfish or Windows 10
 ### Libraries
 - [Qt5/6](https://download.qt.io/archive/qt/)
 - [ADS](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System)
-- [OBS](https://github.com/obsproject/obs-studio)
 - [plog](https://github.com/SergiusTheBest/plog)
