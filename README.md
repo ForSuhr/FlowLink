@@ -4,6 +4,8 @@
 ## Introduction
 A cross-platform software designed to chat, transfer files and streaming within local network.
 
+One of the major advantages of this application is that you don't need to know the IP address in advance. All devices within the LAN can be discovered through multicast, and you only need to click.
+
 ## Get Started
 ### Installation
 #### Windows
